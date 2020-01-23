@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+        <script>
+            var usuarios = [
+                {
+                nome: "Diego",
+                habilidades: ["Javascript", "ReactJS", "Redux"]
+                },
+                {
+                nome: "Gabriel",
+                habilidades: ["VueJS", "Ruby on Rails", "Elixir"]
+                }
+            ];
+
+            function print(users){
+                for (const user of users) {
+                    let msgTemp = `O ${user.nome} possui as habilidades: `;
+                    for (const habilidade of user.habilidades) {
+                        msgTemp += habilidade + ", ";
+                    }
+                    msgTemp = msgTemp.substr(0, msgTemp.length - 2);
+
+                    console.log(msgTemp);                                       
+                }
+            }
+
+            function printWithJoin(users){
+                for (const user of users) {
+                    let msgTemp = `O ${user.nome} possui as habilidades: `;
+                    msgTemp += user.habilidades.join(", ");
+
+                    console.log(msgTemp);                                       
+                }
+            }
+            
+            print(usuarios);
+            printWithJoin(usuarios);
+          
+        </script>
+    </body>
+</html>
