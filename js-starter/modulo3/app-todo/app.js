@@ -3,10 +3,7 @@ var buttonEl = document.querySelector("div.app button");
 var inputEl = document.querySelector("div.app input");
 console.log(ulEl);
 
-var todos = [
-    "Fazer cafe",
-    "Trocar cafe",
-];
+var todos = JSON.parse(localStorage.getItem("list_todos")) || [];
 
 buttonEl.onclick = function() {
     var todo = inputEl.value
@@ -15,6 +12,8 @@ buttonEl.onclick = function() {
     
     inputEl.value = '';
     todos.push(todo);
+    
+    saveStorage();
     renderTodos();
 };
 
@@ -33,7 +32,7 @@ function addTodoInList(todo, index) {
     var a = document.createElement("a");
     a.appendChild(document.createTextNode("Excluir"));
     a.setAttribute("href", "#");
-    a.setAttribute("onclick", `delete(${index})`);
+    a.setAttribute("onclick", `deleteTodo(${index})`);
     li.appendChild(a);
 
     ulEl.appendChild(li);
@@ -42,5 +41,10 @@ function addTodoInList(todo, index) {
 function deleteTodo(index) {
     todos.splice(index, 1);
 
+    saveStorage();
     renderTodos();
+}
+
+function saveStorage() {
+    localStorage.setItem("list_todos", JSON.stringify(todos));
 }
