@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            
+        </style>
+    </head>
+    <body>
+        <input type="text" name="nome">
+        <button onClick="adicionar()">Adicionar</button>
+        <ul />
+        <script>
+            var nomes = ["Diego", "Gabriel", "Lucas"];
+            console.log(nomes);
+
+            let ul = document.querySelector("ul");
+            nomes.forEach(nome => {
+                addInList(nome);
+            });
+
+            function adicionar() {
+                let nameEl = document.querySelector("input[name='nome']");
+                addInList(nameEl.value);
+                nameEl.value = '';
+            }
+
+            function addInList(liText) {
+                let liEl = document.createElement("li");
+                liEl.appendChild(document.createTextNode(liText));
+                ul.appendChild(liEl);
+            }
+        </script>
+    </body>
+</html>

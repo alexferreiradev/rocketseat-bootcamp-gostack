@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .red-square {
+                height: 100px;
+                width: 100px;
+                background: #f00;
+            }
+            .square-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            }
+            .actions {
+                display: inline-block;
+                width: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="actions">
+            <button onclick="createNewBt()">Adicionar quadrado vermelho</button>
+        </div>
+        <div class="square-grid" />
+        <script>
+
+            console.log("teste");
+            let gridDiv = document.querySelector("div[class=square-grid]");
+
+            function createNewBt(){
+                var quadradoVermelho = document.createElement("div");
+
+                quadradoVermelho.setAttribute("class", "red-square");
+                quadradoVermelho.onmouseover = function() {
+                    quadradoVermelho.style.background = getRandomColor();
+                };
+
+                gridDiv.appendChild(quadradoVermelho);
+
+                let buttonReset = document.querySelector("div.actions>:nth-child(2)");
+                if (buttonReset == undefined) {
+                    addResetButton();
+                }
+            }
+
+            function getRandomColor() {
+                var letters = "0123456789ABCDEF";
+                var color = "#";
+                for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+                }   
+
+                return color;
+            }
+
+            function addResetButton() {
+                let resetButton = document.createElement("button");
+                resetButton.appendChild(document.createTextNode("Remover todos quadrados"));
+                resetButton.onclick = function() {
+                    while(gridDiv.firstElementChild){
+                        gridDiv.firstElementChild.remove();
+                    }
+                };
+
+                let actionsDiv = document.querySelector("div.actions");
+                actionsDiv.appendChild(resetButton);
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            
+        </style>
+    </head>
+    <body>
+        <ul />
+        <script>
+            var nomes = ["Diego", "Gabriel", "Lucas"];
+            console.log(nomes);
+
+            let ul = document.querySelector("ul");
+            nomes.forEach(nome => {
+                let liEl = document.createElement("li");
+                liEl.appendChild(document.createTextNode(nome));
+                ul.appendChild(liEl);
+            });
+        </script>
+    </body>
+</html>

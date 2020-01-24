@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .red-square {
+                height: 100px;
+                width: 100px;
+                background: #f00;
+            }
+        </style>
+    </head>
+    <body>
+        <button onclick="createNewBt()">Adicionar quadrado vermelho</button>
+        <script>
+
+            console.log("teste");
+
+            function createNewBt(){
+                var quadradoVermelho = document.createElement("div");
+
+                quadradoVermelho.setAttribute("class", "red-square");
+                document.body.appendChild(quadradoVermelho);
+            }
+        </script>
+    </body>
+</html>
