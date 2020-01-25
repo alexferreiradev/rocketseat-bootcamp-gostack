@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <input type="text" name="user">
+        <button onclick="addUser()">Adicionar</button>
+        <script>
+            var inputEl = document.querySelector("input[name='user']");
+
+            function addUser() {
+                let user = inputEl.value
+                if (user === ''){
+                    console.log("Usuario invalido");
+                    return ;
+                }
+                
+                requestUserApi(user).then(function(data) {
+                    addInRepoList(data);
+                }).catch(function(error) {
+                    console.log(error);                   
+                });
+            }
+
+            function requestUserApi(user) {
+                return new Promise(function(resolve, reject) {
+                    let url = `https://api.github.com/users/${user}/repos`;
+                    let xhr = new XMLHttpRequest();
+                    xhr.open("GET", url);
+                    xhr.send(null);
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState === 4){
+                            if (xhr.status == 200) {
+                                let reponse = xhr.responseText
+                                let data = JSON.parse(reponse);
+                                resolve(data);
+                            } else {
+                                reject("Resposta do servidor " + xhr.status);
+                            }
+                        }
+                    };
+                });
+            }
+
+            function addInRepoList(data) {
+                for (const repo of data) {
+                    addRepoToUl(repo.name);
+                }
+            }
+
+            function addRepoToUl(repoName) {
+                var ulEl = document.querySelector("ul");
+                if (ulEl === null) {
+                    ulEl = document.createElement("ul");
+                    document.body.appendChild(ulEl);
+                }
+
+                let liEl = document.createElement("li");
+                liEl.appendChild(document.createTextNode(repoName));
+                
+                ulEl.appendChild(liEl);
+            }
+        </script>
+    </body>
+</html>
