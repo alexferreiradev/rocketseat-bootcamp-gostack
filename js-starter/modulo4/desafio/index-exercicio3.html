@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <input type="text" name="user">
+        <button onclick="addUser()">Adicionar</button>
+        <script>
+            var inputEl = document.querySelector("input[name='user']");
+
+            function addUser() {
+                let user = inputEl.value
+                if (user === ''){
+                    console.log("Usuario invalido");
+                    return ;
+                }
+                
+                setLoading(true);
+                requestUserApi(user).then(function(data) {
+                    addInRepoList(data);
+                }).catch(function(error) {
+                    if (error === 404) {
+                        alert("Usuário não existe no github");
+                        return ;
+                    }
+                    console.log(error);                   
+                }).finally(function(){
+                    setLoading(false);
+                });
+            }
+
+            function requestUserApi(user) {
+                return new Promise(function(resolve, reject) {
+                    let url = `https://api.github.com/users/${user}/repos`;
+                    let xhr = new XMLHttpRequest();
+                    xhr.open("GET", url);
+                    xhr.send(null);
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState === 4){
+                            if (xhr.status === 200) {
+                                let reponse = xhr.responseText
+                                let data = JSON.parse(reponse);
+                                resolve(data);
+                            } else if (xhr.status === 404){
+                                reject(xhr.status);
+                            } else {
+                                reject("Resposta do servidor " + xhr.status);
+                            }
+                        }
+                    };
+                });
+            }
+
+            function addInRepoList(data) {
+                for (const repo of data) {
+                    addRepoToUl(repo.name);
+                }
+            }
+
+            function addRepoToUl(repoName) {
+                let ulEl = initUl();
+
+                let liEl = document.createElement("li");
+                liEl.appendChild(document.createTextNode(repoName));
+                
+                ulEl.appendChild(liEl);
+            }
+
+            function initUl(){
+                var ulEl = document.querySelector("ul");
+                if (ulEl === null) {
+                    ulEl = document.createElement("ul");
+                    document.body.appendChild(ulEl);
+                }
+
+                return ulEl;
+            }
+
+            function setLoading(isLoading) {
+                if (isLoading){
+                    let ulEl = initUl();
+                    ulEl.innerHTML = '';
+                    let liEl = document.createElement("li");
+                    liEl.setAttribute("class", "loading");
+                    liEl.appendChild(document.createTextNode("Carregando..."));
+                    
+                    ulEl.appendChild(liEl);
+                } else {
+                    let ulEl = initUl();
+                    let liEl = document.querySelector("li.loading");
+                    if (liEl != null){
+                        ulEl.removeChild(liEl);
+                    }
+                }
+            }
+        </script>
+    </body>
+</html>
