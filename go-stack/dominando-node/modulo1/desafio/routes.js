@@ -12,6 +12,7 @@ const projects = [{
     } 
 ];
 const projectNotFoundJson = { error: "Projeto não existe"};
+var reqCount = 0;
 // Crie um middleware que será utilizado em todas rotas que recebem o ID do projeto nos parâmetros da URL que verifica se o projeto com aquele ID existe. Se não existir retorne um erro, caso contrário permita a requisição continuar normalmente;
 function verificaId (req, res, next) {
     const { id } = req.params;
@@ -26,7 +27,15 @@ function verificaId (req, res, next) {
     return res.status(404).json(projectNotFoundJson);
  }
 
+ // Crie um middleware global chamado em todas requisições que imprime (console.log) uma contagem de quantas requisições foram feitas na aplicação até então;
+ function requestLog(req, res, next){
+     reqCount++;
+    console.log(`Total de requisições: ${reqCount}`);
+    return next();
+ }
+
 server.use(express.json());
+server.use(requestLog);
 
 server.get("/projects", (req, res) => {
     return res.json(projects);
@@ -89,7 +98,5 @@ server.delete("/projects/:id", verificaId, (req, res) => {
 
     return -1;
  }
-
-// Crie um middleware global chamado em todas requisições que imprime (console.log) uma contagem de quantas requisições foram feitas na aplicação até então;
  
 server.listen(3000);
