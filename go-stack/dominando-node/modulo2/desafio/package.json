@@ -1,5 +1,5 @@
 {
-  "name": "desafio 2",
+  "name": "desafio2",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -7,9 +7,11 @@
     "dev": "nodemon routes.js"
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "sequelize": "^5.21.4"
   },
   "devDependencies": {
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "sequelize-cli": "^5.5.1"
   }
 }
