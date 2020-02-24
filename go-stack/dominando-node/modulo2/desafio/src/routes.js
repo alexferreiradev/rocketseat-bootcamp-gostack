@@ -10,9 +10,10 @@ routes.get('/', (_, res) => {
     return res.json({ status: "ok", version: config.version});
 });
 
-routes.post('/users', UserController.store);
+routes.post('/user', UserController.store);
 
-routes.post('/recipents', DestinatarioController.store);
-routes.put('/recipents/{id}', DestinatarioController.update);
+routes.get('/recipient', DestinatarioController.index);
+routes.post('/recipient', DestinatarioController.store);
+routes.put('/recipient/:id', DestinatarioController.update);
 
 export default routes;

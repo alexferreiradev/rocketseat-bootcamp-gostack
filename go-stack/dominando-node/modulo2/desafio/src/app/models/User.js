@@ -6,15 +6,13 @@ class User extends Model {
         super.init(
             {
                 name: Sequelize.STRING,
-                email: {
-                    type: Sequelize.STRING,
-                    allowNull: false,
-                },
+                email: Sequelize.STRING,
                 password: Sequelize.VIRTUAL,
                 password_hash: Sequelize.STRING,
             }, 
             {
-                sequelize
+                sequelize,
+                tableName: "user"
             }
         );
 
@@ -22,7 +20,6 @@ class User extends Model {
             if (user.password){
                 user.password_hash = await bcrypt.hash(user.password, 8);
             }
-            console.log(user);
         });
 
         return this;

@@ -1,6 +1,13 @@
 import Destinatario from '../models/Destinatario';
 
 class DestinatarioController {
+
+    async index(_, res) {
+        const model = await Destinatario.findAndCountAll();
+        
+        return res.json(model);
+    }
+
     async store(req, res) {
         if (req.body.id) {
             return res.code(422).json({ error: "Utilize update para alterar um model"});
@@ -12,13 +19,13 @@ class DestinatarioController {
     }
 
     async update(req, res) {
-        const id = req.param.id;
+        const id = parseInt(req.params.id);
         var model = await Destinatario.findByPk(id);
         if (!model){
             return res.json({ error: `Destinatario nao encontrado com ${id}`});
         }
 
-        model = await Destinatario.update(req.body);
+        model = await model.update(req.body);
 
         return res.json({model});
     }

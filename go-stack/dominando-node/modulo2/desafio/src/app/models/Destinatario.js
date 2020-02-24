@@ -11,7 +11,8 @@ class Destinatario extends Model {
             cidade: Sequelize.STRING,
             cep: Sequelize.STRING(8)
       }, {
-          sequelize
+          sequelize,
+          tableName: "recipient"
       })
     }
 }

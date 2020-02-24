@@ -1,6 +1,6 @@
 'use strict';
 
-const destinatarioTableName = 'recipients';
+const destinatarioTableName = 'recipient';
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
