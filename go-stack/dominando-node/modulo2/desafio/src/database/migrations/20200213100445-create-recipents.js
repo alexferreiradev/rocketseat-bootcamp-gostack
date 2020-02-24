@@ -5,7 +5,11 @@ const destinatarioTableName = 'recipients';
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable(destinatarioTableName, 
-    { id: Sequelize.BIGINT,
+    { id: {
+        type: Sequelize.BIGINT,
+        primaryKey: true,
+        autoIncrement: true
+      },
       nome: Sequelize.STRING, 
       rua: Sequelize.STRING,
       numero: Sequelize.STRING,
