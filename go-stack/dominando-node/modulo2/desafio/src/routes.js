@@ -12,4 +12,7 @@ routes.get('/', (_, res) => {
 
 routes.post('/users', UserController.store);
 
+routes.post('/recipents', DestinatarioController.store);
+routes.put('/recipents/{id}', DestinatarioController.update);
+
 export default routes;
