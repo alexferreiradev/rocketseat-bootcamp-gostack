@@ -38,7 +38,7 @@ class UserController {
         return model;
     }
 
-    async _checkUserExist(email, res) {
+    async _checkUserExist(req, res) {
         const { email } = req.body;
         const  user = await User.findOne({ where: { email }});
         if (user){
