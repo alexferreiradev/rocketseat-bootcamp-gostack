@@ -15,6 +15,6 @@ routes.post('/login', SessionController.login);
 routes.use(authMid);
 
 routes.post('/user', UserController.store);
-routes.post('/user', UserController.update);
+routes.put('/user', UserController.update);
 
 export default routes;
