@@ -1,9 +1,26 @@
 import User from '../models/User';
+import * as Yup from "yup";
 
 class UserController {
 
+    constructor() {
+        console.log("Construido");
+        
+    }
+
     async store(req, res) {
-        if (this._checkUserExist(req, res)){
+        const shema = Yup.object.shape({
+            email: Yup.string().email().required(),
+            name: Yup.string().required(),
+            password: Yup.string().required().min(6),
+        });
+
+        if (!(await shema.isValid(req.body))) {
+            return res.status(400).json({ error: "Requisição inválida"});
+        }
+
+        const user = await this._checkUserExist(req, res);
+        if (user){
             return ;
         }
 
@@ -12,11 +29,29 @@ class UserController {
     }
 
     async update(req, res) {
+        const shema = Yup.object.shape({
+            email: Yup.string().email(),
+            name: Yup.string(),
+            password: Yup.string().min(6)
+            .when('oldPassword', (oldPassword, field)=>
+                oldPassword ? field.required() : field
+            ),
+            confirmPassword: Yup.string().
+            when('password', (password, field) => {
+                password ? field.required().oneOf([Yup.ref('password')]) : field
+            }),
+            oldPassword: Yup.string().min(6),
+        });
+
+        if (!(await shema.isValid(req.body))) {
+            return res.status(400).json({ error: "Requisição inválida"});
+        }
+
         var userById = await User.findByPk(req.userId);
         
         const { email, oldPassword, password } = req.body;
         if (email){
-            const userByEmail = this._checkUserExist(req, res);
+            const userByEmail = await this.checkUserExist(req, res);
             if (userByEmail.id !== userById.id) {
                 return res.status(400).json({ error: `Já existe usuário com este email: ${email}`});
             }
@@ -38,7 +73,7 @@ class UserController {
         return model;
     }
 
-    async _checkUserExist(req, res) {
+    async checkUserExist(req, res) {
         const { email } = req.body;
         const  user = await User.findOne({ where: { email }});
         if (user){
@@ -50,4 +85,4 @@ class UserController {
     }
 }
 
-export default new UserController();
+export default UserController;
