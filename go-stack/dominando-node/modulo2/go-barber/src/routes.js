@@ -6,6 +6,8 @@ import authMid from './app/middlewares/auth';
 import config from './version';
 
 const routes = new Router();
+const store = UserController.store.bind(UserController);
+const update = UserController.update.bind(UserController);
 
 routes.get('/', (_, res) => {
     return res.json({ status: "ok", version: config.version});
@@ -14,7 +16,7 @@ routes.post('/login', SessionController.login);
 
 routes.use(authMid);
 
-routes.post('/user', UserController.store);
-routes.put('/user', UserController.update);
+routes.post('/user', store);
+routes.put('/user', update);
 
 export default routes;

@@ -1,26 +1,30 @@
 import User from '../models/User';
+import { promisify } from "util";
 import * as Yup from "yup";
 
 class UserController {
 
     constructor() {
         console.log("Construido");
-        
     }
 
     async store(req, res) {
-        const shema = Yup.object.shape({
+        const shema = Yup.object().shape({
             email: Yup.string().email().required(),
             name: Yup.string().required(),
             password: Yup.string().required().min(6),
         });
 
-        if (!(await shema.isValid(req.body))) {
-            return res.status(400).json({ error: "Requisição inválida"});
+        try {
+            shema.validateSync(req.body, { abortEarly: false});
+        } catch (error) {
+            console.log(error);            
+            return res.status(400).json({ error: "Requisição inválida", message: error.message, errors: error.errors});            
         }
 
         const user = await this._checkUserExist(req, res);
         if (user){
+            res.status(422).json({error: `Usuário já existe com este email: ${email}`});
             return ;
         }
 
@@ -29,7 +33,7 @@ class UserController {
     }
 
     async update(req, res) {
-        const shema = Yup.object.shape({
+        const shema = Yup.object().shape({
             email: Yup.string().email(),
             name: Yup.string(),
             password: Yup.string().min(6)
@@ -51,8 +55,8 @@ class UserController {
         
         const { email, oldPassword, password } = req.body;
         if (email){
-            const userByEmail = await this.checkUserExist(req, res);
-            if (userByEmail.id !== userById.id) {
+            const userByEmail = await this._checkUserExist(req, res);
+            if (userByEmail && userByEmail.id !== userById.id) {
                 return res.status(400).json({ error: `Já existe usuário com este email: ${email}`});
             }
         }
@@ -64,25 +68,19 @@ class UserController {
             }
         }
 
-        userById = userById.update(req.body);
+        userById = await userById.update(req.body);
         return res.json(this._createModelDto(userById));
     }
 
     _createModelDto(response) {
-        const {password, ...model} = user.dataValues;
+        const {password, ...model} = response.dataValues;
         return model;
     }
 
-    async checkUserExist(req, res) {
+    async _checkUserExist(req, res) {
         const { email } = req.body;
-        const  user = await User.findOne({ where: { email }});
-        if (user){
-            res.status(422).json({error: `Usuário já existe com este email: ${email}`});
-            return user;
-        }
-
-        return false;
+        return await User.findOne({ where: { email }});
     }
 }
 
-export default UserController;
+export default new UserController();
