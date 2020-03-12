@@ -23,7 +23,7 @@
 hs_err_pid*
 
 # Ignore arquivos de outros projetos
-go-stack/desafio-final/
 go-stack/dominando-node/module2/go-barber/*
 .idea/
+docs/
 
