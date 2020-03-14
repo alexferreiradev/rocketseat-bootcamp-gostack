@@ -13,6 +13,7 @@ const projects = [{
 ];
 const projectNotFoundJson = { error: "Projeto não existe"};
 var reqCount = 0;
+
 // Crie um middleware que será utilizado em todas rotas que recebem o ID do projeto nos parâmetros da URL que verifica se o projeto com aquele ID existe. Se não existir retorne um erro, caso contrário permita a requisição continuar normalmente;
 function verificaId (req, res, next) {
     const { id } = req.params;
