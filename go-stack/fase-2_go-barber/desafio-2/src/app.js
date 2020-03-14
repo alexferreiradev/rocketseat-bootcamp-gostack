@@ -1,6 +1,6 @@
 import express from 'express';
 
-import './database';
+import './database/index';
 import routes from './routes';
 
 class App {
