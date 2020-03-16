@@ -5,13 +5,11 @@ class File extends Model {
         super.init(
             {
                 name: Sequelize.STRING,
-                email: Sequelize.STRING,
-                password: Sequelize.VIRTUAL,
-                password_hash: Sequelize.STRING,
+                path: Sequelize.STRING,
             }, 
             {
                 sequelize,
-                tableName: "user"
+                tableName: "file"
             }
         );
 
