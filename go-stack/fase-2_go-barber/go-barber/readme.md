@@ -28,3 +28,8 @@ module.exports = {
     }
 }
 ```
+## Novas requisições
+Sempre que adicionar requisições, atualize o arquivo: `Insomnia_lasted.json`.
+
+# Testes
+Um teste mais rápido pode ser feito com o insomnia, simulando as requisições para a API. Sempre que alterar rotas, atualize o arquivo `Insomnia_lasted.json`. 
