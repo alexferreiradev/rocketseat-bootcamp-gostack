@@ -2,7 +2,18 @@ import jwt from 'jsonwebtoken';
 import {promisify} from 'util';
 import authConfig from '../../config/auth';
 
+function skip(req) {
+    const reqMath = /file\/*/g;
+    const reqFound = req.path.match(reqMath);
+    return reqFound && req.method == 'GET';
+}
+
 export default async (req, res, next) => {
+
+    if (skip(req)) {
+        return next();
+    }
+
     const authHeader = req.headers.authorization;
     if (!authHeader) {
         return res.status(401).json({error: "Header authorization não encontrado"});
