@@ -28,5 +28,6 @@ routes.put('/user', update);
 routes.get('/provider', ProviderController.index);
 
 routes.post('/file', upload.single('file'), FileController.store);
+routes.get('/file', FileController.index);
 
 export default routes;
