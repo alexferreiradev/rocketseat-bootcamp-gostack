@@ -4,6 +4,7 @@ import pt from "date-fns/locale/pt";
 import Appointment from "../models/Appointment";
 import User from "../models/User";
 import File from "../models/File";
+import Mail from "../../lib/Mail";
 import Notification from "../schemas/Notification";
 
 class AppointmentController {
@@ -92,7 +93,18 @@ class AppointmentController {
     }
 
     async delete(req, res) {
-        const appointment = await Appointment.findByPk(req.params.id);
+        const appointment = await Appointment.findByPk(
+            req.params.id,
+            {
+                include: [
+                    {
+                        model: User,
+                        as: 'provider',
+                        attributes: ['name', 'email'],
+                    },
+            ],
+        }
+        );
         if (!appointment) {
             return res.status(404).json({error: "Agendamento não encontrado"});
         }
@@ -107,6 +119,8 @@ class AppointmentController {
         }
 
         appointment.canceled_at = new Date();
+
+        sendEmailToProvider(appointment);
 
         await appointment.save();
 
@@ -124,6 +138,14 @@ async function createNotification(userId, hourStart, providerId) {
     await Notification.create({
         content: `Novo agendamento de ${user.name} para ${formattedDate}`,
         user: providerId,
+    });
+}
+
+async function sendEmailToProvider(appointment) {
+    await Mail.sendMail({
+        to: `${appointment.provider.name} <${appointment.provider.email}>`,
+        subject: `Cancelamento de agendamento`,
+        text: "Você tem um cancelamento",
     });
 }
 

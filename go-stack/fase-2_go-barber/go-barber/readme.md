@@ -28,6 +28,24 @@ module.exports = {
     }
 }
 ```
+
+## Envio de emails
+O sistema utiliza o [mailtrap](www.mailtrap.io) para enviar email. As configurações de user estão na pasta `/src/config/` no arquivo `mail.js`. Exemplo de configuração: 
+```js
+export default {
+    host: '',
+    port: '',
+    secure: false,
+    auth: {
+        user: '',
+        pass: '',
+    },
+    default: {
+        from: 'Equipe GoBarber <noreply@gobarber.com>',
+    },
+};
+```
+
 ## Novas requisições
 Sempre que adicionar requisições, atualize o arquivo: `Insomnia_lasted.json`.
 
