@@ -6,8 +6,8 @@ module.exports = {
       "user",
       [
         {
-          name: "Administrador do sistema",
-          email: "admin@barber.com",
+          name: "Usuario teste",
+          email: "teste@teste.com.br",
           password_hash: bcrypt.hashSync("1234567", 8),
           avatar_id: 1,
           created_at: new Date(),
@@ -19,6 +19,6 @@ module.exports = {
   },
 
   down: QueryInterface => {
-    return QueryInterface.bulkDelete("user");
+    return QueryInterface.bulkDelete("user", {email: 'teste@teste.com.br'});
   }
 };
