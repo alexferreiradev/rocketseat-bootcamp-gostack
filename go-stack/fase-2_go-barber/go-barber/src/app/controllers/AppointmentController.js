@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-import { parseISO, startOfHour, isBefore, format } from "date-fns";
+import { parseISO, startOfHour, isBefore, format, subHours } from "date-fns";
 import pt from "date-fns/locale/pt";
 import Appointment from "../models/Appointment";
 import User from "../models/User";
@@ -88,6 +88,28 @@ class AppointmentController {
             provider_id,
             date: hourStart,
         });        
+        return res.json(appointment);
+    }
+
+    async delete(req, res) {
+        const appointment = await Appointment.findByPk(req.params.id);
+        if (!appointment) {
+            return res.status(404).json({error: "Agendamento não encontrado"});
+        }
+
+        if (appointment.user_id !== req.userId) {
+            return res.status(401).json({error: "Agendamento não pertence a este usuário"});
+        }
+
+        const maxDateToCancel = subHours(appointment.date, 2);
+        if (isBefore(maxDateToCancel, new Date())) {
+            return res.status(401).json({error: "O cancelamento pode ser feito somente até 2h antes"})
+        }
+
+        appointment.canceled_at = new Date();
+
+        await appointment.save();
+
         return res.json(appointment);
     }
 }
