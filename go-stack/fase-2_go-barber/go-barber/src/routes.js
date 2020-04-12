@@ -8,6 +8,7 @@ import ProviderController from './app/controllers/ProviderController';
 import AppointmentController from './app/controllers/AppointmentController';
 import SchedullerController from './app/controllers/SchedullerController';
 import NotificationController from './app/controllers/NotificationController';
+import AvailableController from './app/controllers/AvailableController';
 import authMid from './app/middlewares/auth';
 import config from './version';
 import multerConfig from './config/multer';
@@ -29,6 +30,7 @@ routes.post('/user', store);
 routes.put('/user', update);
 
 routes.get('/provider', ProviderController.index);
+routes.get('/provider/:providerId/availablity', AvailableController.index);
 
 routes.get('/appointment', AppointmentController.index);
 routes.post('/appointment', AppointmentController.store);
