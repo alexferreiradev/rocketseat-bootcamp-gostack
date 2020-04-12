@@ -57,5 +57,13 @@ export default {
 ## Novas requisições
 Sempre que adicionar requisições, atualize o arquivo: `Insomnia_lasted.json`.
 
+# Monitoramento de erros
+O sistema utiliza o Sentry para monitorar erros. As configurações são feitas pelo arquivo `sentry,js`. Exemplo: 
+```js
+export default {
+    dsn: 'https://*****.ingest.sentry.io/****',
+}
+```
+
 # Testes
 Um teste mais rápido pode ser feito com o insomnia, simulando as requisições para a API. Sempre que alterar rotas, atualize o arquivo `Insomnia_lasted.json`. 
