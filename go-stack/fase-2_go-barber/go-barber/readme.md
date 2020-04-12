@@ -45,6 +45,14 @@ export default {
     },
 };
 ```
+### Envio de email em background
+O sistema utiliza o _redis_ e bee-queue para fazer o trabalho de enfileiramento. As configurações são feitas no arquivo `redis.js` na pasta `/src/config`. Exemplo de configuração: 
+```js
+export default {
+    host: 'localhost',
+    port: 6379,
+}
+```
 
 ## Novas requisições
 Sempre que adicionar requisições, atualize o arquivo: `Insomnia_lasted.json`.

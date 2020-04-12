@@ -6,6 +6,8 @@ import User from "../models/User";
 import File from "../models/File";
 import Mail from "../../lib/Mail";
 import Notification from "../schemas/Notification";
+import Queue from "../../lib/Queue";
+import CancelationMail from "../jobs/CancelationMail";
 
 class AppointmentController {
 
@@ -142,7 +144,11 @@ async function createNotification(userId, hourStart, providerId) {
     });
 }
 
-function formatDate(date) {
+export function formatDate(date) {
+    // TODO adicionar forma de testar se date é parsed ou nao
+    
+    // const parsedDate = parseISO(date);
+    // console.log("Data que chegou: ", date, "=> ", parsedDate);
     return format(
         date, 
         "'dia' dd 'de' MMMM', às' HH:mm'h'",
@@ -151,15 +157,8 @@ function formatDate(date) {
 }
 
 async function sendEmailToProvider(appointment) {
-    await Mail.sendMail({
-        to: `${appointment.provider.name} <${appointment.provider.email}>`,
-        subject: `Cancelamento de agendamento`,
-        template: 'cancelation',
-        context: {
-            provider: appointment.provider.name,
-            user: appointment.user.name,
-            date: formatDate(appointment.date),
-        }
+    await Queue.addJob(CancelationMail.key, {
+        appointment
     });
 }
 
