@@ -8,6 +8,12 @@ class UserController {
         console.log("Construido");
     }
 
+    async index(req, res) {
+        const users = await User.findAll();
+
+        return res.json(users);
+    }
+
     async store(req, res) {
         const shema = Yup.object().shape({
             email: Yup.string().email().required(),
