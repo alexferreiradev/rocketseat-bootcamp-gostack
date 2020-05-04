@@ -2,23 +2,42 @@ import React, { Component } from 'react';
 
 class Techlist extends Component {
     state = {
-        tech: [
+        newTech: '',
+        techs: [
             "Java",
             "Android",
             "React",
-        ]
+        ],
+    };
+
+    handleNewTech = (e) => {
+        this.setState({newTech: e.target.value});
+    };
+
+    handleSubmit = e => {
+        e.preventDefault();
+
+        this.setState({techs: [...this.state.techs, this.state.newTech]});
+        this.setState({newTech: ''});
     };
 
     render() {
         return (
-            <div>
+            <form onSubmit={this.handleSubmit}>
                 <ul>
-                    <li>Java</li>
-                    <li>Android</li>
-                    <li>React</li>
-                    <li>React native</li>
+                    {this.state.techs.map(tech =>
+                        <li key={tech}>{tech}</li>
+                    )}
                 </ul>
-            </div>
+                <h1>Nova tech: {this.state.newTech}</h1>
+                <div>
+                    <input 
+                        type="text" 
+                        onChange={this.handleNewTech} 
+                        value={this.state.newTech}  />
+                    <button type="submit">Enviar</button>
+                </div>
+            </form>
         );
     }
 }
