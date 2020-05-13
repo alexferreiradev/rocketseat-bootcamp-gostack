@@ -21,12 +21,23 @@ class Techlist extends Component {
         this.setState({newTech: ''});
     };
 
+    handleDelete = (e, tech) => {
+        e.preventDefault();
+
+        this.setState({techs: this.state.techs.filter((techEl) => {
+            return techEl !== tech;
+        })});
+    };
+
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
                 <ul>
                     {this.state.techs.map(tech =>
-                        <li key={tech}>{tech}</li>
+                        <li key={tech}>
+                            {tech}
+                            <button type="button" onClick={(e) => {this.handleDelete(e, tech)}}>Remover</button>
+                        </li>
                     )}
                 </ul>
                 <h1>Nova tech: {this.state.newTech}</h1>
