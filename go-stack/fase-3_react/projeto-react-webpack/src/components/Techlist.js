@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import TechItem from './TechItem';
 
 class Techlist extends Component {
+    static defaultProps = {
+        teste: 'default',
+    };
+
     state = {
         newTech: '',
         techs: [
@@ -37,6 +41,7 @@ class Techlist extends Component {
                     {this.state.techs.map(tech =>
                         <TechItem key={tech} tech={tech} onDelete={(e) => {this.handleDelete(e, tech)}} />
                     )}
+                    <TechItem />
                 </ul>
                 <h1>Nova tech: {this.state.newTech}</h1>
                 <div>
