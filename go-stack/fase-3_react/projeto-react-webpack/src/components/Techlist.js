@@ -41,7 +41,6 @@ class Techlist extends Component {
                     {this.state.techs.map(tech =>
                         <TechItem key={tech} tech={tech} onDelete={(e) => {this.handleDelete(e, tech)}} />
                     )}
-                    <TechItem />
                 </ul>
                 <h1>Nova tech: {this.state.newTech}</h1>
                 <div>
