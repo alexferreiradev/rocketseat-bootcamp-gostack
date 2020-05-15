@@ -18,11 +18,18 @@ class Techlist extends Component {
     // Executado assim que componente aparece em tela
     componentDidMount() {
         // busca de dados por api
+        const techs = localStorage.getItem("techs");
+        if (techs) {
+            this.setState({ techs: JSON.parse(techs) });
+        }
     }
 
     // Executado sempre que houver alterações de estado ou props
-    componentDidUpdate(prevProp, prevState) {
+    componentDidUpdate(_, prevState) {
         // tem como comparar prop antiga e estado antigo
+        if (prevState.techs !== this.state.techs) {
+            localStorage.setItem("techs", JSON.stringify(this.state.techs));
+        }
     }
 
     // Executar semmpre que componente é morto
@@ -31,22 +38,24 @@ class Techlist extends Component {
     }
 
     handleNewTech = (e) => {
-        this.setState({newTech: e.target.value});
+        this.setState({ newTech: e.target.value });
     };
 
     handleSubmit = e => {
         e.preventDefault();
 
-        this.setState({techs: [...this.state.techs, this.state.newTech]});
-        this.setState({newTech: ''});
+        this.setState({ techs: [...this.state.techs, this.state.newTech] });
+        this.setState({ newTech: '' });
     };
 
     handleDelete = (e, tech) => {
         e.preventDefault();
 
-        this.setState({techs: this.state.techs.filter((techEl) => {
-            return techEl !== tech;
-        })});
+        this.setState({
+            techs: this.state.techs.filter((techEl) => {
+                return techEl !== tech;
+            })
+        });
     };
 
     render() {
@@ -54,15 +63,15 @@ class Techlist extends Component {
             <form onSubmit={this.handleSubmit}>
                 <ul>
                     {this.state.techs.map(tech =>
-                        <TechItem key={tech} tech={tech} onDelete={(e) => {this.handleDelete(e, tech)}} />
+                        <TechItem key={tech} tech={tech} onDelete={(e) => { this.handleDelete(e, tech) }} />
                     )}
                 </ul>
                 <h1>Nova tech: {this.state.newTech}</h1>
                 <div>
-                    <input 
-                        type="text" 
-                        onChange={this.handleNewTech} 
-                        value={this.state.newTech}  />
+                    <input
+                        type="text"
+                        onChange={this.handleNewTech}
+                        value={this.state.newTech} />
                     <button type="submit">Enviar</button>
                 </div>
             </form>
