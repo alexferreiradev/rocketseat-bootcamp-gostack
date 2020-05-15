@@ -15,6 +15,21 @@ class Techlist extends Component {
         ],
     };
 
+    // Executado assim que componente aparece em tela
+    componentDidMount() {
+        // busca de dados por api
+    }
+
+    // Executado sempre que houver alterações de estado ou props
+    componentDidUpdate(prevProp, prevState) {
+        // tem como comparar prop antiga e estado antigo
+    }
+
+    // Executar semmpre que componente é morto
+    componentWillUnmount() {
+
+    }
+
     handleNewTech = (e) => {
         this.setState({newTech: e.target.value});
     };
