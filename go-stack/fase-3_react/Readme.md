@@ -3,6 +3,7 @@ Nesta fase aprendemos como criar uma aplicação com React JS.
 
 ## Projetos de aulas
 1. Intro webpack com react
+1. Modulo 05 - Primeiro projeto com react
 1. Github repos
 
 ## Desafios
