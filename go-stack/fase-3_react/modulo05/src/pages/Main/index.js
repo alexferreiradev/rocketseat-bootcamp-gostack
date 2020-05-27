@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { FaGithubAlt, FaPlus, FaSpinner } from 'react-icons/fa';
 
 import api from '../../services/api';
-import { Container, Form, SubmitButton } from './styles';
+import { Container, Form, SubmitButton, List } from './styles';
 
 class Main extends Component {
     state = {
@@ -42,6 +42,8 @@ class Main extends Component {
         const response = await api.get(`/repos/${newRepo}`);
         const data = {
             name: response.data.full_name,
+            id: response.data.id,
+            url: response.data.html_url,
         };
 
         this.setState({
@@ -52,7 +54,7 @@ class Main extends Component {
     };
 
     render() {
-        const { newRepo, loading } = this.state;
+        const { newRepo, loading, repositories } = this.state;
         return (
             <Container>
                 <h1>
@@ -75,6 +77,15 @@ class Main extends Component {
                         )}
                     </SubmitButton>
                 </Form>
+
+                <List>
+                    {repositories.map((repository) => (
+                        <li key={repository.id}>
+                            <span>{repository.name}</span>
+                            <a href={repository.url}>Detalhes</a>
+                        </li>
+                    ))}
+                </List>
             </Container>
         );
     }
