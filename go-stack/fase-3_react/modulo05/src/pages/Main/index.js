@@ -4,14 +4,18 @@ import { Link } from 'react-router-dom';
 import { FaGithubAlt, FaPlus, FaSpinner } from 'react-icons/fa';
 
 import api from '../../services/api';
-import { Container, Form, SubmitButton, List } from './styles';
+import { Form, SubmitButton, List } from './styles';
+import Container from '../../components/Container';
 
 class Main extends Component {
-    state = {
-        newRepo: '',
-        repositories: [],
-        loading: false,
-    };
+    constructor() {
+        super();
+        this.state = {
+            newRepo: '',
+            repositories: [],
+            loading: false,
+        };
+    }
 
     componentDidMount() {
         const repositories = localStorage.getItem('repositories');
@@ -84,7 +88,7 @@ class Main extends Component {
                         <li key={repository.id}>
                             <span>{repository.name}</span>
                             <Link
-                                to={`/repository/:${encodeURIComponent(
+                                to={`/repository/${encodeURIComponent(
                                     repository.name
                                 )}`}
                             >
