@@ -1,20 +1,7 @@
-import React, {Component} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import React from 'react';
+import { StyleSheet, View, Text } from 'react-native';
 
-import {Colors} from 'react-native/Libraries/NewAppScreen';
-
-class App extends Component {
-  render() {
-    return (
-      <>
-        <View style={styles.sectionContainer}>
-          <Text style={styles.sectionTitle}>Hello</Text>
-          <Text style={styles.sectionTitle}>Alex</Text>
-        </View>
-      </>
-    );
-  }
-}
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 const styles = StyleSheet.create({
   sectionContainer: {
@@ -32,4 +19,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default function App() {
+  return (
+    <View style={styles.sectionContainer}>
+      <Text style={styles.sectionTitle}>Hello</Text>
+      <Text style={styles.sectionTitle}>Alex</Text>
+    </View>
+  );
+}
