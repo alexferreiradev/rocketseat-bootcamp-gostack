@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-
 import { Colors } from 'react-native/Libraries/NewAppScreen';
+
+import '../config/ReactotronConfig';
 
 const styles = StyleSheet.create({
   sectionContainer: {
@@ -20,6 +21,7 @@ const styles = StyleSheet.create({
 });
 
 export default function App() {
+  console.tron.log('teste');
   return (
     <View style={styles.sectionContainer}>
       <Text style={styles.sectionTitle}>Hello</Text>
