@@ -1,16 +1,10 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 
-// import { Container } from './styles';
+import { Container } from './styles';
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f5fcff',
-  },
   sectionTitle: {
     fontSize: 20,
     textAlign: 'center',
@@ -22,10 +16,10 @@ const styles = StyleSheet.create({
 
 const Main = () => {
   return (
-    <View style={styles.sectionContainer}>
+    <Container>
       <Text style={styles.sectionTitle}>Hello</Text>
       <Text style={styles.sectionTitle}>Alex</Text>
-    </View>
+    </Container>
   );
 };
 
