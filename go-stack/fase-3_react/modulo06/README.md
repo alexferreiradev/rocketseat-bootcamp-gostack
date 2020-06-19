@@ -20,3 +20,9 @@ Caso não execute normal na primeira vez, execute: `cd android && ./gradlew clea
 
 ## Rodar reactotron via USB
 Execute `adb reverse tcp:9090 tcp:9090` para redirecionar as portas do android. Configure o ip da sua máquina de dev no codigo de `ReactotronConfig.js`.
+
+## Adição de react navigation
+Adicione as seguintes bibliotecas: `yarn add @react-navigation/native` e `yarn add react-native-reanimated react-native-gesture-handler react-native-screens react-native-safe-area-context @react-native-community/masked-view`
+
+### Com Stacks
+Adicione a lib: `yarn add @react-navigation/stack` e utilize stacks para navegaçao
