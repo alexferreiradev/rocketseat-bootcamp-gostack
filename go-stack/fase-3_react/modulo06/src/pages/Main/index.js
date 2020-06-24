@@ -1,26 +1,45 @@
-import React from 'react';
-import { StyleSheet, Text } from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import React, { Component } from 'react';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { Container } from './styles';
+import { Container, Form, Input, SubmitButton } from './styles';
 
-const styles = StyleSheet.create({
-  sectionTitle: {
-    fontSize: 20,
-    textAlign: 'center',
-    fontWeight: '600',
-    color: Colors.black,
-    margin: 10,
-  },
-});
+class Main extends Component {
+  constructor() {
+    super();
+    this.state = {
+      newUser: '',
+      users: [],
+    };
+  }
 
-const Main = () => {
-  return (
-    <Container>
-      <Text style={styles.sectionTitle}>Hello</Text>
-      <Text style={styles.sectionTitle}>Alex</Text>
-    </Container>
-  );
-};
+  handleAddUser() {
+    const { newUser } = this.state;
+    console.tron.log(newUser);
+  }
+
+  render() {
+    const { users, newUser } = this.state;
+
+    return (
+      <Container>
+        <Form>
+          <Input
+            autoCorrect={false}
+            autoCapitalize="none"
+            placeholder="Adicionar Usuário"
+            value={newUser}
+            onChange={(text) => this.setState({ newUser: text })}
+            returnKeyType="send"
+            onSubmitEditing={this.handleAddUser}
+          />
+
+          <SubmitButton onPress={this.handleAddUser}>
+            <Icon name="add" size={20} color="#FFF" />
+          </SubmitButton>
+        </Form>
+      </Container>
+    );
+  }
+}
 
 export default Main;
