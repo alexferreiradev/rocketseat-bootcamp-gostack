@@ -27,7 +27,7 @@ function Routes() {
           options={{ title: 'Home' }}
         />
         <Stack.Screen
-          name="Users"
+          name="User"
           component={User}
           initialParams={{ user: 'Usuários' }}
         />

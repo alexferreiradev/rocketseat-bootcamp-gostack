@@ -1,7 +1,22 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Keyboard } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { Container, Form, Input, SubmitButton } from './styles';
+import {
+  Container,
+  Form,
+  Input,
+  SubmitButton,
+  List,
+  User,
+  Name,
+  Bio,
+  Avatar,
+  ProfileButton,
+  ProfileButtonText,
+} from './styles';
+import api from '../../services/api';
 
 class Main extends Component {
   constructor() {
@@ -12,10 +27,31 @@ class Main extends Component {
     };
   }
 
-  handleAddUser() {
-    const { newUser } = this.state;
-    console.tron.log(newUser);
-  }
+  handleAddUser = async () => {
+    const { newUser, users } = this.state;
+
+    const response = await api.get(`/users/${newUser}`);
+
+    const data = {
+      name: response.data.name,
+      login: response.data.login,
+      bio: response.data.bio,
+      avatar: response.data.avatar_url,
+    };
+
+    this.setState({
+      users: [...users, data],
+      newUser: '',
+    });
+
+    Keyboard.dismiss();
+  };
+
+  handleNavigate = (user) => {
+    const { navigation } = this.props;
+
+    navigation.navigate('User', { user });
+  };
 
   render() {
     const { users, newUser } = this.state;
@@ -28,7 +64,7 @@ class Main extends Component {
             autoCapitalize="none"
             placeholder="Adicionar Usuário"
             value={newUser}
-            onChange={(text) => this.setState({ newUser: text })}
+            onChangeText={(text) => this.setState({ newUser: text })}
             returnKeyType="send"
             onSubmitEditing={this.handleAddUser}
           />
@@ -37,9 +73,33 @@ class Main extends Component {
             <Icon name="add" size={20} color="#FFF" />
           </SubmitButton>
         </Form>
+
+        <List
+          data={users}
+          keyExtractor={(user) => user.login}
+          renderItem={({ item }) => (
+            <User>
+              <Avatar source={{ uri: item.avatar }} />
+              <Name>{item.name}</Name>
+              <Bio>{item.bio}</Bio>
+              <ProfileButton
+                onPress={() => {
+                  this.handleNavigate(item);
+                }}
+              >
+                <ProfileButtonText>Ver perfil</ProfileButtonText>
+              </ProfileButton>
+            </User>
+          )}
+        />
       </Container>
     );
   }
 }
+Main.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func,
+  }).isRequired,
+};
 
 export default Main;
