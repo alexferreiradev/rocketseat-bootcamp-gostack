@@ -2,7 +2,6 @@ import React from 'react';
 import { FaAdjust } from 'react-icons/fa';
 
 import {
-    Background,
     PesquizarInput,
     CadastrarBt,
     FlatList,
@@ -18,9 +17,9 @@ function GerenciaDestinatario() {
     const handleOnChange = () => {};
 
     return (
-        <Background>
+        <>
+            <Header />
             <Container>
-                <Header />
                 <HeaderTitle>Gerenciando Destinatários</HeaderTitle>
                 <PesquizarInput
                     type="text"
@@ -48,7 +47,7 @@ function GerenciaDestinatario() {
                     </ListItem>
                 </FlatList>
             </Container>
-        </Background>
+        </>
     );
 }
 

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import 'typeface-roboto';
 import Routes from './routes';
 import Global from './styles/global';
 

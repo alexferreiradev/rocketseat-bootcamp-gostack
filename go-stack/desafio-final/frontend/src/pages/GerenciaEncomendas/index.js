@@ -3,7 +3,6 @@ import { Modal } from 'react-bootstrap';
 import { FaAdjust } from 'react-icons/fa';
 
 import {
-    Background,
     PesquizarInput,
     CadastrarBt,
     FlatList,
@@ -12,7 +11,7 @@ import {
 } from './styles';
 
 import Header from '../../components/Header';
-import HeaderTitle from '../../components/HeaderTitle';
+import HeaderTitle, { HeaderOptions } from '../../components/HeaderTitle';
 import Container from '../../components/Container';
 import { Label } from '../../components/Form';
 
@@ -20,22 +19,24 @@ function GerenciaEncomenda() {
     const handleOnChange = () => {};
     const handleCloseSignature = () => {};
 
-    const showSignature = true;
+    const showSignature = false;
 
     return (
-        <Background>
+        <>
+            <Header />
             <Container>
-                <Header />
                 <HeaderTitle>Gerenciando encomendas</HeaderTitle>
-                <PesquizarInput
-                    type="text"
-                    placeholder="Buscar por encomendas"
-                    onChange={handleOnChange}
-                />
-                <CadastrarBt>
-                    <FaAdjust />
-                    <span>Cadastrar</span>
-                </CadastrarBt>
+                <HeaderOptions>
+                    <PesquizarInput
+                        type="text"
+                        placeholder="Buscar por encomendas"
+                        onChange={handleOnChange}
+                    />
+                    <CadastrarBt>
+                        <FaAdjust />
+                        <span>Cadastrar</span>
+                    </CadastrarBt>
+                </HeaderOptions>
                 <FlatList>
                     <ListHeader>
                         <li>ID</li>
@@ -84,7 +85,7 @@ function GerenciaEncomenda() {
                     </Modal.Footer>
                 </Modal>
             </Container>
-        </Background>
+        </>
     );
 }
 

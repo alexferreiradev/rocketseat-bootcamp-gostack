@@ -1,12 +1,17 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { Background, Logo, LogoText, SubmitButton } from './styles';
 import { Form, Label, Input } from '../../components/Form';
 import Container from '../../components/Container';
 
 function Login() {
+    const history = useHistory();
     function handleEmailChange() {}
     function handleSenhaChange() {}
+    function handleLogin() {
+        history.push('/gerencia_encomendas');
+    }
     const email = '';
     const senha = '';
     return (
@@ -14,7 +19,7 @@ function Login() {
             <Container>
                 <Logo />
                 <LogoText>fastfeet</LogoText>
-                <Form>
+                <Form onSubmit={handleLogin}>
                     <Label>Seu E-mail</Label>
                     <Input
                         type="text"

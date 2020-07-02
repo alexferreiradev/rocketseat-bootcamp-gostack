@@ -1,8 +1,6 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
 
-import { Background } from './styles';
-
 import Header from '../../components/Header';
 import HeaderTitle from '../../components/HeaderTitle';
 import FlatList from '../../components/FlatList';
@@ -19,12 +17,12 @@ function GerenciaProblemas() {
 
     const itemDataList = [itemDataMap];
     const actionItemListenerList = [];
-    const showProblema = true;
+    const showProblema = false;
 
     return (
-        <Background>
+        <>
+            <Header />
             <Container>
-                <Header />
                 <HeaderTitle>Problemas na entrega</HeaderTitle>
                 <FlatList
                     headerTextList={['Encomendas', 'Problema', 'Ações']}
@@ -45,7 +43,7 @@ function GerenciaProblemas() {
                     </Modal.Body>
                 </Modal>
             </Container>
-        </Background>
+        </>
     );
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaPlus } from 'react-icons/fa';
 
-import { Background, PesquizarInput, CadastrarBt } from './styles';
+import { PesquizarInput, CadastrarBt } from './styles';
 
 import Header from '../../components/Header';
 import HeaderTitle from '../../components/HeaderTitle';
@@ -20,9 +20,9 @@ function GerenciaEntregadores() {
     const actionItemListenerList = [];
 
     return (
-        <Background>
+        <>
+            <Header />
             <Container>
-                <Header />
                 <HeaderTitle>Gerenciando Entregadores</HeaderTitle>
                 <PesquizarInput
                     type="text"
@@ -39,7 +39,7 @@ function GerenciaEntregadores() {
                     actionItemListenerList={actionItemListenerList}
                 />
             </Container>
-        </Background>
+        </>
     );
 }
 

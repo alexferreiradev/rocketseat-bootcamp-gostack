@@ -5,6 +5,11 @@ export const Form = styled.form`
     background: #fff;
 `;
 
+export const WrapInput = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
 export const Label = styled.label`
     color: #000;
     font-weight: bold;
@@ -12,6 +17,10 @@ export const Label = styled.label`
 `;
 
 export const Input = styled.input`
+    min-height: 45px;
     color: #eee;
-    border: 1px #ccc solid;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    opacity: 1;
 `;

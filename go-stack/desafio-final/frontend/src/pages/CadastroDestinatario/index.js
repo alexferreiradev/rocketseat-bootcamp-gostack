@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { Background } from './styles';
-
 import Header from '../../components/Header';
 import HeaderTitle from '../../components/HeaderTitle';
 import Container from '../../components/Container';
@@ -14,9 +12,9 @@ function CadastroDestinatario() {
     itemDataMap.set('ID', '123');
 
     return (
-        <Background>
+        <>
+            <Header />
             <Container>
-                <Header />
                 {editing ? (
                     <HeaderTitle>Edição Destinatário</HeaderTitle>
                 ) : (
@@ -41,7 +39,7 @@ function CadastroDestinatario() {
                     <Input placeholder="00000-000" />
                 </Form>
             </Container>
-        </Background>
+        </>
     );
 }
 
