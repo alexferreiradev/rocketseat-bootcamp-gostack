@@ -1,0 +1,16 @@
+{
+    "encomendas": [
+        {
+            "id": 1,
+            "foto": "/teste.png",
+            "nome": "Nome teste",
+            "email": "email@teste.com"
+        },
+        {
+            "id": 2,
+            "foto": "/teste2.png",
+            "nome": "Nome teste 2",
+            "email": "email@teste2.com"
+        }
+    ]
+}
