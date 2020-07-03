@@ -34,6 +34,7 @@ function GerenciaEntregadores() {
         // Buscar dados na api
     }
 
+    const actionItemTextList = ['Editar', 'Excluir'];
     function handleActionClick(index, _) {
         // console.log(index);
 
@@ -57,7 +58,6 @@ function GerenciaEntregadores() {
     }
 
     const headerTextList = ['ID', 'Foto', 'Nome', 'Email', 'Ações'];
-    const actionItemTextList = ['Editar', 'Excluir'];
     const showEmptyList = entregadorList.length === 0;
 
     return (

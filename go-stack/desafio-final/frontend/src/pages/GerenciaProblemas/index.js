@@ -29,12 +29,26 @@ function GerenciaProblemas() {
         fetchData();
     }, []);
 
-    function handleActionClick(action, index) {
-        // console.log(action, index);
+    const actionItemTextList = ['Visualizar', 'Cancelar encomendas'];
+    function handleActionClick(index, _) {
+        // console.log(index);
+
+        switch (index) {
+            case 0: {
+                alert('Visualizar');
+                break;
+            }
+            case 1: {
+                alert('Cancelar');
+                break;
+            }
+            default: {
+                throw new Error('Opção inválida');
+            }
+        }
     }
 
     const headerTextList = ['Encomendas', 'Problema', 'Ações'];
-    const actionItemTextList = ['Visualizar', 'Cancelar encomendas'];
     const showEmptyList = problemaList.length === 0;
 
     return (
