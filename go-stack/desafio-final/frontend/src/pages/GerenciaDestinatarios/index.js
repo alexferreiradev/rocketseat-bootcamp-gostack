@@ -1,50 +1,66 @@
 import React from 'react';
-import { FaAdjust } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import { FaPlus } from 'react-icons/fa';
 
-import {
-    PesquizarInput,
-    CadastrarBt,
-    FlatList,
-    ListHeader,
-    ListItem,
-} from './styles';
+import { PesquizarInput, CadastrarBt } from './styles';
 
 import Header from '../../components/Header';
-import HeaderTitle from '../../components/HeaderTitle';
+import HeaderTitle, { HeaderOptions } from '../../components/HeaderTitle';
 import Container from '../../components/Container';
+import { FlatList, ListHeader, ListItem } from '../../components/FlatList';
+import ModalContextOptions from '../../components/ModalContextOptions';
 
 function GerenciaDestinatario() {
     const handleOnChange = () => {};
+
+    function handleActionClick(action, index) {
+        // console.log(action, index);
+    }
+
+    const dataRowList = [
+        ['1', 'Nome do cidadao', 'Rua teste Goiânia goias'],
+        ['2', 'Nome do cidadao', 'Rua teste Goiânia goias'],
+    ];
+    const headerTextList = ['ID', 'Nome', 'Endereço', 'Ações'];
+    const actionItemTextList = ['Editar', 'Excluir'];
 
     return (
         <>
             <Header />
             <Container>
                 <HeaderTitle>Gerenciando Destinatários</HeaderTitle>
-                <PesquizarInput
-                    type="text"
-                    placeholder="Buscar por destinatário"
-                    onChange={handleOnChange}
-                />
-                <CadastrarBt>
-                    <FaAdjust />
-                    <span>Cadastrar</span>
-                </CadastrarBt>
+                <HeaderOptions>
+                    <PesquizarInput
+                        type="text"
+                        placeholder="Buscar por destinatário"
+                        onChange={handleOnChange}
+                    />
+                    <CadastrarBt>
+                        <Link to="/cadastrar_destinatario">
+                            <FaPlus color="#FFF" size={14} />
+                            Cadastrar
+                        </Link>
+                    </CadastrarBt>
+                </HeaderOptions>
                 <FlatList>
                     <ListHeader>
-                        <li>ID</li>
-                        <li>Nome</li>
-                        <li>Endereço</li>
-                        <li>Ações</li>
+                        {headerTextList.map((headerItem) => (
+                            <span key={headerItem}>{headerItem}</span>
+                        ))}
                     </ListHeader>
-                    <ListItem>
-                        <li>#01</li>
-                        <li>Nome do destinatário</li>
-                        <li>Av T-63, n1234, Goiânia-Goiás</li>
-                        <li>
-                            <FaAdjust />
-                        </li>
-                    </ListItem>
+                    {dataRowList.map((rowData) => (
+                        <ListItem key={rowData[0]}>
+                            {rowData.map((rowField) => (
+                                <span key={rowField}>{rowField}</span>
+                            ))}
+                            <ModalContextOptions
+                                actionItemTextList={actionItemTextList}
+                                onClick={(action, index) =>
+                                    handleActionClick(action, index)
+                                }
+                            />
+                        </ListItem>
+                    ))}
                 </FlatList>
             </Container>
         </>

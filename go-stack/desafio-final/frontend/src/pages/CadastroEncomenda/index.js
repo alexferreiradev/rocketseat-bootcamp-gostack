@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Dropdown } from 'react-bootstrap';
 
 import Header from '../../components/Header';
@@ -17,7 +18,7 @@ function CadastroEncomenda() {
             <Header />
             <Container>
                 <HeaderTitle>{headerFunctionText} de Encomendas</HeaderTitle>
-                <button type="submit">Voltar</button>
+                <Link to="/encomendas">Voltar</Link>
                 <button type="submit">Salvar</button>
                 <Form>
                     <WrapInput>

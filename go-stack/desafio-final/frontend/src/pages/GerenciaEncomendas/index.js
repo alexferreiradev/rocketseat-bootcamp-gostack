@@ -1,25 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Modal } from 'react-bootstrap';
-import { FaAdjust } from 'react-icons/fa';
+import { FaPlus } from 'react-icons/fa';
 
-import {
-    PesquizarInput,
-    CadastrarBt,
-    FlatList,
-    ListHeader,
-    ListItem,
-} from './styles';
+import { PesquizarInput, CadastrarBt } from './styles';
 
 import Header from '../../components/Header';
 import HeaderTitle, { HeaderOptions } from '../../components/HeaderTitle';
 import Container from '../../components/Container';
 import { Label } from '../../components/Form';
+import { FlatList, ListHeader, ListItem } from '../../components/FlatList';
+import ModalContextOptions from '../../components/ModalContextOptions';
 
 function GerenciaEncomenda() {
-    const handleOnChange = () => {};
-    const handleCloseSignature = () => {};
+    const [searchText, setSearchText] = useState('');
+    const [showSignature, setShowSignature] = useState(false);
 
-    const showSignature = false;
+    function handleCloseSignature() {
+        setShowSignature(false);
+    }
+
+    function handleOnChange(e) {
+        // console.log(e.target.value);
+        setSearchText(e.target.value);
+        // Buscar dados na api
+    }
+
+    function handleActionClick(action, index) {
+        // console.log(action, index);
+    }
+
+    const dataRowList = [['1', 'src/foto', 'Nome', 'exemple']];
+    const headerTextList = ['ID', 'Foto', 'Nome', 'Email', 'Ações'];
+    const actionItemTextList = ['Visualizar', 'Editar', 'Excluir'];
 
     return (
         <>
@@ -30,34 +43,35 @@ function GerenciaEncomenda() {
                     <PesquizarInput
                         type="text"
                         placeholder="Buscar por encomendas"
-                        onChange={handleOnChange}
+                        value={searchText}
+                        onChange={(e) => handleOnChange(e)}
                     />
                     <CadastrarBt>
-                        <FaAdjust />
-                        <span>Cadastrar</span>
+                        <Link to="/cadastrar_encomenda">
+                            <FaPlus />
+                            Cadastrar
+                        </Link>
                     </CadastrarBt>
                 </HeaderOptions>
                 <FlatList>
                     <ListHeader>
-                        <li>ID</li>
-                        <li>Destinatário</li>
-                        <li>Entregador</li>
-                        <li>Cidade</li>
-                        <li>Estado</li>
-                        <li>Status</li>
-                        <li>Ações</li>
+                        {headerTextList.map((headerItem) => (
+                            <span key={headerItem}>{headerItem}</span>
+                        ))}
                     </ListHeader>
-                    <ListItem>
-                        <li>#01</li>
-                        <li>Nome de Destinatário</li>
-                        <li>Entregador</li>
-                        <li>Goiania</li>
-                        <li>Goias</li>
-                        <li>Entregue</li>
-                        <li>
-                            <FaAdjust />
-                        </li>
-                    </ListItem>
+                    {dataRowList.map((rowData) => (
+                        <ListItem key={rowData[0]}>
+                            {rowData.map((rowField) => (
+                                <span key={rowField}>{rowField}</span>
+                            ))}
+                            <ModalContextOptions
+                                actionItemTextList={actionItemTextList}
+                                onClick={(action, index) =>
+                                    handleActionClick(action, index)
+                                }
+                            />
+                        </ListItem>
+                    ))}
                 </FlatList>
                 <Modal
                     show={showSignature}
@@ -81,7 +95,7 @@ function GerenciaEncomenda() {
                     </Modal.Body>
                     <Modal.Footer>
                         <Label>Assinatura do destinatário:</Label>
-                        <FaAdjust />
+                        <FaPlus />
                     </Modal.Footer>
                 </Modal>
             </Container>

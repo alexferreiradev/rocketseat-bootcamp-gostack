@@ -23,7 +23,7 @@ export default function Routes() {
                 <Route path="/encomendas" component={GerenciaEncomendas} />
                 <Route path="/problemas" component={GerenciaProblemas} />
                 <Route
-                    path="/cadastrar_encomendas"
+                    path="/cadastrar_encomenda"
                     component={CadastroEncomenda}
                 />
                 <Route

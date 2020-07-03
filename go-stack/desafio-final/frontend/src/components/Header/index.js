@@ -8,10 +8,10 @@ function Header({ userName, menuAtivo }) {
         <Container>
             <Logo />
             <Menu>
-                <li active>
+                <li>
                     <Link to="/encomendas">Encomendas</Link>
                 </li>
-                <li active={false}>
+                <li>
                     <Link to="/entregadores">Entregadores</Link>
                 </li>
                 <li>
