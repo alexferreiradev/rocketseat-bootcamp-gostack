@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Keyboard } from 'react-native';
+import { Keyboard, Text } from 'react-native';
 
 import { Container, Form, Input, SubmitButton } from './styles';
 
@@ -42,7 +42,9 @@ class InformarProblema extends Component {
             onSubmitEditing={this.handleLogin}
           />
 
-          <SubmitButton onPress={this.handleEnvio}>Enviar</SubmitButton>
+          <SubmitButton onPress={this.handleEnvio}>
+            <Text>Enviar</Text>
+          </SubmitButton>
         </Form>
       </Container>
     );

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Keyboard } from 'react-native';
+import { Keyboard, Text } from 'react-native';
 
 import { Container, Form, Input, SubmitButton, Logo } from './styles';
 
@@ -40,7 +40,7 @@ class Login extends Component {
           />
 
           <SubmitButton onPress={this.handleLogin}>
-            Entrar no sistema
+            <Text>Entrar no sistema</Text>
           </SubmitButton>
         </Form>
       </Container>

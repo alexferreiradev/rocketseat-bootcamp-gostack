@@ -35,7 +35,9 @@ class Dashboard extends Component {
   render() {
     return (
       <Container>
-        <Image>GA</Image>
+        <Image>
+          <Text>GA</Text>
+        </Image>
         <View>
           <Text>Bem vindo de volta,</Text>
           <Text>Gaspar Antunes</Text>
@@ -54,9 +56,9 @@ class Dashboard extends Component {
           keyExtractor={(encomenda) => encomenda.id}
           renderItem={({ item }) => (
             <Encomenda>
-              <Image>Caminhao</Image>
+              <Image />
               <TitleEncomenda>{`Encomenda ${item.id}`}</TitleEncomenda>
-              <View>Status encomenda</View>
+              <Text>Status encomenda</Text>
               <View>
                 <DataStartEncomenda>
                   <Label>Data</Label>

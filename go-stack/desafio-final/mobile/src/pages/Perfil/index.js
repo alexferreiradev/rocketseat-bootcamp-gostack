@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Keyboard } from 'react-native';
+import { Keyboard, Text } from 'react-native';
 
 import {
   Container,
@@ -35,7 +35,9 @@ class Perfil extends Component {
           <Label>Data de cadastro</Label>
           <LabelText>10/01/20</LabelText>
         </Dados>
-        <LogoutBt>Logout</LogoutBt>
+        <LogoutBt>
+          <Text>Logout</Text>
+        </LogoutBt>
       </Container>
     );
   }

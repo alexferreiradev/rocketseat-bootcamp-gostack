@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { View, Text } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 
 export const Container = styled.View`
@@ -19,16 +20,16 @@ export const Encomenda = styled.View`
 export const List = styled.View`
   flex: 1;
 `;
-export const TitleEncomenda = styled.View`
+export const TitleEncomenda = styled(Text)`
   flex: 1;
 `;
 export const DataStartEncomenda = styled.View`
   flex: 1;
 `;
-export const Label = styled.View`
+export const Label = styled(Text)`
   flex: 1;
 `;
-export const LabelText = styled.View`
+export const LabelText = styled(Text)`
   flex: 1;
 `;
 export const CidadeEncomenda = styled.View`
@@ -37,6 +38,6 @@ export const CidadeEncomenda = styled.View`
 export const DetalhesButton = styled.View`
   flex: 1;
 `;
-export const DetalhesButtonText = styled.View`
+export const DetalhesButtonText = styled(Text)`
   flex: 1;
 `;

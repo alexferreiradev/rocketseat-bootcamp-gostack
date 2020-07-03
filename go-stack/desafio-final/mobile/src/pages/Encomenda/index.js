@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 
 import {
   Container,
@@ -24,7 +24,7 @@ const Encomenda = ({ navigation, route }) => {
     <Container>
       <Informacoes>
         <ImageCaminhao />
-        Informações da entrega
+        <Text>Informações da entrega</Text>
         <Label>Destinatário</Label>
         <LabelText>Ludwing van Beethoven</LabelText>
         <Label>Endereço de entrega</Label>
@@ -43,7 +43,9 @@ const Encomenda = ({ navigation, route }) => {
         <LabelText>--/--/--</LabelText>
       </Situacao>
       <EncomendaOptions>
-        Informar problema Visualizar Confirmar entrega
+        <Text>Informar problema</Text>
+        <Text>Visualizar</Text>
+        <Text>Confirmar entrega</Text>
       </EncomendaOptions>
       <View />
       <FooterMenu />

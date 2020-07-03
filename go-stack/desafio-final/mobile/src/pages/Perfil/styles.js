@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { View, Text } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 
 export const Container = styled.View`
@@ -15,11 +16,11 @@ export const Dados = styled.View`
   flex: 1;
 `;
 
-export const Label = styled.View`
+export const Label = styled(Text)`
   flex: 1;
 `;
 
-export const LabelText = styled.View`
+export const LabelText = styled(Text)`
   flex: 1;
 `;
 

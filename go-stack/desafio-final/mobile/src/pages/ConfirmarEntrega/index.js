@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Keyboard } from 'react-native';
+import { Keyboard, Text } from 'react-native';
 
 import { Container, ImageBackground, ImageBt, SubmitButton } from './styles';
 
@@ -34,7 +34,9 @@ class ConfirmarEntrega extends Component {
           <ImageBt />
         </ImageBackground>
 
-        <SubmitButton onPress={this.handleEnvio}>Enviar</SubmitButton>
+        <SubmitButton onPress={this.handleEnvio}>
+          <Text>Enviar</Text>
+        </SubmitButton>
       </Container>
     );
   }
