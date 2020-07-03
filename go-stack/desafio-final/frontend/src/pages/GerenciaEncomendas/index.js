@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Modal } from 'react-bootstrap';
 import { FaPlus } from 'react-icons/fa';
 
 import { PesquizarInput, CadastrarBt } from './styles';
 
+import api from '../../services/api';
 import Header from '../../components/Header';
 import HeaderTitle, { HeaderOptions } from '../../components/HeaderTitle';
 import Container from '../../components/Container';
@@ -15,6 +16,19 @@ import ModalContextOptions from '../../components/ModalContextOptions';
 function GerenciaEncomenda() {
     const [searchText, setSearchText] = useState('');
     const [showSignature, setShowSignature] = useState(false);
+    const [encomendaList, setEncomendaList] = useState([]);
+
+    async function fetchData() {
+        const res = await api.get('/encomendas');
+        // console.log(res);
+        if (res.data) {
+            setEncomendaList([...res.data]);
+        }
+    }
+
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     function handleCloseSignature() {
         setShowSignature(false);
@@ -26,13 +40,31 @@ function GerenciaEncomenda() {
         // Buscar dados na api
     }
 
-    function handleActionClick(action, index) {
-        // console.log(action, index);
+    const actionItemTextList = ['Visualizar', 'Editar', 'Excluir'];
+    function handleActionClick(index, _) {
+        // console.log(index);
+
+        switch (index) {
+            case 0: {
+                alert('Visualizar');
+                break;
+            }
+            case 1: {
+                alert('Edit');
+                break;
+            }
+            case 2: {
+                alert('Excluir');
+                break;
+            }
+            default: {
+                throw new Error('Opção inválida');
+            }
+        }
     }
 
-    const dataRowList = [['1', 'src/foto', 'Nome', 'exemple']];
     const headerTextList = ['ID', 'Foto', 'Nome', 'Email', 'Ações'];
-    const actionItemTextList = ['Visualizar', 'Editar', 'Excluir'];
+    const showEmptyList = encomendaList.length === 0;
 
     return (
         <>
@@ -56,18 +88,22 @@ function GerenciaEncomenda() {
                 <FlatList>
                     <ListHeader>
                         {headerTextList.map((headerItem) => (
-                            <span key={headerItem}>{headerItem}</span>
+                            <li key={headerItem}>{headerItem}</li>
                         ))}
                     </ListHeader>
-                    {dataRowList.map((rowData) => (
-                        <ListItem key={rowData[0]}>
-                            {rowData.map((rowField) => (
-                                <span key={rowField}>{rowField}</span>
-                            ))}
+                    {showEmptyList && (
+                        <ListItem>Não há dados cadastrados</ListItem>
+                    )}
+                    {encomendaList.map((encomenda) => (
+                        <ListItem key={encomenda.id}>
+                            <span>{encomenda.id}</span>
+                            <span>{encomenda.foto}</span>
+                            <span>{encomenda.nome}</span>
+                            <span>{encomenda.email}</span>
                             <ModalContextOptions
                                 actionItemTextList={actionItemTextList}
-                                onClick={(action, index) =>
-                                    handleActionClick(action, index)
+                                onClick={(index, action) =>
+                                    handleActionClick(index, action)
                                 }
                             />
                         </ListItem>

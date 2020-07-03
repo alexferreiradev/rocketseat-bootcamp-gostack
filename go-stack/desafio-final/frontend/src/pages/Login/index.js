@@ -10,7 +10,7 @@ function Login() {
     function handleEmailChange() {}
     function handleSenhaChange() {}
     function handleLogin() {
-        history.push('/gerencia_encomendas');
+        history.push('/encomendas');
     }
     const email = '';
     const senha = '';

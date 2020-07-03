@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal } from 'react-bootstrap';
 
+import api from '../../services/api';
 import Header from '../../components/Header';
 import HeaderTitle from '../../components/HeaderTitle';
 import Container from '../../components/Container';
@@ -10,18 +11,31 @@ import ModalContextOptions from '../../components/ModalContextOptions';
 
 function GerenciaProblemas() {
     const [showProblema, setShowProblema] = useState(false);
+    const [problemaList, setProblemaList] = useState([]);
     const handleCloseProblema = (e) => {
         e.preventDefault();
         setShowProblema(false);
     };
 
+    async function fetchData() {
+        const res = await api.get('/problemas');
+        // console.log(res);
+        if (res.data) {
+            setProblemaList([...res.data]);
+        }
+    }
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
     function handleActionClick(action, index) {
         // console.log(action, index);
     }
 
-    const dataRowList = [['1', 'Problema descrito muito grande']];
     const headerTextList = ['Encomendas', 'Problema', 'Ações'];
     const actionItemTextList = ['Visualizar', 'Cancelar encomendas'];
+    const showEmptyList = problemaList.length === 0;
 
     return (
         <>
@@ -31,14 +45,16 @@ function GerenciaProblemas() {
                 <FlatList>
                     <ListHeader>
                         {headerTextList.map((headerItem) => (
-                            <span key={headerItem}>{headerItem}</span>
+                            <li key={headerItem}>{headerItem}</li>
                         ))}
                     </ListHeader>
-                    {dataRowList.map((rowData) => (
-                        <ListItem key={rowData[0]}>
-                            {rowData.map((rowField) => (
-                                <span key={rowField}>{rowField}</span>
-                            ))}
+                    {showEmptyList && (
+                        <ListItem>Não há dados cadastrados</ListItem>
+                    )}
+                    {problemaList.map((problema) => (
+                        <ListItem key={problema.id}>
+                            <span key={problema.id}>{problema.id}</span>
+                            <span>{problema.descricao}</span>
                             <ModalContextOptions
                                 actionItemTextList={actionItemTextList}
                                 onClick={(action, index) =>
