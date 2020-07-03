@@ -9,7 +9,7 @@ module.exports = {
           autoIncrement: true
         },
         avatar_id: {
-          type: Sequelize.STRING,
+          type: Sequelize.BIGINT,
           allowNull: false,
           unique: true
         },

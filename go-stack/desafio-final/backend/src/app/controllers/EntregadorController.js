@@ -41,6 +41,18 @@ class EntregadorController {
 
         return res.json({model});
     }
+    
+    async entregas(req, res) {
+        const id = parseInt(req.params.id);
+        var model = await Entregador.findByPk(id);
+        if (!model){
+            return res.json({ error: `Entregador nao encontrado com ${id}`});
+        }
+
+        model = await model.entregas;
+
+        return res.json({model});
+    }
 }
 
 export default new EntregadorController();
