@@ -14,7 +14,7 @@ import {
   Label,
   LabelText,
   CidadeEncomenda,
-  Detalhesutton,
+  DetalhesButton,
   DetalhesButtonText,
 } from './styles';
 import FooterMenu from '../../components/FooterMenu';
@@ -66,13 +66,13 @@ class Dashboard extends Component {
                   <Label>Cidade</Label>
                   <LabelText>{item.cidade}</LabelText>
                 </CidadeEncomenda>
-                <Detalhesutton
+                <DetalhesButton
                   onPress={() => {
                     this.handleDetalhes(item);
                   }}
                 >
                   <DetalhesButtonText>Ver detalhes</DetalhesButtonText>
-                </Detalhesutton>
+                </DetalhesButton>
               </View>
             </Encomenda>
           )}

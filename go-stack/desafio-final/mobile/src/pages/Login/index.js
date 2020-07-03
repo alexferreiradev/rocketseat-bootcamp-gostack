@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Keyboard } from 'react-native';
 
-import { Container, Form, Input, SubmitButton } from './styles';
+import { Container, Form, Input, SubmitButton, Logo } from './styles';
 
 import api from '../../services/api';
 
