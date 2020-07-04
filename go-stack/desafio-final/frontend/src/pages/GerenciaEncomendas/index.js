@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Modal } from 'react-bootstrap';
 import { FaPlus } from 'react-icons/fa';
@@ -18,7 +17,6 @@ function GerenciaEncomenda() {
     const [searchText, setSearchText] = useState('');
     const [showSignature, setShowSignature] = useState(false);
     const [encomendaList, setEncomendaList] = useState([]);
-    const userState = useSelector((state) => state.user);
 
     async function fetchData() {
         const res = await api.get('/encomendas');

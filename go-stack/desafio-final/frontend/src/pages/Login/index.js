@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 
 import { Background, Logo, LogoText, SubmitButton } from './styles';
 import { Form, Label, Input } from '../../components/Form';
@@ -9,7 +8,6 @@ import * as UserActions from '../../store/modules/user/actions';
 
 function Login() {
     const dispatch = useDispatch();
-    const history = useHistory();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -24,8 +22,7 @@ function Login() {
         setPassword(newValue);
     }
     function handleLogin() {
-        // dispatch(UserActions.doLoginReq(email, password));
-        history.push('/encomendas');
+        dispatch(UserActions.doLoginReq(email, password));
     }
 
     return (
