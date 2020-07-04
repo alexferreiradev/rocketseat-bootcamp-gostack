@@ -34,7 +34,7 @@ const Encomenda = ({ navigation, route }) => {
       </Informacoes>
       <Situacao>
         <ImageCaminhao />
-        Informações da entrega
+        <Text>Informações da entrega</Text>
         <Label>Status</Label>
         <LabelText>Pendente</LabelText>
         <Label>Data de retirada</Label>
