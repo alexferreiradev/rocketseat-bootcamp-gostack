@@ -1,19 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import { Background, Logo, LogoText, SubmitButton } from './styles';
 import { Form, Label, Input } from '../../components/Form';
 import Container from '../../components/Container';
+import * as UserActions from '../../store/modules/user/actions';
 
 function Login() {
+    const dispatch = useDispatch();
     const history = useHistory();
-    function handleEmailChange() {}
-    function handleSenhaChange() {}
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    function handleEmailChange(ev) {
+        ev.preventDefault();
+        const { value: newValue } = ev.target;
+        setEmail(newValue);
+    }
+    function handleSenhaChange(ev) {
+        ev.preventDefault();
+        const { value: newValue } = ev.target;
+        setPassword(newValue);
+    }
     function handleLogin() {
+        // dispatch(UserActions.doLoginReq(email, password));
         history.push('/encomendas');
     }
-    const email = '';
-    const senha = '';
+
     return (
         <Background>
             <Container>
@@ -25,14 +39,14 @@ function Login() {
                         type="text"
                         placeholder="exemple@dominio.com"
                         value={email}
-                        onChange={handleEmailChange}
+                        onChange={(e) => handleEmailChange(e)}
                     />
                     <Label>Sua senha</Label>
                     <Input
                         type="password"
                         placeholder="Sua senha"
-                        value={senha}
-                        onChange={handleSenhaChange}
+                        value={password}
+                        onChange={(e) => handleSenhaChange(e)}
                     />
 
                     <SubmitButton>
