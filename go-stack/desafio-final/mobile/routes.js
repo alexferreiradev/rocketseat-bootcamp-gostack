@@ -1,7 +1,9 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { DefaultTheme } from 'react-native-paper';
 
 import Dashboard from './src/pages/Dashboard';
 import Login from './src/pages/Login';
@@ -33,6 +35,14 @@ function Routes() {
           component={TabsComponents}
           options={{ title: '' }}
         />
+        <Stack.Screen
+          name="Encomenda"
+          component={Encomenda}
+          initialParams={{ encomenda: 'Encomendas' }}
+        />
+        <Stack.Screen name="ConfirmarEntrega" component={ConfirmarEntrega} />
+        <Stack.Screen name="Problema" component={Problema} />
+        <Stack.Screen name="InformarProblema" component={InformarProblema} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -41,19 +51,43 @@ function Routes() {
 function TabsComponents() {
   const Bottom = createMaterialBottomTabNavigator();
 
+  const theme = {
+    ...DefaultTheme,
+    roundness: 2,
+    colors: {
+      ...DefaultTheme.colors,
+      primary: '#fff',
+      accent: '#7D40E7',
+    },
+  };
+
   return (
-    <Bottom.Navigator>
-      <Bottom.Screen name="Dashboard" component={Dashboard} />
+    <Bottom.Navigator
+      theme={theme}
+      activeColor="#7D40E7"
+      inactiveColor="#999999"
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ color, size }) => {
+          const icons = {
+            Dashboard: 'reorder',
+            Perfil: 'account-circle',
+          };
+
+          return <Icon name={icons[route.name]} color={color} size={size} />;
+        },
+      })}
+    >
       <Bottom.Screen
-        name="Encomenda"
-        component={Encomenda}
-        options={{ tabBarColor: '#ccc', tabBarLabel: 'Teste' }}
-        initialParams={{ encomenda: 'Encomendas' }}
+        name="Dashboard"
+        component={Dashboard}
+        size={24}
+        options={{ tabBarLabel: 'Entregas' }}
       />
-      <Bottom.Screen name="ConfirmarEntrega" component={ConfirmarEntrega} />
-      <Bottom.Screen name="Problema" component={Problema} />
-      <Bottom.Screen name="InformarProblema" component={InformarProblema} />
-      <Bottom.Screen name="Perfil" component={Perfil} />
+      <Bottom.Screen
+        name="Perfil"
+        component={Perfil}
+        options={{ tabBarLabel: 'Meu Perfil' }}
+      />
     </Bottom.Navigator>
   );
 }
