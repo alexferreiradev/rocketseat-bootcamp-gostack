@@ -17,6 +17,8 @@ const Problema = ({ navigation, route }) => {
     title: 'Detalhes da encomenda',
   });
 
+  const encomenda = { id: 1 };
+
   return (
     <Container>
       <Title>{`Encomenda ${encomenda.id}`}</Title>
@@ -28,17 +30,21 @@ const Problema = ({ navigation, route }) => {
               descricao: 'Destinatario ausente',
               data: '14/01/2020',
             },
+            {
+              id: 2,
+              descricao: 'Destinatario ausente',
+              data: '14/01/2020',
+            },
           ]}
           keyExtractor={(problema) => problema.id}
           renderItem={({ item }) => (
             <ProblemaView>
-              <Descricao />
-              <Data />
+              <Descricao>{item.descricao}</Descricao>
+              <Data>{item.data}</Data>
             </ProblemaView>
           )}
         />
       </View>
-      <FooterMenu />
     </Container>
   );
 };

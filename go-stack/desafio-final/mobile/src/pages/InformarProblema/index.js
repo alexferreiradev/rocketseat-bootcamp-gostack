@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Keyboard, Text } from 'react-native';
 
-import { Container, Form, Input, SubmitButton } from './styles';
+import { Container, Input, SubmitButton, SubmitButtonText } from './styles';
 
 import api from '../../services/api';
 
@@ -31,21 +31,19 @@ class InformarProblema extends Component {
 
     return (
       <Container>
-        <Form>
-          <Input
-            autoCorrect={false}
-            autoCapitalize="none"
-            placeholder="Inclua aqui seu problema que ocorreu na entrega"
-            value={idCadastro}
-            onChangeText={(text) => this.setState({ idCadastro: text })}
-            returnKeyType="send"
-            onSubmitEditing={this.handleLogin}
-          />
+        <Input
+          autoCorrect={false}
+          autoCapitalize="none"
+          placeholder="Inclua aqui seu problema que ocorreu na entrega"
+          value={idCadastro}
+          onChangeText={(text) => this.setState({ idCadastro: text })}
+          returnKeyType="send"
+          onSubmitEditing={this.handleLogin}
+        />
 
-          <SubmitButton onPress={this.handleEnvio}>
-            <Text>Enviar</Text>
-          </SubmitButton>
-        </Form>
+        <SubmitButton onPress={this.handleEnvio}>
+          <SubmitButtonText>Enviar</SubmitButtonText>
+        </SubmitButton>
       </Container>
     );
   }

@@ -7,14 +7,22 @@ export const Container = styled.View`
   background: #eee;
 `;
 
-export const Form = styled.View`
-  flex: 1;
-`;
-
-export const Input = styled.View`
-  flex: 1;
+export const Input = styled.TextInput`
+  min-height: 300px;
+  border: 1px solid #0000001a;
+  justify-content: flex-start;
+  border-radius: 4px;
 `;
 
 export const SubmitButton = styled(RectButton)`
-  flex: 1;
+  background-color: #7d40e7;
+  padding: 10px;
+  align-items: center;
+  margin-top: 24px;
+  border-radius: 3px;
+`;
+export const SubmitButtonText = styled.Text`
+  font-weight: bold;
+  color: #fff;
+  justify-content: center;
 `;

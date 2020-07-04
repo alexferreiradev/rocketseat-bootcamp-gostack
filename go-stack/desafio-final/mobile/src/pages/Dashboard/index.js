@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Keyboard, View, Text } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { Keyboard, Text } from 'react-native';
 
 import api from '../../services/api';
 import {
@@ -10,23 +11,28 @@ import {
   NameText,
   Image,
   ImageText,
-  SairBt,
   EntregaList,
   ListHeader,
   FilterText,
   ListTitle,
   ListFilter,
   Encomenda,
+  EncomendaStatus,
+  StatusBox,
+  StatusRowBox,
+  StatusPoint,
+  LinhaStatus,
+  StatusText,
+  InfoHeader,
+  InfoTitle,
   List,
-  TitleEncomenda,
-  DataStartEncomenda,
+  EncomendaFooter,
   Label,
   LabelText,
-  CidadeEncomenda,
+  FooterBlock,
   DetalhesButton,
   DetalhesButtonText,
 } from './styles';
-import FooterMenu from '../../components/FooterMenu';
 
 class Dashboard extends Component {
   constructor() {
@@ -52,7 +58,7 @@ class Dashboard extends Component {
             <Text>Bem vindo de volta,</Text>
             <NameText>Gaspar Antunes</NameText>
           </Welcome>
-          <SairBt>Sair</SairBt>
+          <Icon name="exit-to-app" color="#E74040" size={24} />
         </Header>
 
         <EntregaList>
@@ -71,22 +77,52 @@ class Dashboard extends Component {
                 data: '14/01/2020',
                 cidade: 'Goiânia',
               },
+              {
+                id: 2,
+                status: 'entregue',
+                data: '14/01/2020',
+                cidade: 'Goiânia',
+              },
+              {
+                id: 3,
+                status: 'entregue',
+                data: '14/01/2020',
+                cidade: 'Goiânia',
+              },
             ]}
             keyExtractor={(encomenda) => encomenda.id}
             renderItem={({ item }) => (
               <Encomenda>
-                <Image />
-                <TitleEncomenda>{`Encomenda ${item.id}`}</TitleEncomenda>
-                <Text>Status encomenda</Text>
-                <View>
-                  <DataStartEncomenda>
+                <InfoHeader>
+                  <Icon name="local-shipping" color="#7159c1" size={24} />
+                  <InfoTitle>{`Encomenda ${item.id}`}</InfoTitle>
+                </InfoHeader>
+                <EncomendaStatus>
+                  <LinhaStatus />
+                  <StatusRowBox>
+                    <StatusBox>
+                      <StatusPoint />
+                      <StatusText>Aguardando Retirada</StatusText>
+                    </StatusBox>
+                    <StatusBox>
+                      <StatusPoint />
+                      <StatusText>Retirada</StatusText>
+                    </StatusBox>
+                    <StatusBox>
+                      <StatusPoint />
+                      <StatusText>Entregue</StatusText>
+                    </StatusBox>
+                  </StatusRowBox>
+                </EncomendaStatus>
+                <EncomendaFooter>
+                  <FooterBlock>
                     <Label>Data</Label>
                     <LabelText>{item.data}</LabelText>
-                  </DataStartEncomenda>
-                  <CidadeEncomenda>
+                  </FooterBlock>
+                  <FooterBlock>
                     <Label>Cidade</Label>
                     <LabelText>{item.cidade}</LabelText>
-                  </CidadeEncomenda>
+                  </FooterBlock>
                   <DetalhesButton
                     onPress={() => {
                       this.handleDetalhes(item);
@@ -94,12 +130,11 @@ class Dashboard extends Component {
                   >
                     <DetalhesButtonText>Ver detalhes</DetalhesButtonText>
                   </DetalhesButton>
-                </View>
+                </EncomendaFooter>
               </Encomenda>
             )}
           />
         </EntregaList>
-        <FooterMenu>Entregas Meu Perfil</FooterMenu>
       </Container>
     );
   }

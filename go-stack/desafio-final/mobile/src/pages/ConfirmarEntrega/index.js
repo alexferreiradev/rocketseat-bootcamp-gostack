@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Keyboard, Text } from 'react-native';
 
-import { Container, ImageBackground, ImageBt, SubmitButton } from './styles';
+import {
+  Container,
+  ImageBackground,
+  ImageBt,
+  SubmitButton,
+  SubmitButtonText,
+} from './styles';
 
 import api from '../../services/api';
 
@@ -31,11 +38,13 @@ class ConfirmarEntrega extends Component {
     return (
       <Container>
         <ImageBackground>
-          <ImageBt />
+          <ImageBt>
+            <Icon name="photo-camera" size={24} color="#fff" />
+          </ImageBt>
         </ImageBackground>
 
         <SubmitButton onPress={this.handleEnvio}>
-          <Text>Enviar</Text>
+          <SubmitButtonText>Enviar</SubmitButtonText>
         </SubmitButton>
       </Container>
     );

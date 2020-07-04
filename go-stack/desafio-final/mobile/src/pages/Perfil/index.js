@@ -5,10 +5,12 @@ import { Keyboard, Text } from 'react-native';
 import {
   Container,
   PerfilImg,
+  ImageText,
   Dados,
   Label,
   LabelText,
   LogoutBt,
+  LogoutBtText,
 } from './styles';
 
 import api from '../../services/api';
@@ -26,7 +28,9 @@ class Perfil extends Component {
   render() {
     return (
       <Container>
-        <PerfilImg />
+        <PerfilImg>
+          <ImageText>GA</ImageText>
+        </PerfilImg>
         <Dados>
           <Label>Nome Completo</Label>
           <LabelText>Nome Antunes</LabelText>
@@ -36,7 +40,7 @@ class Perfil extends Component {
           <LabelText>10/01/20</LabelText>
         </Dados>
         <LogoutBt>
-          <Text>Logout</Text>
+          <LogoutBtText>Logout</LogoutBtText>
         </LogoutBt>
       </Container>
     );
