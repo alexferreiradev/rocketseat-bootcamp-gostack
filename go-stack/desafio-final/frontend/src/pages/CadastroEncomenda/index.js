@@ -10,16 +10,19 @@ import api from '../../services/api';
 
 function CadastroEncomenda() {
     const history = useHistory();
-    const [nomeProduto, setNomeProduto] = useState('');
+    const [encomenda] = useState({
+        nomeProduto: '',
+        entregadorId: undefined,
+        destinatarioId: undefined,
+    });
     const editing = false;
     const headerFunctionText = editing ? 'Edição' : 'Cadastro';
 
-    async function handleSave(e) {
-        e.preventDefault();
-        const encomenda = {
-            destinatario: '',
+    async function handleSave(data) {
+        const encomendaNew = {
+            ...data,
         };
-        const res = api.post('/encomenda', encomenda);
+        const res = await api.post('/encomendas', encomendaNew);
         if (res.status === 201) {
             history.push('/encomendas');
         }
@@ -32,16 +35,14 @@ function CadastroEncomenda() {
             <Container>
                 <HeaderTitle>{headerFunctionText} de Encomendas</HeaderTitle>
                 <Link to="/encomendas">Voltar</Link>
-                <button type="submit" onClick={(e) => handleSave(e)}>
-                    Salvar
-                </button>
-                <Form onSubmit={handleSave}>
+                <Form initialData={encomenda} onSubmit={handleSave}>
+                    <button type="submit">Salvar</button>
                     <WrapInput>
                         <Label>Destinatário</Label>
                         <Dropdown>
                             <Dropdown.Toggle
                                 variant="success"
-                                id="dropdown-basic"
+                                id="dropdown-basic-destinatario"
                             >
                                 Escolha seu destinatário
                             </Dropdown.Toggle>
@@ -59,7 +60,7 @@ function CadastroEncomenda() {
                         <Dropdown>
                             <Dropdown.Toggle
                                 variant="success"
-                                id="dropdown-basic"
+                                id="dropdown-basic-entregador"
                             >
                                 Escolha seu entregador
                             </Dropdown.Toggle>
@@ -74,14 +75,7 @@ function CadastroEncomenda() {
                     </WrapInput>
                     <WrapInput>
                         <Label>Nome do produto</Label>
-                        <Input
-                            placeholder="Seu produto"
-                            value={nomeProduto}
-                            onChange={(e) => {
-                                const { value } = e.target;
-                                setNomeProduto(value);
-                            }}
-                        />
+                        <Input name="nomeProduto" placeholder="Seu produto" />
                     </WrapInput>
                 </Form>
             </Container>

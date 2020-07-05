@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { Form as RSForm, Input as RSInput } from '@rocketseat/unform';
 
-export const Form = styled.form`
+export const Form = styled(RSForm)`
     padding: 10px;
     background: #fff;
 `;
@@ -16,7 +17,7 @@ export const Label = styled.label`
     text-captalize: true;
 `;
 
-export const Input = styled.input`
+export const Input = styled(RSInput)`
     min-height: 45px;
     color: #eee;
     background: #ffffff 0% 0% no-repeat padding-box;
