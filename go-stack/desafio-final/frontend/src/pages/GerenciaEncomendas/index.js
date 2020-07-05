@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Modal } from 'react-bootstrap';
 import { FaPlus } from 'react-icons/fa';
 
@@ -18,6 +18,7 @@ function GerenciaEncomenda() {
     const [showSignature, setShowSignature] = useState(false);
     const [encomendaList, setEncomendaList] = useState([]);
 
+    const history = useHistory();
     function processListData(res) {
         if (res.data) {
             setEncomendaList([...res.data]);
@@ -55,16 +56,18 @@ function GerenciaEncomenda() {
     }, []);
 
     const actionItemTextList = ['Visualizar', 'Editar', 'Excluir'];
-    function handleActionClick(index, _) {
+    function handleActionClick(index, action, data) {
         // console.log(index);
 
         switch (index) {
             case 0: {
-                alert('Visualizar');
+                alert(`Visualizar${data.id}`);
+                setShowSignature(true);
                 break;
             }
             case 1: {
                 alert('Edit');
+                history.push(`/cadastrar_encomenda/${data.id}`);
                 break;
             }
             case 2: {
@@ -117,7 +120,7 @@ function GerenciaEncomenda() {
                             <ModalContextOptions
                                 actionItemTextList={actionItemTextList}
                                 onClick={(index, action) =>
-                                    handleActionClick(index, action)
+                                    handleActionClick(index, action, encomenda)
                                 }
                             />
                         </ListItem>

@@ -36,6 +36,11 @@ export default function Routes() {
                 isPrivate
             />
             <Route
+                path="/cadastrar_encomenda/:id"
+                component={CadastroEncomenda}
+                isPrivate
+            />
+            <Route
                 path="/cadastrar_entregador"
                 component={CadastroEntregador}
                 isPrivate

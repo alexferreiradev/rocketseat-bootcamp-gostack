@@ -1,16 +1,29 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { Dropdown } from 'react-bootstrap';
 
 import Header from '../../components/Header';
 import HeaderTitle from '../../components/HeaderTitle';
 import Container from '../../components/Container';
 import { Form, Label, Input, WrapInput } from '../../components/Form';
+import api from '../../services/api';
 
 function CadastroEncomenda() {
-    const editing = true;
+    const history = useHistory();
+    const [nomeProduto, setNomeProduto] = useState('');
+    const editing = false;
     const headerFunctionText = editing ? 'Edição' : 'Cadastro';
 
+    async function handleSave(e) {
+        e.preventDefault();
+        const encomenda = {
+            destinatario: '',
+        };
+        const res = api.post('/encomenda', encomenda);
+        if (res.status === 201) {
+            history.push('/encomendas');
+        }
+    }
     const entregadorList = ['1 - entregador'];
 
     return (
@@ -19,11 +32,27 @@ function CadastroEncomenda() {
             <Container>
                 <HeaderTitle>{headerFunctionText} de Encomendas</HeaderTitle>
                 <Link to="/encomendas">Voltar</Link>
-                <button type="submit">Salvar</button>
-                <Form>
+                <button type="submit" onClick={(e) => handleSave(e)}>
+                    Salvar
+                </button>
+                <Form onSubmit={handleSave}>
                     <WrapInput>
                         <Label>Destinatário</Label>
-                        <Input placeholder="Seu destinatário" />
+                        <Dropdown>
+                            <Dropdown.Toggle
+                                variant="success"
+                                id="dropdown-basic"
+                            >
+                                Escolha seu destinatário
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                {entregadorList.map((destinatario) => (
+                                    <Dropdown.Item href={`#/${destinatario}`}>
+                                        {`${destinatario.id}-${destinatario.nome}`}
+                                    </Dropdown.Item>
+                                ))}
+                            </Dropdown.Menu>
+                        </Dropdown>
                     </WrapInput>
                     <WrapInput>
                         <Label>Entregador</Label>
@@ -37,7 +66,7 @@ function CadastroEncomenda() {
                             <Dropdown.Menu>
                                 {entregadorList.map((entregador) => (
                                     <Dropdown.Item href={`#/${entregador}`}>
-                                        {entregador}
+                                        {`${entregador.id}-${entregador.nome}`}
                                     </Dropdown.Item>
                                 ))}
                             </Dropdown.Menu>
@@ -45,7 +74,14 @@ function CadastroEncomenda() {
                     </WrapInput>
                     <WrapInput>
                         <Label>Nome do produto</Label>
-                        <Input placeholder="Seu produto" />
+                        <Input
+                            placeholder="Seu produto"
+                            value={nomeProduto}
+                            onChange={(e) => {
+                                const { value } = e.target;
+                                setNomeProduto(value);
+                            }}
+                        />
                     </WrapInput>
                 </Form>
             </Container>
