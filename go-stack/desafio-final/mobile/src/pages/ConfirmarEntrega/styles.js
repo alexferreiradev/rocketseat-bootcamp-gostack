@@ -1,11 +1,13 @@
 import styled from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
+import { Form as RSForm } from '@unform/mobile';
 
 export const Container = styled.View`
   flex: 1;
   padding: 30px;
   background: #fff;
 `;
+export const Form = styled(RSForm)``;
 
 export const ImageBackground = styled.View`
   flex: 1;

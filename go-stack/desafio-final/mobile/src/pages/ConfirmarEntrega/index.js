@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { Keyboard, Text } from 'react-native';
+import { Keyboard } from 'react-native';
 
 import {
   Container,
+  Form,
   ImageBackground,
   ImageBt,
   SubmitButton,
@@ -13,42 +14,43 @@ import {
 
 import api from '../../services/api';
 
-class ConfirmarEntrega extends Component {
-  constructor() {
-    super();
-    this.state = {
-      idCadastro: '',
-    };
-  }
-
-  handleEnvio = async () => {
-    const { navigation } = this.props;
-
-    navigation.navigate('Dashboard');
-
-    Keyboard.dismiss();
+function ConfirmarEntrega({ navigation }) {
+  const encomenda = {
+    id: 1,
   };
 
-  render() {
-    const navigation = this.props.navigation;
-    navigation.setOptions({
-      title: 'Confirmar Entrega',
-    });
+  async function handleEnvio({ problema }) {
+    const encomendaNew = {
+      ...encomenda,
+      status: 'entregue',
+      dataEntrega: new Date(),
+    };
+    const res = await api.put('/encomendas/' + encomenda.id, encomendaNew);
+    if (res.status === 200) {
+      navigation.navigate('Dashboard');
+      Keyboard.dismiss();
+    }
+  }
 
-    return (
-      <Container>
+  navigation.setOptions({
+    title: 'Confirmar Entrega',
+  });
+
+  return (
+    <Container>
+      <Form onPress={handleEnvio}>
         <ImageBackground>
           <ImageBt>
             <Icon name="photo-camera" size={24} color="#fff" />
           </ImageBt>
         </ImageBackground>
 
-        <SubmitButton onPress={this.handleEnvio}>
+        <SubmitButton>
           <SubmitButtonText>Enviar</SubmitButtonText>
         </SubmitButton>
-      </Container>
-    );
-  }
+      </Form>
+    </Container>
+  );
 }
 ConfirmarEntrega.propTypes = {
   navigation: PropTypes.shape({
