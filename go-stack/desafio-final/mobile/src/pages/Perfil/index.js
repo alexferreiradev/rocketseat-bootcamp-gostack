@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Keyboard, Text } from 'react-native';
+import { doLogoutReq } from '../../store/modules/user/actions';
 
 import {
   Container,
@@ -13,38 +14,32 @@ import {
   LogoutBtText,
 } from './styles';
 
-import api from '../../services/api';
+function Perfil() {
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state);
 
-class Perfil extends Component {
-  constructor() {
-    super();
-    this.state = {
-      idCadastro: '',
-    };
+  function handleExit() {
+    dispatch(doLogoutReq());
   }
 
-  handleLogout = async () => {};
-
-  render() {
-    return (
-      <Container>
-        <PerfilImg>
-          <ImageText>GA</ImageText>
-        </PerfilImg>
-        <Dados>
-          <Label>Nome Completo</Label>
-          <LabelText>Nome Antunes</LabelText>
-          <Label>Email</Label>
-          <LabelText>exemplo@gmail.com</LabelText>
-          <Label>Data de cadastro</Label>
-          <LabelText>10/01/20</LabelText>
-        </Dados>
-        <LogoutBt>
-          <LogoutBtText>Logout</LogoutBtText>
-        </LogoutBt>
-      </Container>
-    );
-  }
+  return (
+    <Container>
+      <PerfilImg>
+        <ImageText>GA</ImageText>
+      </PerfilImg>
+      <Dados>
+        <Label>Nome Completo</Label>
+        <LabelText>{user.nome}</LabelText>
+        <Label>Email</Label>
+        <LabelText>{user.email}</LabelText>
+        <Label>Data de cadastro</Label>
+        <LabelText>{user.data}</LabelText>
+      </Dados>
+      <LogoutBt onPress={handleExit}>
+        <LogoutBtText>Logout</LogoutBtText>
+      </LogoutBt>
+    </Container>
+  );
 }
 Perfil.propTypes = {
   navigation: PropTypes.shape({
