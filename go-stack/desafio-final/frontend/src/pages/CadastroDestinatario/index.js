@@ -33,7 +33,7 @@ function CadastroDestinatario() {
         if (editing) {
             fetchEditingData();
         }
-    }, []);
+    }, [id]);
 
     function handleBack() {
         history.goBack();

@@ -32,7 +32,7 @@ function CadastroEncomenda() {
         if (editing) {
             fetchEditingData();
         }
-    }, []);
+    }, [id]);
 
     async function handleSave(data) {
         const encomendaNew = {

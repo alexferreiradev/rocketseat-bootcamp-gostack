@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaAdjust } from 'react-icons/fa';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import { SelecaoFoto } from './styles';
 
@@ -12,8 +12,26 @@ import api from '../../services/api';
 
 function CadastroEntregador() {
     const history = useHistory();
+    const { id } = useParams();
 
-    const [entregador] = useState({ nome: '', email: '' });
+    const editing = !!id;
+    const headerFunctionText = editing ? 'Edição' : 'Cadastro';
+
+    const [entregador, setEntregador] = useState({ nome: '', email: '' });
+
+    async function fetchEditingData() {
+        const res = await api.get(`/entregadores/${id}`);
+        if (res.data) {
+            setEntregador({ ...res.data });
+        }
+    }
+
+    useEffect(() => {
+        if (editing) {
+            fetchEditingData();
+        }
+    }, [id]);
+
     function handleBack() {
         history.goBack();
     }
@@ -27,8 +45,6 @@ function CadastroEntregador() {
             history.push('/entregadores');
         }
     }
-    const editing = false;
-    const headerFunctionText = editing ? 'Edição' : 'Cadastro';
 
     return (
         <>
