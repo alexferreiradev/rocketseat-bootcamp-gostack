@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Keyboard } from 'react-native';
+import { useField } from '@unform/core';
 import {
   Container,
   Form,
@@ -10,46 +11,35 @@ import {
   SubmitButtonText,
 } from './styles';
 
-class Login extends Component {
-  constructor() {
-    super();
-    this.state = {
-      idCadastro: '',
-    };
-  }
+function Login({ navigation }) {
+  const [user] = useState({
+    id: '',
+  });
 
-  handleLogin = async () => {
-    const { navigation } = this.props;
-
+  async function handleLogin(data) {
     navigation.navigate('Dashboard');
 
     Keyboard.dismiss();
-  };
-
-  render() {
-    const { idCadastro } = this.state;
-
-    return (
-      <Container>
-        <Logo />
-        <Form>
-          <Input
-            autoCorrect={false}
-            autoCapitalize="none"
-            placeholder="Informe seu ID de cadastro"
-            value={idCadastro}
-            onChangeText={(text) => this.setState({ idCadastro: text })}
-            returnKeyType="send"
-            onSubmitEditing={this.handleLogin}
-          />
-
-          <SubmitButton onPress={this.handleLogin}>
-            <SubmitButtonText>Entrar no sistema</SubmitButtonText>
-          </SubmitButton>
-        </Form>
-      </Container>
-    );
   }
+
+  return (
+    <Container>
+      <Logo />
+      <Form initialData={user} onSubmit={handleLogin}>
+        <Input
+          name="id"
+          autoCorrect={false}
+          autoCapitalize="none"
+          placeholder="Informe seu ID de cadastro"
+          returnKeyType="send"
+        />
+
+        <SubmitButton>
+          <SubmitButtonText>Entrar no sistema</SubmitButtonText>
+        </SubmitButton>
+      </Form>
+    </Container>
+  );
 }
 Login.propTypes = {
   navigation: PropTypes.shape({
