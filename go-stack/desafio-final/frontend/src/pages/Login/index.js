@@ -8,21 +8,10 @@ import * as UserActions from '../../store/modules/user/actions';
 
 function Login() {
     const dispatch = useDispatch();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [user] = useState({ email: '', senha: '' });
 
-    function handleEmailChange(ev) {
-        ev.preventDefault();
-        const { value: newValue } = ev.target;
-        setEmail(newValue);
-    }
-    function handleSenhaChange(ev) {
-        ev.preventDefault();
-        const { value: newValue } = ev.target;
-        setPassword(newValue);
-    }
-    function handleLogin() {
-        dispatch(UserActions.doLoginReq(email, password));
+    function handleLogin({ email, senha }) {
+        dispatch(UserActions.doLoginReq(email, senha));
     }
 
     return (
@@ -30,20 +19,18 @@ function Login() {
             <Container>
                 <Logo />
                 <LogoText>fastfeet</LogoText>
-                <Form onSubmit={handleLogin}>
+                <Form initialData={user} onSubmit={handleLogin}>
                     <Label>Seu E-mail</Label>
                     <Input
+                        name="email"
                         type="text"
                         placeholder="exemple@dominio.com"
-                        value={email}
-                        onChange={(e) => handleEmailChange(e)}
                     />
                     <Label>Sua senha</Label>
                     <Input
+                        name="senha"
                         type="password"
                         placeholder="Sua senha"
-                        value={password}
-                        onChange={(e) => handleSenhaChange(e)}
                     />
 
                     <SubmitButton type="submit">

@@ -5,30 +5,6 @@
       "foto": "/teste2.png",
       "nome": "Nome teste 2",
       "email": "email@teste2.com"
-    },
-    {
-      "teste": "teste",
-      "id": 3
-    },
-    {
-      "destinatario": "",
-      "id": 4
-    },
-    {
-      "destinatario": "",
-      "id": 5
-    },
-    {
-      "destinatario": "",
-      "id": 6
-    },
-    {
-      "destinatario": "",
-      "id": 7
-    },
-    {
-      "destinatario": "",
-      "id": 8
     }
   ],
   "entregadores": [
@@ -45,22 +21,14 @@
       "email": "email@teste2.com"
     },
     {
-      "teste": "teste",
-      "id": 3
-    },
-    {
-      "teste": "teste",
-      "id": 4
-    },
-    {
-      "nome": "",
-      "email": "",
-      "id": 5
-    },
-    {
       "nome": "Alex",
       "email": "alex@emaio.com",
       "id": 6
+    },
+    {
+      "nome": "testet",
+      "email": "testsete@teste",
+      "id": 7
     }
   ],
   "destinatarios": [
@@ -73,10 +41,6 @@
       "id": 2,
       "nome": "Nome teste 2",
       "endereco": "Rua X"
-    },
-    {
-      "destinatario": "",
-      "id": 3
     }
   ],
   "problemas": [

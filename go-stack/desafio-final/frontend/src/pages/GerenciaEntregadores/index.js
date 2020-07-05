@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { FaPlus } from 'react-icons/fa';
 
 import { PesquizarInput, CadastrarBt } from './styles';
@@ -12,6 +12,7 @@ import { FlatList, ListHeader, ListItem } from '../../components/FlatList';
 import ModalContextOptions from '../../components/ModalContextOptions';
 
 function GerenciaEntregadores() {
+    const history = useHistory();
     const [searchText, setSearchText] = useState('');
     const [entregadorList, setEntregadorList] = useState([]);
 
@@ -60,14 +61,10 @@ function GerenciaEntregadores() {
 
         switch (index) {
             case 0: {
-                alert('Visualizar');
+                history.push('/cadastrar_entregador');
                 break;
             }
             case 1: {
-                alert('Edit');
-                break;
-            }
-            case 2: {
                 alert('Excluir');
                 handleDelete(data);
                 break;

@@ -39,6 +39,7 @@ function GerenciaDestinatario() {
         }
     }
 
+    const actionItemTextList = ['Editar', 'Excluir'];
     function handleActionClick(index, action, data) {
         // console.log(index);
         alert(action);
@@ -75,7 +76,6 @@ function GerenciaDestinatario() {
     }
 
     const headerTextList = ['ID', 'Nome', 'Endereço', 'Ações'];
-    const actionItemTextList = ['Editar', 'Excluir'];
     const showEmptyList = destinatarioList.length === 0;
 
     return (
@@ -114,7 +114,11 @@ function GerenciaDestinatario() {
                             <ModalContextOptions
                                 actionItemTextList={actionItemTextList}
                                 onClick={(action, index) =>
-                                    handleActionClick(action, index)
+                                    handleActionClick(
+                                        action,
+                                        index,
+                                        destinatario
+                                    )
                                 }
                             />
                         </ListItem>
