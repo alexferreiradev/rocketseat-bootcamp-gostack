@@ -15,23 +15,36 @@ function GerenciaEntregadores() {
     const [searchText, setSearchText] = useState('');
     const [entregadorList, setEntregadorList] = useState([]);
 
-    async function fetchData() {
-        const res = await api.get('/entregadores');
-        // console.log(res);
+    function processListData(res) {
         if (res.data) {
             setEntregadorList([...res.data]);
         }
+    }
+
+    async function fetchData() {
+        const res = await api.get('/entregadores');
+        // console.log(res);
+        processListData(res);
     }
 
     useEffect(() => {
         fetchData();
     }, []);
 
-    function handleOnChange(e) {
-        e.preventDefault();
-        // console.log(e.target.value);
-        setSearchText(e.target.value);
-        // Buscar dados na api
+    async function handleOnChangeSearchText(e) {
+        console.log(e.target.value);
+        const { value } = e.target;
+        console.log(searchText.length, value.length);
+        if (value.length > 2) {
+            const res = await api.get(`/entregadores?q=${value}`);
+            console.log(res);
+            processListData(res);
+        } else if (value.length === 0) {
+            fetchData();
+        } else {
+            setEntregadorList([]);
+        }
+        setSearchText(value);
     }
 
     const actionItemTextList = ['Editar', 'Excluir'];
@@ -70,7 +83,7 @@ function GerenciaEntregadores() {
                         type="text"
                         placeholder="Buscar por entregadores"
                         value={searchText}
-                        onChange={(e) => handleOnChange(e)}
+                        onChange={(e) => handleOnChangeSearchText(e)}
                     />
                     <CadastrarBt>
                         <Link to="/cadastrar_entregador">

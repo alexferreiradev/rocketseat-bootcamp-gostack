@@ -50,6 +50,7 @@
     }
   ],
   "login": {
-    "email": ""
+    "email": "",
+    "senha": ""
   }
 }

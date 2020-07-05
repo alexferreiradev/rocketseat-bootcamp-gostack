@@ -18,7 +18,7 @@ function GerenciaEncomenda() {
     const [showSignature, setShowSignature] = useState(false);
     const [encomendaList, setEncomendaList] = useState([]);
 
-    function processEncomendaListData(res) {
+    function processListData(res) {
         if (res.data) {
             setEncomendaList([...res.data]);
         }
@@ -27,7 +27,7 @@ function GerenciaEncomenda() {
     async function fetchData() {
         const res = await api.get('/encomendas');
         // console.log(res);
-        processEncomendaListData(res);
+        processListData(res);
     }
 
     function handleCloseSignature() {
@@ -37,13 +37,17 @@ function GerenciaEncomenda() {
     async function handleOnChangeSearchText(e) {
         console.log(e.target.value);
         const { value } = e.target;
-        if (searchText.length + 3 < value.length) {
-            const res = await api.get(`/encomendas?nome=${value}`);
-            processEncomendaListData(res);
+        console.log(searchText.length, value.length);
+        if (value.length > 2) {
+            const res = await api.get(`/encomendas?q=${value}`);
+            console.log(res);
+            processListData(res);
+        } else if (value.length === 0) {
+            fetchData();
         } else {
             setEncomendaList([]);
         }
-        setSearchText(e.target.value);
+        setSearchText(value);
     }
 
     useEffect(() => {
@@ -84,7 +88,7 @@ function GerenciaEncomenda() {
                 <HeaderOptions>
                     <PesquizarInput
                         type="text"
-                        placeholder="Buscar por encomendas"
+                        placeholder="Buscar por encomendas com pelo menos 3 letras"
                         value={searchText}
                         onChange={(e) => handleOnChangeSearchText(e)}
                     />

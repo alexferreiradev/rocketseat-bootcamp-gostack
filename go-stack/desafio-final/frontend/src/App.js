@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import history from './services/history';
 import 'typeface-roboto';
@@ -14,10 +14,10 @@ function App() {
     return (
         <Provider store={store}>
             <PersistGate persistor={persistor}>
-                <BrowserRouter history={history}>
+                <Router history={history}>
                     <Routes />
                     <GlobalStyle />
-                </BrowserRouter>
+                </Router>
             </PersistGate>
         </Provider>
     );

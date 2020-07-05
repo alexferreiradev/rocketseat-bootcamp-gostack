@@ -45,6 +45,7 @@ export default function Routes() {
                 component={CadastroDestinatario}
                 isPrivate
             />
+            <Route path="/" component={Login} />
         </Switch>
     );
 }

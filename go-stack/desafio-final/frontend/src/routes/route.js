@@ -18,5 +18,6 @@ export default function RouteWrapper({
         return <Redirect to="/encomendas" />;
     }
 
+    // eslint-disable-next-line react/jsx-props-no-spreading
     return <Route {...rest} component={Component} />;
 }

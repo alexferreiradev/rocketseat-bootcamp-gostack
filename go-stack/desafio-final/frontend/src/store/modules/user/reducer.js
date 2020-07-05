@@ -4,6 +4,9 @@ export default function auth(state = { logado: false }, action) {
             const { logado, userId } = action.payload;
             return { ...state, logado, userId };
         }
+        case '@user/logout': {
+            return { ...state, logado: false, userId: undefined };
+        }
         default:
             return state;
     }

@@ -12,24 +12,43 @@ import { FlatList, ListHeader, ListItem } from '../../components/FlatList';
 import ModalContextOptions from '../../components/ModalContextOptions';
 
 function GerenciaDestinatario() {
+    const [searchText, setSearchText] = useState('');
     const [destinatarioList, setDestinatarioList] = useState([]);
+
+    function processListData(res) {
+        if (res.data) {
+            setDestinatarioList([...res.data]);
+        }
+    }
 
     async function fetchData() {
         const res = await api.get('/destinatarios');
         // console.log(res);
-        if (res.data) {
-            setDestinatarioList([...res.data]);
-        }
+        processListData(res);
     }
 
     useEffect(() => {
         fetchData();
     }, []);
 
-    const handleOnChange = () => {};
-
     function handleActionClick(action, index) {
         // console.log(action, index);
+    }
+
+    async function handleOnChangeSearchText(e) {
+        console.log(e.target.value);
+        const { value } = e.target;
+        console.log(searchText.length, value.length);
+        if (value.length > 2) {
+            const res = await api.get(`/destinatarios?q=${value}`);
+            console.log(res);
+            processListData(res);
+        } else if (value.length === 0) {
+            fetchData();
+        } else {
+            setDestinatarioList([]);
+        }
+        setSearchText(value);
     }
 
     const headerTextList = ['ID', 'Nome', 'Endereço', 'Ações'];
@@ -45,7 +64,8 @@ function GerenciaDestinatario() {
                     <PesquizarInput
                         type="text"
                         placeholder="Buscar por destinatário"
-                        onChange={handleOnChange}
+                        value={searchText}
+                        onChange={(e) => handleOnChangeSearchText(e)}
                     />
                     <CadastrarBt>
                         <Link to="/cadastrar_destinatario">

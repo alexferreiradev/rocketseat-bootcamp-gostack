@@ -7,5 +7,9 @@ export const Background = styled.div`
 `;
 export const Container = styled.div``;
 export const Title = styled.h1``;
-export const PesquizarInput = styled.input``;
+export const PesquizarInput = styled.input`
+    min-width: 250px;
+    border-radius: 3px;
+    padding: 4px;
+`;
 export const CadastrarBt = styled.button``;

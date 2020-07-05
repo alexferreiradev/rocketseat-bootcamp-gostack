@@ -12,3 +12,15 @@ export function doLoginReq(email, senha) {
         senha,
     };
 }
+
+export function doLogoutReq() {
+    return {
+        type: '@user/logout-req',
+    };
+}
+
+export function doLogout() {
+    return {
+        type: '@user/logout',
+    };
+}
