@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 
 import {
   Container,
@@ -10,19 +10,61 @@ import {
   InfoTitle,
   Label,
   LabelText,
-  Situacao,
   EncomendaOptions,
   OptionBt,
   OptionBtText,
 } from './styles';
-import FooterMenu from '../../components/FooterMenu';
 
-const Encomenda = ({ navigation, route }) => {
+import api from '../../services/api';
+
+const Encomenda = ({ navigation }) => {
   navigation.setOptions({
     title: 'Visualizar problemas',
   });
 
-  const encomenda = { id: 1 };
+  const id = 1;
+  const [encomenda, setEncomenda] = useState({});
+
+  async function fetchData() {
+    const res = await api.get(`/encomendas/${id}`);
+    if (res.data) {
+      const dataEntregaFormatada = res.data.dataEntrega
+        ? res.data.dataEntrega
+        : '--/--/--';
+      const dataRetiradaFormatada = res.data.dataRetirada
+        ? res.data.dataRetirada
+        : '--/--/--';
+      const newData = {
+        ...res.data,
+        dataEntregaFormatada,
+        dataRetiradaFormatada,
+      };
+      setEncomenda(newData);
+    }
+  }
+
+  function handleOption(option) {
+    switch (option) {
+      case 'visualizar-problemas': {
+        navigation.navigate('Problema');
+        break;
+      }
+      case 'informar-problema': {
+        navigation.navigate('InformarProblema');
+        break;
+      }
+      case 'confirmar': {
+        navigation.navigate('ConfirmarEntrega');
+        break;
+      }
+      default:
+        break;
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  });
 
   return (
     <Container>
@@ -32,11 +74,11 @@ const Encomenda = ({ navigation, route }) => {
           <InfoTitle>Informações da entrega</InfoTitle>
         </InfoHeader>
         <Label>Destinatário</Label>
-        <LabelText>Ludwing van Beethoven</LabelText>
+        <LabelText>{encomenda.destinatarioId}</LabelText>
         <Label>Endereço de entrega</Label>
-        <LabelText>Rua Bethoven</LabelText>
+        <LabelText>{encomenda.endereco}</LabelText>
         <Label>Produto</Label>
-        <LabelText>Yamaha Sx7</LabelText>
+        <LabelText>{encomenda.nomeProduto}</LabelText>
       </Card>
       <Card>
         <InfoHeader>
@@ -44,22 +86,22 @@ const Encomenda = ({ navigation, route }) => {
           <InfoTitle>Situaçao da entrega</InfoTitle>
         </InfoHeader>
         <Label>Status</Label>
-        <LabelText>Pendente</LabelText>
+        <LabelText>{encomenda.status}</LabelText>
         <Label>Data de retirada</Label>
-        <LabelText>14/01/20</LabelText>
+        <LabelText>{encomenda.dataRetiradaFormatada}</LabelText>
         <Label>Data de entrega</Label>
-        <LabelText>--/--/--</LabelText>
+        <LabelText>{encomenda.dataEntregaFormatada}</LabelText>
       </Card>
       <EncomendaOptions>
-        <OptionBt>
+        <OptionBt onPress={handleOption('informar-problema')}>
           <Icon name="cancel" color="#E74040" size={20} />
           <OptionBtText>Informar problema</OptionBtText>
         </OptionBt>
-        <OptionBt>
+        <OptionBt onPress={handleOption('visualizar-problemas')}>
           <Icon name="info" color="#E7BA40" size={20} />
           <OptionBtText>Visualizar</OptionBtText>
         </OptionBt>
-        <OptionBt>
+        <OptionBt onPress={handleOption('confirmar')}>
           <Icon name="check-circle" color="#7D40E7" size={20} />
           <OptionBtText>Confirmar entrega</OptionBtText>
         </OptionBt>
