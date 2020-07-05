@@ -14,17 +14,21 @@
   ],
   "entregadores": [
     {
-      "id": 1,
-      "foto": "/teste.png",
-      "nome": "Nome teste",
-      "email": "email@teste.com"
+      "nome": "teste alex",
+      "email": "teste@gmail.com",
+      "id": 1
     }
   ],
   "destinatarios": [
     {
-      "id": 1,
       "nome": "Nome teste",
-      "endereco": "Rua X"
+      "endereco": "Rua t4",
+      "numero": "1214",
+      "complemento": "predio x",
+      "cidade": "goiania",
+      "estado": "go",
+      "cep": "75589432",
+      "id": 1
     }
   ],
   "problemas": [

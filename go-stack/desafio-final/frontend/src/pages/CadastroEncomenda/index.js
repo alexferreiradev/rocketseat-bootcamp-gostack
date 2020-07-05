@@ -35,11 +35,18 @@ function CadastroEncomenda() {
     }, [id]);
 
     async function handleSave(data) {
-        const encomendaNew = {
+        const newData = {
             ...data,
         };
-        const res = await api.post('/encomendas', encomendaNew);
-        if (res.status === 201) {
+        let res;
+        if (editing) {
+            res = await api.put(`/encomendas${id}`, newData);
+        } else {
+            res = await api.post('/encomendas', newData);
+        }
+
+        const resConst = { ...res };
+        if (resConst.status === 201 || (editing && resConst.status === 200)) {
             history.push('/encomendas');
         }
     }

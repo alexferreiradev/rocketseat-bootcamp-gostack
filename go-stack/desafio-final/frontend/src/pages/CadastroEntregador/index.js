@@ -37,11 +37,19 @@ function CadastroEntregador() {
     }
 
     async function handleSave(data) {
-        const entregadorNew = {
+        const newData = {
             ...data,
         };
-        const res = await api.post('/entregadores', entregadorNew);
-        if (res.status === 201) {
+
+        let res;
+        if (editing) {
+            res = await api.put(`/entregadores/${id}`, newData);
+        } else {
+            res = await api.post('/entregadores', newData);
+        }
+
+        const resConst = { ...res };
+        if (resConst.status === 201 || (editing && resConst.status === 200)) {
             history.push('/entregadores');
         }
     }

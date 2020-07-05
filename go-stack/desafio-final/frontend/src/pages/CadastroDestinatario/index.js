@@ -40,11 +40,18 @@ function CadastroDestinatario() {
     }
 
     async function handleSave(data) {
-        const entregador = {
+        const newData = {
             ...data,
         };
-        const res = await api.post('/destinatarios', entregador);
-        if (res.status === 201) {
+        let res;
+        if (editing) {
+            res = await api.put(`/destinatarios/${id}`, newData);
+        } else {
+            res = await api.post('/destinatarios', newData);
+        }
+
+        const resConst = { ...res };
+        if (resConst.status === 201 || (editing && resConst.status === 200)) {
             history.push('/destinatarios');
         }
     }

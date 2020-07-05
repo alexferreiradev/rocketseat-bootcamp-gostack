@@ -29,6 +29,17 @@ function GerenciaProblemas() {
         fetchData();
     }, []);
 
+    async function handleCancel({ id, ...rest }) {
+        const newData = {
+            status: 'cancelado',
+            ...rest,
+        };
+        const res = await api.put(`/encomendas/${id}`, newData);
+        if (res.status === 200) {
+            fetchData();
+        }
+    }
+
     const actionItemTextList = ['Visualizar', 'Cancelar encomendas'];
     function handleActionClick(index, _, data) {
         // console.log(index);
@@ -41,6 +52,7 @@ function GerenciaProblemas() {
             }
             case 1: {
                 // alert('Cancelar');
+                handleCancel(data);
                 break;
             }
             default: {
