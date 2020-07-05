@@ -38,3 +38,7 @@ Adicione a lib: `yarn add @react-navigation/stack` e utilize stacks para navega√
   - , new VectorIconsPackage() em MainApplication -->
   -
 ]
+
+## API
+A api est√° em projeto na pasta `../backend`. O debug pode ser feito utilizando o `/services/server.json` com o [serverjs](). Exemplo:
+`npx json-server --watch ./src/services/server.json --port 8080` ou instale globalmente com `npm install -g json-server`

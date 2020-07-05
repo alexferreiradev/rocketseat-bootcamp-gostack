@@ -1,17 +1,14 @@
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Keyboard, Text } from 'react-native';
-
+import React, { Component } from 'react';
+import { Keyboard } from 'react-native';
 import {
   Container,
   Form,
   Input,
+  Logo,
   SubmitButton,
   SubmitButtonText,
-  Logo,
 } from './styles';
-
-import api from '../../services/api';
 
 class Login extends Component {
   constructor() {
