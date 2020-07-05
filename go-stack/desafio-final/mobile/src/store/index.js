@@ -10,8 +10,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const sagaMidleware = createSagaMidleware();
 
 // ? applyMiddleware(sagaMidleware)
-// eslint-disable-next-line no-undef
-const enhancer = ___DEV___
+const enhancer = __DEV__
   ? composeEnhancers(applyMiddleware(sagaMidleware))
   : applyMiddleware(sagaMidleware);
 
