@@ -7,7 +7,7 @@ function* doLoginReq({ email, password }) {
     const res = yield call(api.post, `/login`, { email, password });
 
     if (res.data) {
-        put(doLogin(123));
+        yield put(doLogin(123));
         history.push('/encomendas');
     }
 }

@@ -6,9 +6,10 @@ import rootReducer from './modules/rootReducer';
 import rootSaga from './modules/rootSaga';
 import persistReducers from './persistReducer';
 
-const sagaMidleware = createSagaMidleware(rootSaga);
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const sagaMidleware = createSagaMidleware();
 
+// ? applyMiddleware(sagaMidleware)
 const enhancer =
     process.env.NODE_ENV === 'development'
         ? composeEnhancers(applyMiddleware(sagaMidleware))
@@ -17,6 +18,7 @@ const enhancer =
 /* eslint-disable no-underscore-dangle */
 const store = createStore(persistReducers(rootReducer), enhancer);
 /* eslint-enable */
+sagaMidleware.run(rootSaga);
 
 const persistor = persistStore(store);
 

@@ -46,7 +46,7 @@ function Login() {
                         onChange={(e) => handleSenhaChange(e)}
                     />
 
-                    <SubmitButton>
+                    <SubmitButton type="submit">
                         <span>Entrar no sistema</span>
                     </SubmitButton>
                 </Form>

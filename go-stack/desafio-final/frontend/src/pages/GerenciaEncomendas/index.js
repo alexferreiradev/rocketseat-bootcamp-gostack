@@ -18,27 +18,37 @@ function GerenciaEncomenda() {
     const [showSignature, setShowSignature] = useState(false);
     const [encomendaList, setEncomendaList] = useState([]);
 
-    async function fetchData() {
-        const res = await api.get('/encomendas');
-        // console.log(res);
+    function processEncomendaListData(res) {
         if (res.data) {
             setEncomendaList([...res.data]);
         }
     }
 
-    useEffect(() => {
-        fetchData();
-    }, []);
+    async function fetchData() {
+        const res = await api.get('/encomendas');
+        // console.log(res);
+        processEncomendaListData(res);
+    }
 
     function handleCloseSignature() {
         setShowSignature(false);
     }
 
-    function handleOnChange(e) {
-        // console.log(e.target.value);
+    async function handleOnChangeSearchText(e) {
+        console.log(e.target.value);
+        const { value } = e.target;
+        if (searchText.length + 3 < value.length) {
+            const res = await api.get(`/encomendas?nome=${value}`);
+            processEncomendaListData(res);
+        } else {
+            setEncomendaList([]);
+        }
         setSearchText(e.target.value);
-        // Buscar dados na api
     }
+
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     const actionItemTextList = ['Visualizar', 'Editar', 'Excluir'];
     function handleActionClick(index, _) {
@@ -76,7 +86,7 @@ function GerenciaEncomenda() {
                         type="text"
                         placeholder="Buscar por encomendas"
                         value={searchText}
-                        onChange={(e) => handleOnChange(e)}
+                        onChange={(e) => handleOnChangeSearchText(e)}
                     />
                     <CadastrarBt>
                         <Link to="/cadastrar_encomenda">
