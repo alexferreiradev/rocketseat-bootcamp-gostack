@@ -1,8 +1,8 @@
 import styled from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
-import { Form as RSForm, Input as RSInput } from '@unform/mobile';
+import { Form as RSForm, TextInput } from '@unform/mobile';
 
-export const Container = styled.SafeAreaView`
+export const Container = styled.View`
   flex: 1;
   background: #7d40e7;
   flex-direction: column;
@@ -13,7 +13,7 @@ export const Container = styled.SafeAreaView`
 export const Form = styled(RSForm)`
   padding: 4px 32px;
 `;
-export const Input = styled(RSInput)`
+export const Input = styled(TextInput)`
   background-color: #fff;
   color: #ccc;
   padding: 8px;
