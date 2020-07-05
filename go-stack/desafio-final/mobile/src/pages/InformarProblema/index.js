@@ -15,10 +15,10 @@ import api from '../../services/api';
 function InformarProblema({ navigation }) {
   const id = 1;
 
-  async function handleEnvio({ problema }) {
+  async function handleEnvio({ descricao }) {
     const problema = {
       encomendaId: id,
-      descricao: problema,
+      descricao,
     };
     const res = await api.post('/problemas', problema);
     if (res.status === 201) {
@@ -35,7 +35,7 @@ function InformarProblema({ navigation }) {
     <Container>
       <Form onPress={handleEnvio}>
         <Input
-          name="problema"
+          name="descricao"
           autoCorrect={false}
           autoCapitalize="none"
           placeholder="Inclua aqui seu problema que ocorreu na entrega"
