@@ -12,13 +12,6 @@
       "estado": "São Paulo"
     }
   ],
-  "entregadores": [
-    {
-      "nome": "teste alex",
-      "email": "teste@gmail.com",
-      "id": 1
-    }
-  ],
   "destinatarios": [
     {
       "nome": "Nome teste",
@@ -38,8 +31,7 @@
     }
   ],
   "login": {
-    "id": 123,
-    "email": "teste",
-    "senha": "teste"
+    "id": 1,
+    "nome": "Entregador 1"
   }
 }

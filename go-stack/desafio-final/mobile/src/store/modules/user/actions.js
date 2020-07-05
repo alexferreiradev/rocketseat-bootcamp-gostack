@@ -5,11 +5,10 @@ export function doLogin(userId) {
   };
 }
 
-export function doLoginReq(email, senha) {
+export function doLoginReq(id) {
   return {
     type: '@user/login-req',
-    email,
-    senha,
+    id,
   };
 }
 

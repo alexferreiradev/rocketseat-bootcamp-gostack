@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Keyboard } from 'react-native';
-import { useField } from '@unform/core';
+
 import {
   Container,
   Form,
@@ -11,14 +12,15 @@ import {
   SubmitButtonText,
 } from './styles';
 
+import { doLoginReq } from '../../store/modules/user/actions';
+
 function Login({ navigation }) {
   const [user] = useState({
     id: '',
   });
-
-  async function handleLogin(data) {
-    navigation.navigate('Dashboard');
-
+  const dispatch = useDispatch();
+  async function handleLogin({ id }) {
+    dispatch(doLoginReq(id));
     Keyboard.dismiss();
   }
 

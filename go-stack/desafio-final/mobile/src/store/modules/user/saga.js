@@ -1,20 +1,20 @@
 import { call, all, takeLatest, put } from 'redux-saga/effects';
 import api from '../../../services/api';
-import history from '../../../services/history';
+// import history from '../../../services/history';
 import { doLogin, doLogout } from './actions';
 
-function* doLoginReq({ email, senha }) {
-  const res = yield call(api.post, '/login', { email, senha });
+function* doLoginReq({ id }) {
+  const res = yield call(api.post, '/login', { id });
 
-  yield put(doLogin(123));
-  yield history.push('/encomendas');
+  yield put(doLogin(1));
+  // yield history.push('/encomendas');
   // if (res.data) {
   // }
 }
 
 function* doLogoutReq() {
   yield put(doLogout());
-  yield history.push('/');
+  // yield history.push('/');
   // if (res.data) {
   // }
 }
