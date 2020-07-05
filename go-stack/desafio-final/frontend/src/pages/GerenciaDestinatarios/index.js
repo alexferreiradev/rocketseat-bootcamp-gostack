@@ -42,7 +42,7 @@ function GerenciaDestinatario() {
     const actionItemTextList = ['Editar', 'Excluir'];
     function handleActionClick(index, action, data) {
         // console.log(index);
-        alert(action);
+        // alert(action);
 
         switch (index) {
             case 0: {

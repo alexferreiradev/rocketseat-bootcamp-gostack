@@ -68,17 +68,17 @@ function GerenciaEncomenda() {
 
         switch (index) {
             case 0: {
-                alert(`Visualizar${data.id}`);
+                // alert(`Visualizar${data.id}`);
                 setShowSignature(true);
                 break;
             }
             case 1: {
-                alert(`Edit - ${data.id}`);
+                // alert(`Edit - ${data.id}`);
                 history.push(`/cadastrar_encomenda/${data.id}/`);
                 break;
             }
             case 2: {
-                alert('Excluir');
+                // alert('Excluir');
                 handleDelete(data);
                 break;
             }

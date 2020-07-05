@@ -41,8 +41,18 @@ export default function Routes() {
                 isPrivate
             />
             <Route
+                path="/cadastrar_entregador/:id"
+                component={CadastroEntregador}
+                isPrivate
+            />
+            <Route
                 path="/cadastrar_entregador"
                 component={CadastroEntregador}
+                isPrivate
+            />
+            <Route
+                path="/cadastrar_destinatario/:id"
+                component={CadastroDestinatario}
                 isPrivate
             />
             <Route
@@ -50,7 +60,7 @@ export default function Routes() {
                 component={CadastroDestinatario}
                 isPrivate
             />
-            <Route path="/" component={Login} />
+            <Route path="/" component={GerenciaEncomendas} isPrivate />
         </Switch>
     );
 }

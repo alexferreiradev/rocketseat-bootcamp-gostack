@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 
 import Header from '../../components/Header';
 import HeaderTitle from '../../components/HeaderTitle';
@@ -9,7 +9,10 @@ import api from '../../services/api';
 
 function CadastroDestinatario() {
     const history = useHistory();
-    const [destinatario] = useState({
+    const { id } = useParams();
+    const editing = !!id;
+    const headerFunctionText = editing ? 'Edição' : 'Cadastro';
+    const [destinatario, setDestinatario] = useState({
         nome: '',
         endereco: '',
         numero: '',
@@ -18,6 +21,19 @@ function CadastroDestinatario() {
         estado: '',
         cep: '',
     });
+
+    async function fetchEditingData() {
+        const res = await api.get(`/destinatarios/${id}`);
+        if (res.data) {
+            setDestinatario({ ...res.data });
+        }
+    }
+
+    useEffect(() => {
+        if (editing) {
+            fetchEditingData();
+        }
+    }, []);
 
     function handleBack() {
         history.goBack();
@@ -32,7 +48,6 @@ function CadastroDestinatario() {
             history.push('/destinatarios');
         }
     }
-    const editing = true;
 
     const itemDataMap = new Map();
     itemDataMap.set('ID', '123');
@@ -41,11 +56,7 @@ function CadastroDestinatario() {
         <>
             <Header />
             <Container>
-                {editing ? (
-                    <HeaderTitle>Edição Destinatário</HeaderTitle>
-                ) : (
-                    <HeaderTitle>Cadastro de Destinatário</HeaderTitle>
-                )}
+                <HeaderTitle>{headerFunctionText} de destinatário</HeaderTitle>
                 <button type="button" onClick={handleBack}>
                     Voltar
                 </button>

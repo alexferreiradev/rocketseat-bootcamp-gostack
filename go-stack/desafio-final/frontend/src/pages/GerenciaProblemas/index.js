@@ -35,12 +35,12 @@ function GerenciaProblemas() {
 
         switch (index) {
             case 0: {
-                alert('Visualizar');
+                // alert('Visualizar');
                 setShowProblema(true);
                 break;
             }
             case 1: {
-                alert('Cancelar');
+                // alert('Cancelar');
                 break;
             }
             default: {

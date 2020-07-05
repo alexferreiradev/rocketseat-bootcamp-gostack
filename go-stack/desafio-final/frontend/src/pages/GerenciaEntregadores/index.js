@@ -61,11 +61,10 @@ function GerenciaEntregadores() {
 
         switch (index) {
             case 0: {
-                history.push('/cadastrar_entregador');
+                history.push(`/cadastrar_entregador/${data.id}/`);
                 break;
             }
             case 1: {
-                alert('Excluir');
                 handleDelete(data);
                 break;
             }

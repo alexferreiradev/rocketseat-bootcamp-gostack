@@ -11,7 +11,7 @@ import api from '../../services/api';
 function CadastroEncomenda() {
     const history = useHistory();
     const { id } = useParams();
-    console.log('id: ', id, useParams());
+    // console.log('id: ', id, useParams());
 
     const [encomenda, setEncomenda] = useState({
         nomeProduto: '',
