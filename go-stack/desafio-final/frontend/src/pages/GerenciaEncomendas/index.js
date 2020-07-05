@@ -73,8 +73,8 @@ function GerenciaEncomenda() {
                 break;
             }
             case 1: {
-                alert('Edit');
-                history.push(`/cadastrar_encomenda/${data.id}`);
+                alert(`Edit - ${data.id}`);
+                history.push(`/cadastrar_encomenda/${data.id}/`);
                 break;
             }
             case 2: {
@@ -88,7 +88,15 @@ function GerenciaEncomenda() {
         }
     }
 
-    const headerTextList = ['ID', 'Foto', 'Nome', 'Email', 'Ações'];
+    const headerTextList = [
+        'ID',
+        'Destinatario',
+        'Entregador',
+        'Cidade',
+        'Estado',
+        'Status',
+        'Ações',
+    ];
     const showEmptyList = encomendaList.length === 0;
 
     return (
@@ -122,9 +130,11 @@ function GerenciaEncomenda() {
                     {encomendaList.map((encomenda) => (
                         <ListItem key={encomenda.id}>
                             <span>{encomenda.id}</span>
-                            <span>{encomenda.foto}</span>
-                            <span>{encomenda.nome}</span>
-                            <span>{encomenda.email}</span>
+                            <span>{encomenda.destinatario}</span>
+                            <span>{encomenda.entregador}</span>
+                            <span>{encomenda.cidade}</span>
+                            <span>{encomenda.estado}</span>
+                            <span>{encomenda.status}</span>
                             <ModalContextOptions
                                 actionItemTextList={actionItemTextList}
                                 onClick={(index, action) =>

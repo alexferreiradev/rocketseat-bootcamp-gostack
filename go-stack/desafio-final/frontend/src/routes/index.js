@@ -31,12 +31,12 @@ export default function Routes() {
             />
             <Route path="/problemas" component={GerenciaProblemas} isPrivate />
             <Route
-                path="/cadastrar_encomenda"
+                path="/cadastrar_encomenda/:id"
                 component={CadastroEncomenda}
                 isPrivate
             />
             <Route
-                path="/cadastrar_encomenda/:id"
+                path="/cadastrar_encomenda"
                 component={CadastroEncomenda}
                 isPrivate
             />

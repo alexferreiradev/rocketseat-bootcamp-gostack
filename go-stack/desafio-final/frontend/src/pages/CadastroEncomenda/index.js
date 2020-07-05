@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import { Dropdown } from 'react-bootstrap';
 
 import Header from '../../components/Header';
@@ -10,13 +10,29 @@ import api from '../../services/api';
 
 function CadastroEncomenda() {
     const history = useHistory();
-    const [encomenda] = useState({
+    const { id } = useParams();
+    console.log('id: ', id, useParams());
+
+    const [encomenda, setEncomenda] = useState({
         nomeProduto: '',
         entregadorId: undefined,
         destinatarioId: undefined,
     });
-    const editing = false;
+    const editing = !!id;
     const headerFunctionText = editing ? 'Edição' : 'Cadastro';
+
+    async function fetchEditingData() {
+        const res = await api.get(`/encomendas/${id}`);
+        if (res.data) {
+            setEncomenda({ ...res.data });
+        }
+    }
+
+    useEffect(() => {
+        if (editing) {
+            fetchEditingData();
+        }
+    }, []);
 
     async function handleSave(data) {
         const encomendaNew = {
