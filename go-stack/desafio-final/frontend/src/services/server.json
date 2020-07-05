@@ -4,7 +4,12 @@
       "id": 2,
       "foto": "/teste2.png",
       "nome": "Nome teste 2",
-      "email": "email@teste2.com"
+      "nomeProduto": "Nome teste 2",
+      "status": "Entregue",
+      "idEntregador": 1,
+      "idDestinatario": 1,
+      "cidade": "Rio de Janeiro",
+      "estado": "São Paulo"
     }
   ],
   "entregadores": [
@@ -13,22 +18,6 @@
       "foto": "/teste.png",
       "nome": "Nome teste",
       "email": "email@teste.com"
-    },
-    {
-      "id": 2,
-      "foto": "/teste2.png",
-      "nome": "Nome teste 2",
-      "email": "email@teste2.com"
-    },
-    {
-      "nome": "Alex",
-      "email": "alex@emaio.com",
-      "id": 6
-    },
-    {
-      "nome": "testet",
-      "email": "testsete@teste",
-      "id": 7
     }
   ],
   "destinatarios": [
@@ -36,25 +25,17 @@
       "id": 1,
       "nome": "Nome teste",
       "endereco": "Rua X"
-    },
-    {
-      "id": 2,
-      "nome": "Nome teste 2",
-      "endereco": "Rua X"
     }
   ],
   "problemas": [
     {
       "id": 1,
       "descricao": "Descricao do problema grande"
-    },
-    {
-      "id": 2,
-      "descricao": "Descricao do problema grande 2"
     }
   ],
   "login": {
-    "email": "",
-    "senha": ""
+    "id": 123,
+    "email": "teste",
+    "senha": "teste"
   }
 }
