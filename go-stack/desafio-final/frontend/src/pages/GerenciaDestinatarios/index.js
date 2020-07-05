@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { FaPlus } from 'react-icons/fa';
 
 import { PesquizarInput, CadastrarBt } from './styles';
@@ -12,6 +12,7 @@ import { FlatList, ListHeader, ListItem } from '../../components/FlatList';
 import ModalContextOptions from '../../components/ModalContextOptions';
 
 function GerenciaDestinatario() {
+    const history = useHistory();
     const [searchText, setSearchText] = useState('');
     const [destinatarioList, setDestinatarioList] = useState([]);
 
@@ -31,8 +32,30 @@ function GerenciaDestinatario() {
         fetchData();
     }, []);
 
-    function handleActionClick(action, index) {
-        // console.log(action, index);
+    async function handleDelete({ id }) {
+        const res = await api.delete(`/destinatarios/${id}`);
+        if (res.status === 200) {
+            fetchData();
+        }
+    }
+
+    function handleActionClick(index, action, data) {
+        // console.log(index);
+        alert(action);
+
+        switch (index) {
+            case 0: {
+                history.push(`/cadastrar_destinatario/${data.id}`);
+                break;
+            }
+            case 1: {
+                handleDelete(data);
+                break;
+            }
+            default: {
+                throw new Error('Opção inválida');
+            }
+        }
     }
 
     async function handleOnChangeSearchText(e) {

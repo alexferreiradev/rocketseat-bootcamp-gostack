@@ -30,12 +30,13 @@ function GerenciaProblemas() {
     }, []);
 
     const actionItemTextList = ['Visualizar', 'Cancelar encomendas'];
-    function handleActionClick(index, _) {
+    function handleActionClick(index, _, data) {
         // console.log(index);
 
         switch (index) {
             case 0: {
                 alert('Visualizar');
+                setShowProblema(true);
                 break;
             }
             case 1: {
@@ -72,7 +73,7 @@ function GerenciaProblemas() {
                             <ModalContextOptions
                                 actionItemTextList={actionItemTextList}
                                 onClick={(action, index) =>
-                                    handleActionClick(action, index)
+                                    handleActionClick(action, index, problema)
                                 }
                             />
                         </ListItem>

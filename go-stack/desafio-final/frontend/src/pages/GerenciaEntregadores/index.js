@@ -47,8 +47,15 @@ function GerenciaEntregadores() {
         setSearchText(value);
     }
 
+    async function handleDelete({ id }) {
+        const res = await api.delete(`/entregadores/${id}`);
+        if (res.status === 200) {
+            fetchData();
+        }
+    }
+
     const actionItemTextList = ['Editar', 'Excluir'];
-    function handleActionClick(index, _) {
+    function handleActionClick(index, _, data) {
         // console.log(index);
 
         switch (index) {
@@ -62,6 +69,7 @@ function GerenciaEntregadores() {
             }
             case 2: {
                 alert('Excluir');
+                handleDelete(data);
                 break;
             }
             default: {
@@ -110,7 +118,7 @@ function GerenciaEntregadores() {
                             <ModalContextOptions
                                 actionItemTextList={actionItemTextList}
                                 onClick={(action, index) =>
-                                    handleActionClick(action, index)
+                                    handleActionClick(action, index, entregador)
                                 }
                             />
                         </ListItem>

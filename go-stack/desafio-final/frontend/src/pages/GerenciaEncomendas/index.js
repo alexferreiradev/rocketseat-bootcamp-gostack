@@ -51,6 +51,13 @@ function GerenciaEncomenda() {
         setSearchText(value);
     }
 
+    async function handleDelete({ id }) {
+        const res = await api.delete(`/encomendas/${id}`);
+        if (res.status === 200) {
+            fetchData();
+        }
+    }
+
     useEffect(() => {
         fetchData();
     }, []);
@@ -72,6 +79,7 @@ function GerenciaEncomenda() {
             }
             case 2: {
                 alert('Excluir');
+                handleDelete(data);
                 break;
             }
             default: {
