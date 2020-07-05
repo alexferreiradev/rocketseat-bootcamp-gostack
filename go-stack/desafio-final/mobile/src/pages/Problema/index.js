@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
 
@@ -10,32 +10,33 @@ import {
   Data,
   List,
 } from './styles';
-import FooterMenu from '../../components/FooterMenu';
+
+import api from '../../services/api';
 
 const Problema = ({ navigation, route }) => {
   navigation.setOptions({
     title: 'Detalhes da encomenda',
   });
-
   const encomenda = { id: 1 };
+  const [problemaList, setProblemaList] = useState([]);
+
+  async function fetchData() {
+    const res = await api.get(`/problemas?entregaId=${encomenda.id}`);
+    if (res.data) {
+      setProblemaList([...res.data]);
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  });
 
   return (
     <Container>
       <Title>{`Encomenda ${encomenda.id}`}</Title>
       <View>
         <List
-          data={[
-            {
-              id: 1,
-              descricao: 'Destinatario ausente',
-              data: '14/01/2020',
-            },
-            {
-              id: 2,
-              descricao: 'Destinatario ausente',
-              data: '14/01/2020',
-            },
-          ]}
+          data={problemaList}
           keyExtractor={(problema) => problema.id}
           renderItem={({ item }) => (
             <ProblemaView>
