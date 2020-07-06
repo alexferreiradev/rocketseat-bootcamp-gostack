@@ -7,6 +7,7 @@ import DestinatarioController from './app/controllers/DestinatarioController';
 import SessionController from './app/controllers/SessionController';
 import EntregadorController from './app/controllers/EntregadorController';
 import EntregaController from './app/controllers/EntregaController';
+import RetiradaController from './app/controllers/RetiradaController';
 import EncomendaController from './app/controllers/EncomendaController';
 import ProblemaEncomendaController from './app/controllers/ProblemaEncomendaController';
 import authMid from './app/middlewares/auth';
@@ -52,5 +53,7 @@ routes.get(
 );
 routes.post('/encomenda_problemas', ProblemaEncomendaController.store);
 routes.post('/encomenda_problemas/:id', ProblemaEncomendaController.cancelar);
+
+routes.post('/retirada/', RetiradaController.store);
 
 export default routes;
