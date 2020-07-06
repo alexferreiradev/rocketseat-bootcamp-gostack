@@ -1,15 +1,19 @@
 import { Router } from 'express';
+import multer from 'multer';
 
 import UserController from './app/controllers/UserController';
+import FileController from './app/controllers/FileController';
 import DestinatarioController from './app/controllers/DestinatarioController';
 import SessionController from './app/controllers/SessionController';
 import EntregadorController from './app/controllers/EntregadorController';
+import EntregaController from './app/controllers/EntregaController';
 import EncomendaController from './app/controllers/EncomendaController';
 import ProblemaEncomendaController from './app/controllers/ProblemaEncomendaController';
 import authMid from './app/middlewares/auth';
 import config from './version';
 
 const routes = new Router();
+const upload = multer(multerConfig);
 
 routes.get('/', (_, res) => {
   return res.json({ status: 'ok', version: config.version });
@@ -28,7 +32,12 @@ routes.get('/entregadores', EntregadorController.index);
 routes.post('/entregadores', EntregadorController.store);
 routes.put('/entregadores/:id', EntregadorController.update);
 routes.delete('/entregadores/:id', EntregadorController.delete);
-routes.delete('/entregadores/:id/entregas', EntregadorController.entregas);
+
+routes.get('/entregas', EntregaController.entregas);
+routes.post('/entregas', EntregaController.entregas);
+
+routes.post('/file', upload.single('file'), FileController.store);
+routes.get('/file', FileController.index);
 
 routes.get('/encomendas', EncomendaController.index);
 routes.post('/encomenda', EncomendaController.store);
