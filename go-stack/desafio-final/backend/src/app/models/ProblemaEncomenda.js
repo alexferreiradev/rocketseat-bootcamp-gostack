@@ -13,7 +13,10 @@ class ProblemaEncomenda extends Model {
 
     static associate(models) {
         this.belongsTo(models.Encomenda, {
-            foreignKey: 'encomenda_id', as: 'entregador'
+            foreignKey: 'encomenda_id', as: 'encomenda'
+        });
+        this.belongsTo(models.User, {
+            foreignKey: 'entregador_id', as: 'entregador'
         });
     }
 }

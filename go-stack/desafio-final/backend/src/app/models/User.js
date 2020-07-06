@@ -30,14 +30,9 @@ class User extends Model {
         return bcrypt.compare(pass, this.password_hash);
     }
 
-    static associate(models) {
-        
-        this.belongsTo(models.Destinatario, {
-            foreignKey: 'recipient_id', as: 'destinatario'
-        });
-        
+    static associate(models) {        
         this.belongsTo(models.File, {
-            foreignKey: 'signature_id', as: 'signature'
+            foreignKey: 'avatar_id', as: 'avatar'
         });
     }
 }
