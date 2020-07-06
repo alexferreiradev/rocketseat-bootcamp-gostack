@@ -14,7 +14,7 @@ class Encomenda extends Model {
     }
 
     static associate(models) {
-        this.belongsTo(models.Entregador, {
+        this.belongsTo(models.User, {
             foreignKey: 'deliveryman_id', as: 'entregador'
         });
         
@@ -24,10 +24,6 @@ class Encomenda extends Model {
         
         this.belongsTo(models.File, {
             foreignKey: 'signature_id', as: 'signature'
-        });
-        
-        this.belongsTo(models.File, {
-            foreignKey: 'avatar_id', as: 'avatar'
         });
     }
 }

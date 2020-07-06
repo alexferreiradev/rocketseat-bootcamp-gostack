@@ -10,18 +10,24 @@ module.exports = {
         },
         recipient_id: {
           type: Sequelize.BIGINT,
-          allowNull: false,
-          unique: true
+          references: { model: 'recipient', key: 'id'},
+          onUpdate: 'CASCADE',
+          onDelete: 'SET NULL',
+          allowNull: true,
         },
         deliveryman_id: {
           type: Sequelize.BIGINT,
-          allowNull: false,
-          unique: true
+          references: { model: 'user', key: 'id'},
+          onUpdate: 'CASCADE',
+          onDelete: 'SET NULL',
+          allowNull: true,
         },
         signature_id: {
           type: Sequelize.BIGINT,
-          allowNull: false,
-          unique: true
+          references: { model: 'file', key: 'id'},
+          onUpdate: 'CASCADE',
+          onDelete: 'SET NULL',
+          allowNull: true,
         },
         product: Sequelize.STRING,
         canceled_at: {

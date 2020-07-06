@@ -9,6 +9,7 @@ class User extends Model {
                 email: Sequelize.STRING,
                 password: Sequelize.VIRTUAL,
                 password_hash: Sequelize.STRING,
+                entregador: Sequelize.BOOLEAN,
             }, 
             {
                 sequelize,
@@ -27,6 +28,17 @@ class User extends Model {
 
     async checkPassword(pass) {
         return bcrypt.compare(pass, this.password_hash);
+    }
+
+    static associate(models) {
+        
+        this.belongsTo(models.Destinatario, {
+            foreignKey: 'recipient_id', as: 'destinatario'
+        });
+        
+        this.belongsTo(models.File, {
+            foreignKey: 'signature_id', as: 'signature'
+        });
     }
 }
 
