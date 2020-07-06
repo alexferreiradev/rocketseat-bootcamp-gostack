@@ -31,12 +31,15 @@ routes.delete('/entregadores/:id', EntregadorController.delete);
 routes.delete('/entregadores/:id/entregas', EntregadorController.entregas);
 
 routes.get('/encomendas', EncomendaController.index);
-routes.get(
-  '/encomenda/:id/problemas',
-  ProblemaEncomendaController.problemaListByEncomenda
-);
 routes.post('/encomenda', EncomendaController.store);
 routes.put('/encomenda/:id', EncomendaController.update);
 routes.delete('/encomenda/:id', EncomendaController.delete);
+
+routes.get(
+  '/encomenda_problemas',
+  ProblemaEncomendaController.problemaListByEncomenda
+);
+routes.post('/encomenda_problemas', ProblemaEncomendaController.store);
+routes.post('/encomenda_problemas/:id', ProblemaEncomendaController.cancelar);
 
 export default routes;

@@ -1,4 +1,5 @@
 import ProblemaEncomenda from '../models/ProblemaEncomenda';
+import Encomenda from '../models/Encomenda';
 
 class ProblemaEncomendaController {
   async index(_, res) {
@@ -8,8 +9,8 @@ class ProblemaEncomendaController {
   }
 
   async problemaListByEncomenda(req, res) {
-    const { id } = req.params;
-    if (id) {
+    const { encomendaId } = req.query;
+    if (encomendaId) {
       return res
         .code(422)
         .json({ error: 'Necessario passar id para listagem de problemas' });
@@ -17,7 +18,7 @@ class ProblemaEncomendaController {
 
     const model = await ProblemaEncomenda.findAndCountAll({
       where: {
-        encomenda: id,
+        encomenda: encomendaId,
       },
     });
 
@@ -30,8 +31,40 @@ class ProblemaEncomendaController {
         .code(422)
         .json({ error: 'Utilize update para alterar um model' });
     }
+    const { idEncomenda } = req.body;
+    if (!idEncomenda) {
+      return res.code(422).json({ error: 'Precisa passar id da encomenda' });
+    }
+
+    const encomenda = await Encomenda.findByPk(idEncomenda);
+    if (!encomenda) {
+      return res.code(404).json({ error: 'Encomenda nao encontrada' });
+    }
 
     const model = await ProblemaEncomenda.create(req.body);
+
+    return res.json({ model });
+  }
+
+  async cancelar(req, res) {
+    const { idEncomenda } = req.body;
+    if (!idEncomenda) {
+      return res.code(422).json({ error: 'Precisa passar id da encomenda' });
+    }
+    const { id } = req.params;
+    if (id) {
+      return res
+        .code(422)
+        .json({ error: 'Utilize update para alterar um model' });
+    }
+
+    const encomenda = await Encomenda.findByPk(idEncomenda);
+    if (!encomenda) {
+      return res.code(404).json({ error: 'Encomenda nao encontrada' });
+    }
+
+    encomenda.canceled_at = new Date();
+    const model = await encomenda.update();
 
     return res.json({ model });
   }
