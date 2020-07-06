@@ -41,6 +41,20 @@ class EncomendaController {
 
         return res.json({model});
     }
+
+    async filtradoPorEntregador(req, res) {
+        const {id} = req.params;
+        if (!!id){
+            return res.code(422).json({ error: "Necessario passar id do entregador"});
+        }
+        const model = await Encomenda.findAndCountAll({where: {
+          entregador: {
+            [Op.eq]: id,
+          }
+        }});
+        
+        return res.json(model);
+    }
 }
 
 export default new EncomendaController();
