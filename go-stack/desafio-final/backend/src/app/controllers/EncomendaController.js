@@ -1,5 +1,14 @@
 import Sequelize from 'sequelize';
 import Encomenda from '../models/Encomenda';
+import Queue from '../../lib/Queue';
+import NovaEncomendaMail from '../jobs/NovaEncomendaMail';
+
+async function sendEmailToEntregador(encomenda, entregador) {
+  await Queue.addJob(NovaEncomendaMail.key, {
+    nomeProduto: encomenda.produto,
+    entregador: entregador.nome,
+  });
+}
 
 const { Op } = Sequelize;
 class EncomendaController {
@@ -17,6 +26,8 @@ class EncomendaController {
     }
 
     const model = await Encomenda.create(req.body);
+
+    sendEmailToEntregador(model, model.entregador);
 
     return res.json({ model });
   }

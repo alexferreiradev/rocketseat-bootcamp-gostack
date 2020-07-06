@@ -1,5 +1,16 @@
 import ProblemaEncomenda from '../models/ProblemaEncomenda';
 import Encomenda from '../models/Encomenda';
+import Queue from '../../lib/Queue';
+import CancelationMail from '../jobs/CancelationMail';
+import format from '../../util/index';
+
+async function sendEmailToEntregador(encomenda, entregador) {
+  await Queue.addJob(CancelationMail.key, {
+    nomeProduto: encomenda.produto,
+    dataCancelamento: format(encomenda.canceled_at),
+    entregador: entregador.nome,
+  });
+}
 
 class ProblemaEncomendaController {
   async index(_, res) {
@@ -65,6 +76,8 @@ class ProblemaEncomendaController {
 
     encomenda.canceled_at = new Date();
     const model = await encomenda.update();
+
+    sendEmailToEntregador(model, model.entregador);
 
     return res.json({ model });
   }
