@@ -11,6 +11,7 @@ import EncomendaController from './app/controllers/EncomendaController';
 import ProblemaEncomendaController from './app/controllers/ProblemaEncomendaController';
 import authMid from './app/middlewares/auth';
 import config from './version';
+import multerConfig from './config/multer';
 
 const routes = new Router();
 const upload = multer(multerConfig);
