@@ -4,7 +4,7 @@ import api from '../../../services/api';
 import { doLogin, doLogout } from './actions';
 
 function* doLoginReq({ id }) {
-  const res = yield call(api.post, '/login', { id });
+  const res = yield call(api.get, '/login/?id=' + id);
 
   yield put(doLogin(1));
   // yield history.push('/encomendas');

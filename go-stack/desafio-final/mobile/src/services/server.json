@@ -12,7 +12,8 @@
       "idDestinatario": 1,
       "cidade": "Rio de Janeiro",
       "estado": "São Paulo"
-    },{
+    },
+    {
       "id": 2,
       "foto": "/teste2.png",
       "nome": "Nome teste 2",
