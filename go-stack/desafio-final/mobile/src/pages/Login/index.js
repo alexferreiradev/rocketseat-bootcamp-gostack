@@ -29,7 +29,6 @@ function Login({ navigation }) {
       <Logo />
       <Form initialData={user} onSubmit={handleLogin}>
         <Input
-          name="id"
           autoCorrect={false}
           autoCapitalize="none"
           placeholder="Informe seu ID de cadastro"
