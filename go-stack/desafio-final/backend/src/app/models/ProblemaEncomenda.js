@@ -9,9 +9,11 @@ class ProblemaEncomenda extends Model {
       },
       {
         sequelize,
-        tableName: 'recipient',
+        tableName: 'problema_encomenda',
       }
     );
+
+    return this;
   }
 
   static associate(models) {

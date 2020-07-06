@@ -17,6 +17,8 @@ class Destinatario extends Model {
         tableName: 'recipient',
       }
     );
+
+    return this;
   }
 }
 

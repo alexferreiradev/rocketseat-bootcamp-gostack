@@ -11,9 +11,11 @@ class Encomenda extends Model {
       },
       {
         sequelize,
-        tableName: 'recipient',
+        tableName: 'encomenda',
       }
     );
+
+    return this;
   }
 
   static associate(models) {
