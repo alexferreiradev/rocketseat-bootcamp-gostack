@@ -1,16 +1,14 @@
-'use strict';
-
 const destinatarioTableName = 'recipient';
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable(destinatarioTableName, 
-    { id: {
+    return queryInterface.createTable(destinatarioTableName, {
+      id: {
         type: Sequelize.BIGINT,
         primaryKey: true,
-        autoIncrement: true
+        autoIncrement: true,
       },
-      nome: Sequelize.STRING, 
+      nome: Sequelize.STRING,
       rua: Sequelize.STRING,
       numero: Sequelize.STRING,
       complemento: Sequelize.STRING,
@@ -19,16 +17,16 @@ module.exports = {
       cep: Sequelize.STRING(8),
       created_at: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       updated_at: {
         type: Sequelize.STRING,
-        allowNull: false
-      }
+        allowNull: false,
+      },
     });
   },
 
-  down: (queryInterface, Sequelize) => {
+  down: (queryInterface) => {
     return queryInterface.dropTable(destinatarioTableName);
-  }
+  },
 };

@@ -1,4 +1,4 @@
-import {Router} from 'express';
+import { Router } from 'express';
 
 import UserController from './app/controllers/UserController';
 import DestinatarioController from './app/controllers/DestinatarioController';
@@ -12,7 +12,7 @@ import config from './version';
 const routes = new Router();
 
 routes.get('/', (_, res) => {
-    return res.json({ status: "ok", version: config.version});
+  return res.json({ status: 'ok', version: config.version });
 });
 routes.post('/login', SessionController.login);
 
@@ -31,7 +31,10 @@ routes.delete('/entregadores/:id', EntregadorController.delete);
 routes.delete('/entregadores/:id/entregas', EntregadorController.entregas);
 
 routes.get('/encomendas', EncomendaController.index);
-routes.get('/encomenda/:id/problemas', ProblemaEncomendaController.problemaListByEncomenda);
+routes.get(
+  '/encomenda/:id/problemas',
+  ProblemaEncomendaController.problemaListByEncomenda
+);
 routes.post('/encomenda', EncomendaController.store);
 routes.put('/encomenda/:id', EncomendaController.update);
 routes.delete('/encomenda/:id', EncomendaController.delete);
