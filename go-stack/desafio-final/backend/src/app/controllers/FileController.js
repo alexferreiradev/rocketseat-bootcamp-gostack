@@ -16,6 +16,15 @@ class FileController {
 
     return res.json(file);
   }
+
+  async filter(req, res) {
+    if (!req.params.id) {
+      return res.status(422).json('Necessário passar id');
+    }
+
+    const model = await File.findByPk(req.params.id);
+    return res.json(model);
+  }
 }
 
 export default new FileController();

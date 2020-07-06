@@ -14,6 +14,8 @@ import authMid from './app/middlewares/auth';
 import config from './version';
 import multerConfig from './config/multer';
 
+console.log('Iniciando configuracao de rotas');
+
 const routes = new Router();
 const upload = multer(multerConfig);
 
@@ -36,11 +38,12 @@ routes.post('/entregadores', EntregadorController.store);
 routes.put('/entregadores/:id', EntregadorController.update);
 routes.delete('/entregadores/:id', EntregadorController.delete);
 
-routes.get('/entregas', EntregaController.entregas);
-routes.post('/entregas', EntregaController.entregas);
+routes.get('/entregas', EntregaController.index);
+routes.post('/entregas', EntregaController.store);
 
 routes.post('/file', upload.single('file'), FileController.store);
 routes.get('/file', FileController.index);
+routes.get('/file/:id', FileController.filter);
 
 routes.get('/encomendas', EncomendaController.index);
 routes.post('/encomenda', EncomendaController.store);
@@ -55,5 +58,7 @@ routes.post('/encomenda_problemas', ProblemaEncomendaController.store);
 routes.post('/encomenda_problemas/:id', ProblemaEncomendaController.cancelar);
 
 routes.post('/retirada/', RetiradaController.store);
+
+console.log('Rotas configuradas:', routes);
 
 export default routes;
