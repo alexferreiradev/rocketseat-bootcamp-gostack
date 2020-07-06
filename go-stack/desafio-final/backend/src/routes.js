@@ -20,6 +20,7 @@ routes.get('/', (_, res) => {
   return res.json({ status: 'ok', version: config.version });
 });
 routes.post('/login', SessionController.login);
+routes.post('/login_entregador', SessionController.loginEntregador);
 
 routes.use(authMid);
 
