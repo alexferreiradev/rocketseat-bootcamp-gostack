@@ -28,11 +28,11 @@ const Encomenda = ({ navigation }) => {
   async function fetchData() {
     const res = await api.get(`/encomendas/${id}`);
     if (res.data) {
-      const dataEntregaFormatada = res.data.dataEntrega
-        ? res.data.dataEntrega
+      const dataEntregaFormatada = res.data.end_date
+        ? res.data.end_date
         : '--/--/--';
-      const dataRetiradaFormatada = res.data.dataRetirada
-        ? res.data.dataRetirada
+      const dataRetiradaFormatada = res.data.start_date
+        ? res.data.start_date
         : '--/--/--';
       const newData = {
         ...res.data,
@@ -74,11 +74,11 @@ const Encomenda = ({ navigation }) => {
           <InfoTitle>Informações da entrega</InfoTitle>
         </InfoHeader>
         <Label>Destinatário</Label>
-        <LabelText>{encomenda.destinatarioId}</LabelText>
+        <LabelText>{encomenda.deliveryman_id}</LabelText>
         <Label>Endereço de entrega</Label>
-        <LabelText>{encomenda.endereco}</LabelText>
+        <LabelText>{encomenda.recipient_id}</LabelText>
         <Label>Produto</Label>
-        <LabelText>{encomenda.nomeProduto}</LabelText>
+        <LabelText>{encomenda.product}</LabelText>
       </Card>
       <Card>
         <InfoHeader>
@@ -93,15 +93,15 @@ const Encomenda = ({ navigation }) => {
         <LabelText>{encomenda.dataEntregaFormatada}</LabelText>
       </Card>
       <EncomendaOptions>
-        <OptionBt onPress={handleOption('informar-problema')}>
+        <OptionBt onPress={() => handleOption('informar-problema')}>
           <Icon name="cancel" color="#E74040" size={20} />
           <OptionBtText>Informar problema</OptionBtText>
         </OptionBt>
-        <OptionBt onPress={handleOption('visualizar-problemas')}>
+        <OptionBt onPress={() => handleOption('visualizar-problemas')}>
           <Icon name="info" color="#E7BA40" size={20} />
           <OptionBtText>Visualizar</OptionBtText>
         </OptionBt>
-        <OptionBt onPress={handleOption('confirmar')}>
+        <OptionBt onPress={() => handleOption('confirmar')}>
           <Icon name="check-circle" color="#7D40E7" size={20} />
           <OptionBtText>Confirmar entrega</OptionBtText>
         </OptionBt>

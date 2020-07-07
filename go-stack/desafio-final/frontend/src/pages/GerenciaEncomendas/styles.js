@@ -12,4 +12,41 @@ export const PesquizarInput = styled.input`
     border-radius: 3px;
     padding: 4px;
 `;
-export const CadastrarBt = styled.button``;
+export const CadastrarBt = styled.button`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: #7d40e7;
+    height: 36px;
+    width: 142px;
+    border: 1px solid #7d40e7;
+    border-radius: 4px;
+
+    a {
+        text-decoration: none;
+        color: #fff;
+        margin: 9px 9px;
+
+        svg {
+        }
+    }
+`;
+export const EntregadorField = styled.div`
+    display: flex;
+
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+
+    span {
+        margin-left: 10px;
+    }
+`;
+export const EntregadorImg = styled.img`
+    height: 25px;
+    width: 25px;
+    max-height: 55px;
+    max-width: 55px;
+    border-radius: 100%;
+`;

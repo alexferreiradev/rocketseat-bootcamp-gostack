@@ -3,7 +3,12 @@ import { Link, useHistory } from 'react-router-dom';
 import { Modal } from 'react-bootstrap';
 import { FaPlus } from 'react-icons/fa';
 
-import { PesquizarInput, CadastrarBt } from './styles';
+import {
+    PesquizarInput,
+    CadastrarBt,
+    EntregadorField,
+    EntregadorImg,
+} from './styles';
 
 import api from '../../services/api';
 import Header from '../../components/Header';
@@ -150,11 +155,14 @@ function GerenciaEncomenda() {
                     )}
                     {encomendaList.map((encomenda) => (
                         <ListItem key={encomenda.id}>
-                            <span>{encomenda.id}</span>
-                            <span>{encomenda.recipient_id}</span>
-                            <span>{encomenda.deliveryman_id}</span>
-                            <span>{encomenda.cidade}</span>
-                            <span>{encomenda.estado}</span>
+                            <span>#{encomenda.id}</span>
+                            <span>{encomenda.destinatario.nome}</span>
+                            <EntregadorField>
+                                <EntregadorImg src="https://lh3.googleusercontent.com/proxy/GQojerFzXA2grEWOUaA_7qaPH0Hemx2hIf_saxQl2utLpCheG_YqMI49ep8z5omhXyBNpdPHxk3YY8UKds34MoBtyC4aBHkmgcfP94wBCf-p" />
+                                <span>{encomenda.entregador.name}</span>
+                            </EntregadorField>
+                            <span>{encomenda.destinatario.cidade}</span>
+                            <span>{encomenda.destinatario.estado}</span>
                             <span>{encomenda.status}</span>
                             <ModalContextOptions
                                 actionItemTextList={actionItemTextList}

@@ -95,7 +95,7 @@ function Dashboard({ navigation }) {
           name="exit-to-app"
           color="#E74040"
           size={24}
-          onPress={handleExit}
+          onPress={() => handleExit()}
         />
       </Header>
 

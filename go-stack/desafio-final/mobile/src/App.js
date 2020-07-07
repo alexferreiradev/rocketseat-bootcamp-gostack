@@ -5,7 +5,7 @@ import '../config/ReactotronConfig';
 import createRoutes from '../routes';
 
 export default function App() {
-  const logado = useSelector((state) => state.user.userId);
+  const logado = useSelector((state) => state.user.logado);
 
   const Routes = createRoutes(logado);
   return <Routes />;
