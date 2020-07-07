@@ -17,8 +17,8 @@ function GerenciaEntregadores() {
     const [entregadorList, setEntregadorList] = useState([]);
 
     function processListData(res) {
-        if (res.data) {
-            setEntregadorList([...res.data]);
+        if (res.data.rows) {
+            setEntregadorList([...res.data.rows]);
         }
     }
 
@@ -109,7 +109,7 @@ function GerenciaEntregadores() {
                         <ListItem key={entregador.id}>
                             <span key={entregador.id}>{entregador.id}</span>
                             <span>{entregador.foto}</span>
-                            <span>{entregador.nome}</span>
+                            <span>{entregador.name}</span>
                             <span>{entregador.email}</span>
                             <ModalContextOptions
                                 actionItemTextList={actionItemTextList}

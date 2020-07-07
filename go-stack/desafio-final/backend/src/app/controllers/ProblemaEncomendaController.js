@@ -20,6 +20,22 @@ class ProblemaEncomendaController {
     return res.json(model);
   }
 
+  async problemaById(req, res) {
+    const { id } = req.params;
+    if (!id) {
+      return res
+        .status(422)
+        .json({ error: 'Necessario passar id do problema' });
+    }
+
+    const problema = await ProblemaEncomenda.findByPk(id);
+    if (!problema) {
+      return res.status(404).json({ error: 'Problema nao encontrada' });
+    }
+
+    return res.json(problema);
+  }
+
   async problemaListByEncomenda(req, res) {
     const { encomendaId } = req.query;
     if (!encomendaId) {

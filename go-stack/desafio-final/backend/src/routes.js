@@ -51,9 +51,10 @@ routes.post('/retiradas/', RetiradaController.store);
 routes.get('/entregas', EntregaController.index);
 routes.post('/entregas', EntregaController.store);
 
+routes.get('/encomenda_problemas', ProblemaEncomendaController.index);
 routes.get(
-  '/encomenda_problemas',
-  ProblemaEncomendaController.problemaListByEncomenda
+  '/encomenda_problemas/:id',
+  ProblemaEncomendaController.problemaById
 );
 routes.post('/encomenda_problemas', ProblemaEncomendaController.store);
 routes.put('/encomenda_problemas/:id', ProblemaEncomendaController.cancelar);

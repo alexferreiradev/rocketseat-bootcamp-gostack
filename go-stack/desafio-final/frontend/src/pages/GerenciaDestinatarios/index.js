@@ -17,8 +17,8 @@ function GerenciaDestinatario() {
     const [destinatarioList, setDestinatarioList] = useState([]);
 
     function processListData(res) {
-        if (res.data) {
-            setDestinatarioList([...res.data]);
+        if (res.data.rows) {
+            setDestinatarioList([...res.data.rows]);
         }
     }
 

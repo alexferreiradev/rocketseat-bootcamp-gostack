@@ -18,10 +18,10 @@ function GerenciaProblemas() {
     };
 
     async function fetchData() {
-        const res = await api.get('/problemas');
+        const res = await api.get('/encomenda_problemas');
         // console.log(res);
-        if (res.data) {
-            setProblemaList([...res.data]);
+        if (res.data.rows) {
+            setProblemaList([...res.data.rows]);
         }
     }
 

@@ -20,8 +20,29 @@ function GerenciaEncomenda() {
 
     const history = useHistory();
     function processListData(res) {
-        if (res.data) {
-            setEncomendaList([...res.data]);
+        if (res.data.rows) {
+            const formattedData = res.data.rows.map((row) => {
+                let formattedStatus;
+                if (row.canceled_at) {
+                    formattedStatus = 'cancelada';
+                } else if (row.start_date) {
+                    if (row.end_date) {
+                        formattedStatus = 'entregue';
+                    } else {
+                        formattedStatus = 'retirada';
+                    }
+                } else {
+                    formattedStatus = 'pendente';
+                }
+
+                const data = {
+                    ...row,
+                    status: formattedStatus,
+                };
+
+                return data;
+            });
+            setEncomendaList([...formattedData]);
         }
     }
 
@@ -130,8 +151,8 @@ function GerenciaEncomenda() {
                     {encomendaList.map((encomenda) => (
                         <ListItem key={encomenda.id}>
                             <span>{encomenda.id}</span>
-                            <span>{encomenda.destinatario}</span>
-                            <span>{encomenda.entregador}</span>
+                            <span>{encomenda.recipient_id}</span>
+                            <span>{encomenda.deliveryman_id}</span>
                             <span>{encomenda.cidade}</span>
                             <span>{encomenda.estado}</span>
                             <span>{encomenda.status}</span>

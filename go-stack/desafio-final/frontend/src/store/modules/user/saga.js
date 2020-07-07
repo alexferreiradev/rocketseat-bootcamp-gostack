@@ -4,12 +4,12 @@ import history from '../../../services/history';
 import { doLogin, doLogout } from './actions';
 
 function* doLoginReq({ email, senha }) {
-    const res = yield call(api.post, `/login`, { email, senha });
+    const res = yield call(api.post, `/login`, { email, password: senha });
 
-    yield put(doLogin(123));
-    yield history.push('/encomendas');
-    // if (res.data) {
-    // }
+    if (res.data) {
+        yield put(doLogin(res.data.token));
+        yield history.push('/encomendas');
+    }
 }
 
 function* doLogoutReq() {
@@ -19,7 +19,16 @@ function* doLogoutReq() {
     // }
 }
 
+function setToken({ payload }) {
+    // console.log(payload);
+    const { userId: token } = payload.user;
+    if (token) {
+        api.defaults.headers.Authorization = `Bearer ${token}`;
+    }
+}
+
 export default all([
+    takeLatest('persist/REHYDRATE', setToken),
     takeLatest('@user/login-req', doLoginReq),
     takeLatest('@user/logout-req', doLogoutReq),
 ]);

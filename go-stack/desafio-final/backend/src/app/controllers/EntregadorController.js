@@ -3,7 +3,7 @@ import File from '../models/File';
 
 class EntregadorController {
   async index(req, res) {
-    const dataList = await User.findAll({
+    const dataList = await User.findAndCountAll({
       where: { entregador: true },
       attributes: ['id', 'name', 'email', 'avatar_id'],
       include: [
