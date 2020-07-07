@@ -1,8 +1,30 @@
+import Sequelize from 'sequelize';
 import User from '../models/User';
 import File from '../models/File';
 
+const { Op } = Sequelize;
+
+async function findWithFilter(req, res) {
+  const { q } = req.query;
+  const model = await User.findAndCountAll({
+    where: {
+      name: {
+        [Op.iLike]: `%${q}%`,
+      },
+      entregador: true,
+    },
+  });
+
+  return res.json(model);
+}
+
 class EntregadorController {
   async index(req, res) {
+    const { q } = req.query;
+    if (q) {
+      return findWithFilter(req, res);
+    }
+
     const dataList = await User.findAndCountAll({
       where: { entregador: true },
       attributes: ['id', 'name', 'email', 'avatar_id'],

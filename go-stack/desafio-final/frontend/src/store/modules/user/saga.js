@@ -4,6 +4,8 @@ import history from '../../../services/history';
 import { doLogin, doLogout } from './actions';
 
 function* doLoginReq({ email, senha }) {
+    console.log(email, senha);
+
     const res = yield call(api.post, `/login`, { email, password: senha });
 
     if (res.data) {

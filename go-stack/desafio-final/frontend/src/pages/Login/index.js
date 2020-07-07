@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Background, Logo, LogoText, SubmitButton } from './styles';
@@ -8,7 +8,6 @@ import * as UserActions from '../../store/modules/user/actions';
 
 function Login() {
     const dispatch = useDispatch();
-    const [user] = useState({ email: '', senha: '' });
 
     function handleLogin({ email, senha }) {
         dispatch(UserActions.doLoginReq(email, senha));
@@ -19,7 +18,7 @@ function Login() {
             <Container>
                 <Logo />
                 <LogoText>fastfeet</LogoText>
-                <Form initialData={user} onSubmit={handleLogin}>
+                <Form onSubmit={handleLogin}>
                     <Label>Seu E-mail</Label>
                     <Input
                         name="email"

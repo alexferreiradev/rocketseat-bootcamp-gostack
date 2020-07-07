@@ -3,6 +3,8 @@ import Encomenda from '../models/Encomenda';
 import Queue from '../../lib/Queue';
 import NovaEncomendaMail from '../jobs/NovaEncomendaMail';
 
+const { Op } = Sequelize;
+
 async function sendEmailToEntregador(encomenda, entregador) {
   await Queue.addJob(NovaEncomendaMail.key, {
     nomeProduto: encomenda.produto,
@@ -10,9 +12,26 @@ async function sendEmailToEntregador(encomenda, entregador) {
   });
 }
 
-const { Op } = Sequelize;
+async function findWithFilter(req, res) {
+  const { q } = req.query;
+  const model = await Encomenda.findAndCountAll({
+    where: {
+      product: {
+        [Op.iLike]: `%${q}%`,
+      },
+    },
+  });
+
+  return res.json(model);
+}
+
 class EncomendaController {
-  async index(_, res) {
+  async index(req, res) {
+    const { q } = req.query;
+    if (q) {
+      return findWithFilter(req, res);
+    }
+
     const model = await Encomenda.findAndCountAll();
 
     return res.json(model);

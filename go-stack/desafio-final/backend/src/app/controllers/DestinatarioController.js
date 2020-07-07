@@ -1,7 +1,27 @@
+import Sequelize from 'sequelize';
 import Destinatario from '../models/Destinatario';
 
+const { Op } = Sequelize;
+
+async function findWithFilter(req, res) {
+  const { q } = req.query;
+  const model = await Destinatario.findAndCountAll({
+    where: {
+      nome: {
+        [Op.iLike]: `%${q}%`,
+      },
+    },
+  });
+
+  return res.json(model);
+}
 class DestinatarioController {
-  async index(_, res) {
+  async index(req, res) {
+    const { q } = req.query;
+    if (q) {
+      return findWithFilter(req, res);
+    }
+
     const model = await Destinatario.findAndCountAll();
 
     return res.json(model);

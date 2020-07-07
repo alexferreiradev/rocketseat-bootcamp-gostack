@@ -29,12 +29,8 @@ function GerenciaProblemas() {
         fetchData();
     }, []);
 
-    async function handleCancel({ id, ...rest }) {
-        const newData = {
-            status: 'cancelado',
-            ...rest,
-        };
-        const res = await api.put(`/encomendas/${id}`, newData);
+    async function handleCancel({ id }) {
+        const res = await api.put(`/encomenda_problemas/${id}`);
         if (res.status === 200) {
             fetchData();
         }

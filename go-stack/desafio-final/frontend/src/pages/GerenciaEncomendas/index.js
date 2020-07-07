@@ -60,7 +60,7 @@ function GerenciaEncomenda() {
         console.log(e.target.value);
         const { value } = e.target;
         console.log(searchText.length, value.length);
-        if (value.length > 2) {
+        if (value.length > 0) {
             const res = await api.get(`/encomendas?q=${value}`);
             console.log(res);
             processListData(res);
