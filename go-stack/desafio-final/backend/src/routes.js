@@ -56,10 +56,7 @@ routes.get('/entregas', EntregaController.index);
 routes.post('/entregas', EntregaController.store);
 
 routes.get('/encomenda_problemas', ProblemaEncomendaController.index);
-routes.get(
-  '/encomenda_problemas/:id',
-  ProblemaEncomendaController.problemaById
-);
+routes.get('/encomenda_problemas/:id', ProblemaEncomendaController.find);
 routes.post('/encomenda_problemas', ProblemaEncomendaController.store);
 routes.put('/encomenda_problemas/:id', ProblemaEncomendaController.cancelar);
 

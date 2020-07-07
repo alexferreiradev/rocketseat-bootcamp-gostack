@@ -1,6 +1,7 @@
 import ProblemaEncomenda from '../models/ProblemaEncomenda';
 import Encomenda from '../models/Encomenda';
 import User from '../models/User';
+import Destinatario from '../models/Destinatario';
 import Queue from '../../lib/Queue';
 import CancelationMail from '../jobs/CancelationMail';
 import format from '../../util/index';
@@ -15,12 +16,26 @@ async function sendEmailToEntregador(encomenda, entregador) {
 
 class ProblemaEncomendaController {
   async index(_, res) {
-    const model = await ProblemaEncomenda.findAndCountAll();
+    const model = await ProblemaEncomenda.findAndCountAll({
+      attributes: ['id', 'product', 'deliveryman_id', '', 'recipient_id'],
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['name'],
+        },
+        {
+          model: Destinatario,
+          as: 'user',
+          attributes: ['name'],
+        },
+      ],
+    });
 
     return res.json(model);
   }
 
-  async problemaById(req, res) {
+  async find(req, res) {
     const { id } = req.params;
     if (!id) {
       return res

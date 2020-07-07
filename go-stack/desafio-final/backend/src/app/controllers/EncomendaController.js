@@ -1,5 +1,7 @@
 import Sequelize from 'sequelize';
 import Encomenda from '../models/Encomenda';
+import User from '../models/User';
+import Destinatario from '../models/Destinatario';
 import Queue from '../../lib/Queue';
 import NovaEncomendaMail from '../jobs/NovaEncomendaMail';
 
@@ -20,6 +22,19 @@ async function findWithFilter(req, res) {
         [Op.iLike]: `%${q}%`,
       },
     },
+    attributes: ['id', 'product', 'deliveryman_id', 'recipient_id'],
+    include: [
+      {
+        model: User,
+        as: 'entregador',
+        attributes: ['name'],
+      },
+      {
+        model: Destinatario,
+        as: 'destinatario',
+        attributes: ['nome', 'cidade', 'estado', 'complemento', 'cep'],
+      },
+    ],
   });
 
   return res.json(model);
@@ -32,7 +47,21 @@ class EncomendaController {
       return findWithFilter(req, res);
     }
 
-    const model = await Encomenda.findAndCountAll();
+    const model = await Encomenda.findAndCountAll({
+      attributes: ['id', 'product', 'deliveryman_id', 'recipient_id'],
+      include: [
+        {
+          model: User,
+          as: 'entregador',
+          attributes: ['name'],
+        },
+        {
+          model: Destinatario,
+          as: 'destinatario',
+          attributes: ['nome', 'cidade', 'estado', 'complemento', 'cep'],
+        },
+      ],
+    });
 
     return res.json(model);
   }
@@ -44,7 +73,21 @@ class EncomendaController {
         .status(422)
         .json({ error: 'Necessario passar id da encomenda' });
     }
-    const model = await Encomenda.findByPk(id);
+    const model = await Encomenda.findByPk(id, {
+      attributes: ['id', 'product', 'deliveryman_id', 'recipient_id'],
+      include: [
+        {
+          model: User,
+          as: 'entregador',
+          attributes: ['name'],
+        },
+        {
+          model: Destinatario,
+          as: 'destinatario',
+          attributes: ['nome', 'cidade', 'estado', 'complemento', 'cep'],
+        },
+      ],
+    });
     if (!model) {
       return res.status(404).json([]);
     }
