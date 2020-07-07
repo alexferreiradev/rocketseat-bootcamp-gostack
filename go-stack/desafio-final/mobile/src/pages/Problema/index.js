@@ -14,9 +14,9 @@ import {
 import api from '../../services/api';
 
 const Problema = ({ navigation, route }) => {
-  navigation.setOptions({
-    title: 'Detalhes da encomenda',
-  });
+  // navigation.setOptions({
+  //   title: 'Detalhes da encomenda',
+  // });
   const encomenda = { id: 1 };
   const [problemaList, setProblemaList] = useState([]);
 
@@ -29,7 +29,7 @@ const Problema = ({ navigation, route }) => {
 
   useEffect(() => {
     fetchData();
-  });
+  }, []);
 
   return (
     <Container>

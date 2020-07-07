@@ -6,7 +6,7 @@ import { Keyboard } from 'react-native';
 import {
   Container,
   Form,
-  Input,
+  FormInput,
   Logo,
   SubmitButton,
   SubmitButtonText,
@@ -15,31 +15,35 @@ import {
 import { doLoginReq } from '../../store/modules/user/actions';
 
 function Login({ navigation }) {
-  const formRef = useRef(null);
-  const [user] = useState({
-    id: '',
-  });
-  console.tron.log('id');
+  const [id, setId] = useState('');
+  const idRef = useRef();
+  const formRef = useRef();
+  // console.tron.log('id');
   const dispatch = useDispatch();
-  async function handleLogin(data) {
-    console.tron.log('handle');
-    console.tron.log('id', data);
-    dispatch(doLoginReq(1));
+
+  async function handleLogin() {
+    // console.tron.log('handle');
+    console.tron.log('id', id);
+    dispatch(doLoginReq(id));
     Keyboard.dismiss();
   }
 
   return (
     <Container>
       <Logo />
-      <Form ref={formRef} initialData={user} onSubmit={handleLogin}>
-        <Input
+      <Form>
+        <FormInput
+          value={id}
+          ref={idRef}
           autoCorrect={false}
           autoCapitalize="none"
           placeholder="Informe seu ID de cadastro"
           returnKeyType="send"
+          onChangeText={setId}
+          onSubmitEditing={() => idRef.current.focus()}
         />
 
-        <SubmitButton onPress={() => formRef.current.submitForm()}>
+        <SubmitButton onPress={() => handleLogin()}>
           <SubmitButtonText>Entrar no sistema</SubmitButtonText>
         </SubmitButton>
       </Form>

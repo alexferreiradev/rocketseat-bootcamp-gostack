@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { doLogoutReq } from '../../store/modules/user/actions';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {
   Container,
@@ -45,6 +46,13 @@ Perfil.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func,
   }).isRequired,
+};
+
+Perfil.navigationOptions = {
+  tabBarLabel: 'Perfil',
+  tabBarIcon: ({ tintColor }) => (
+    <Icon name="profile" size={20} color={tintColor} />
+  ),
 };
 
 export default Perfil;

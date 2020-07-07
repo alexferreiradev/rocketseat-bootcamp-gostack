@@ -47,36 +47,39 @@ function Dashboard({ navigation }) {
   }
 
   function handleChangeFilter(type) {
-    switch (type) {
-      case 'entregue': {
-        fetchData('status=entregue');
-        break;
-      }
-      case 'pendente':
-        fetchData('status_ne=entregue');
-        break;
-    }
+    fetchData(type);
   }
 
   function handleDetalhes(item) {
+    console.tron.log('handle nav');
     navigation.navigate('Encomenda', { id: item.id });
 
     Keyboard.dismiss();
   }
 
-  async function fetchData(filter) {
-    const urlReq = `/encomendas?entregadorId=${id}`;
-    const urlFilter = `${urlReq}&${filter}`;
-    const urlMounted = filter ? urlFilter : urlReq;
-    const res = await api.get(urlMounted);
-    if (res.data) {
-      setEncomendaList([...res.data]);
+  async function fetchData(filterType) {
+    let url = '/entregas';
+    switch (filterType) {
+      case 'pendente': {
+        url = '/retiradas';
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+    const urlReq = url;
+    const res = await api.get(urlReq);
+    if (res.data.rows) {
+      console.tron.log('dados', res.data.rows);
+
+      setEncomendaList([...res.data.rows]);
     }
   }
 
   useEffect(() => {
     fetchData();
-  });
+  }, []);
 
   return (
     <Container>
@@ -100,10 +103,10 @@ function Dashboard({ navigation }) {
         <ListHeader>
           <ListTitle>Entregas</ListTitle>
           <ListFilter>
-            <FilterText onPress={handleChangeFilter('pendente')}>
+            <FilterText onPress={() => handleChangeFilter('pendente')}>
               Pendentes
             </FilterText>
-            <FilterText onPress={handleChangeFilter('entregue')}>
+            <FilterText onPress={() => handleChangeFilter('entregue')}>
               Entregues
             </FilterText>
           </ListFilter>
@@ -143,13 +146,9 @@ function Dashboard({ navigation }) {
                   <Label>Cidade</Label>
                   <LabelText>{item.cidade}</LabelText>
                 </FooterBlock>
-                <DetalhesButton
-                  onPress={() => {
-                    handleDetalhes(item);
-                  }}
-                >
-                  <DetalhesButtonText>Ver detalhes</DetalhesButtonText>
-                </DetalhesButton>
+                <DetalhesButtonText onPress={() => handleDetalhes(item)}>
+                  Ver detalhes
+                </DetalhesButtonText>
               </EncomendaFooter>
             </Encomenda>
           )}

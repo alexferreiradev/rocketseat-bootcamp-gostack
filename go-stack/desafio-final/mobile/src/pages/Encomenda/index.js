@@ -18,11 +18,11 @@ import {
 import api from '../../services/api';
 
 const Encomenda = ({ navigation }) => {
-  navigation.setOptions({
-    title: 'Visualizar problemas',
-  });
+  // navigation.setOptions({
+  //   title: 'Visualizar problemas',
+  // });
 
-  const id = 1;
+  const id = navigation.getParam('id', -1);
   const [encomenda, setEncomenda] = useState({});
 
   async function fetchData() {
@@ -64,7 +64,7 @@ const Encomenda = ({ navigation }) => {
 
   useEffect(() => {
     fetchData();
-  });
+  }, []);
 
   return (
     <Container>

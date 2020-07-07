@@ -32,9 +32,9 @@ function ConfirmarEntrega({ navigation }) {
     }
   }
 
-  navigation.setOptions({
-    title: 'Confirmar Entrega',
-  });
+  // navigation.setOptions({
+  //   title: 'Confirmar Entrega',
+  // });
 
   return (
     <Container>

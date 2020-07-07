@@ -27,9 +27,9 @@ function InformarProblema({ navigation }) {
     }
   }
 
-  navigation.setOptions({
-    title: 'Informar problema',
-  });
+  // navigation.setOptions({
+  //   title: 'Informar problema',
+  // });
 
   return (
     <Container>

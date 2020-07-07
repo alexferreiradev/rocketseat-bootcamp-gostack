@@ -4,12 +4,14 @@ import api from '../../../services/api';
 import { doLogin, doLogout } from './actions';
 
 function* doLoginReq({ id }) {
-  const res = yield call(api.get, '/login/?id=' + id);
+  console.tron.log('Login:', id);
+  const res = yield call(api.post, '/login_entregador/', { id });
 
-  yield put(doLogin(1));
-  // yield history.push('/encomendas');
-  // if (res.data) {
-  // }
+  console.tron.log('dados login', res.data);
+  if (res.data) {
+    yield put(doLogin(res.data.token));
+    // yield history.push('/encomendas');
+  }
 }
 
 function* doLogoutReq() {
@@ -19,7 +21,16 @@ function* doLogoutReq() {
   // }
 }
 
+function setToken({ payload }) {
+  // console.log(payload);
+  const { userId: token } = payload.user;
+  if (token) {
+    api.defaults.headers.Authorization = `Bearer ${token}`;
+  }
+}
+
 export default all([
+  takeLatest('persist/REHYDRATE', setToken),
   takeLatest('@user/login-req', doLoginReq),
   takeLatest('@user/logout-req', doLogoutReq),
 ]);

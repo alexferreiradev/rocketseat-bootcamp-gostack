@@ -64,3 +64,4 @@ android/
 __tests__/
 
 /layout
+.env*
