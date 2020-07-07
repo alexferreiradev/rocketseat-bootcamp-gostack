@@ -7,7 +7,7 @@ export default function RouteWrapper({
     isPrivate = false,
     ...rest
 }) {
-    console.log(rest);
+    // console.log(rest);
     const { logado = true } = store.getState().user;
     // const logado = true;
 

@@ -18,10 +18,25 @@ class EncomendaController {
     return res.json(model);
   }
 
+  async find(req, res) {
+    const { id } = req.params;
+    if (!id) {
+      return res
+        .status(422)
+        .json({ error: 'Necessario passar id da encomenda' });
+    }
+    const model = await Encomenda.findByPk(id);
+    if (!model) {
+      return res.status(404).json([]);
+    }
+
+    return res.json(model);
+  }
+
   async store(req, res) {
     if (req.body.id) {
       return res
-        .code(422)
+        .status(422)
         .json({ error: 'Utilize update para alterar um model' });
     }
 
@@ -29,7 +44,7 @@ class EncomendaController {
 
     sendEmailToEntregador(model, model.entregador);
 
-    return res.json({ model });
+    return res.status(201).json({ model });
   }
 
   async update(req, res) {
@@ -45,13 +60,13 @@ class EncomendaController {
   }
 
   async delete(req, res) {
-    const id = parseInt(req.params.id, 10);
+    const { id } = req.params;
     let model = await Encomenda.findByPk(id);
     if (!model) {
       return res.json({ error: `Encomenda nao encontrado com ${id}` });
     }
 
-    model = await model.delete();
+    model = await model.destroy();
 
     return res.json({ model });
   }
@@ -60,7 +75,7 @@ class EncomendaController {
     const { id } = req.params;
     if (id) {
       return res
-        .code(422)
+        .status(422)
         .json({ error: 'Necessario passar id do entregador' });
     }
     const model = await Encomenda.findAndCountAll({

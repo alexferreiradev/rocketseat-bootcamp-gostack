@@ -13,6 +13,8 @@ function CadastroEncomenda() {
     const { id } = useParams();
     // console.log('id: ', id, useParams());
 
+    const [entregadorList, setEntregadorList] = useState([]);
+    const [destinatarioList, setDestinatarioList] = useState([]);
     const [encomenda, setEncomenda] = useState({
         nomeProduto: '',
         entregadorId: undefined,
@@ -21,9 +23,21 @@ function CadastroEncomenda() {
     const editing = !!id;
     const headerFunctionText = editing ? 'Edição' : 'Cadastro';
 
+    async function loadSubItens() {
+        const resEntregador = await api.get(`/entregadores`);
+        if (resEntregador.data) {
+            setEntregadorList([...resEntregador.data.rows]);
+        }
+        const resDestinatario = await api.get(`/destinatarios`);
+        if (resDestinatario.data) {
+            setDestinatarioList([...resDestinatario.data.rows]);
+        }
+    }
+
     async function fetchEditingData() {
         const res = await api.get(`/encomendas/${id}`);
         if (res.data) {
+            loadSubItens();
             setEncomenda({ ...res.data });
         }
     }
@@ -31,6 +45,8 @@ function CadastroEncomenda() {
     useEffect(() => {
         if (editing) {
             fetchEditingData();
+        } else {
+            loadSubItens();
         }
     }, [id]);
 
@@ -40,7 +56,7 @@ function CadastroEncomenda() {
         };
         let res;
         if (editing) {
-            res = await api.put(`/encomendas${id}`, newData);
+            res = await api.put(`/encomendas/${id}`, newData);
         } else {
             res = await api.post('/encomendas', newData);
         }
@@ -50,7 +66,6 @@ function CadastroEncomenda() {
             history.push('/encomendas');
         }
     }
-    const entregadorList = ['1 - entregador'];
 
     return (
         <>
@@ -70,7 +85,7 @@ function CadastroEncomenda() {
                                 Escolha seu destinatário
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
-                                {entregadorList.map((destinatario) => (
+                                {destinatarioList.map((destinatario) => (
                                     <Dropdown.Item href={`#/${destinatario}`}>
                                         {`${destinatario.id}-${destinatario.nome}`}
                                     </Dropdown.Item>
@@ -89,8 +104,8 @@ function CadastroEncomenda() {
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
                                 {entregadorList.map((entregador) => (
-                                    <Dropdown.Item href={`#/${entregador}`}>
-                                        {`${entregador.id}-${entregador.nome}`}
+                                    <Dropdown.Item>
+                                        {`${entregador.id}-${entregador.name}`}
                                     </Dropdown.Item>
                                 ))}
                             </Dropdown.Menu>
@@ -98,7 +113,7 @@ function CadastroEncomenda() {
                     </WrapInput>
                     <WrapInput>
                         <Label>Nome do produto</Label>
-                        <Input name="nomeProduto" placeholder="Seu produto" />
+                        <Input name="product" placeholder="Seu produto" />
                     </WrapInput>
                 </Form>
             </Container>

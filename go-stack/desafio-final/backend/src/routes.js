@@ -33,17 +33,21 @@ routes.get('/files/:id', FileController.filter);
 routes.post('/files', upload.single('file'), FileController.store);
 
 routes.get('/entregadores', EntregadorController.index);
+routes.get('/entregadores/:id', EntregadorController.find);
 routes.post('/entregadores', EntregadorController.store);
 routes.put('/entregadores/:id', EntregadorController.update);
 routes.delete('/entregadores/:id', EntregadorController.delete);
 
 routes.get('/destinatarios', DestinatarioController.index);
+routes.get('/destinatarios/:id', DestinatarioController.find);
 routes.post('/destinatarios', DestinatarioController.store);
 routes.put('/destinatarios/:id', DestinatarioController.update);
 
 routes.get('/encomendas', EncomendaController.index);
+routes.get('/encomendas/:id', EncomendaController.find);
 routes.post('/encomendas', EncomendaController.store);
 routes.put('/encomendas/:id', EncomendaController.update);
+routes.delete('/encomendas/:id', EncomendaController.delete);
 
 routes.get('/retiradas/', RetiradaController.index);
 routes.post('/retiradas/', RetiradaController.store);

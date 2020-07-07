@@ -7,6 +7,19 @@ class DestinatarioController {
     return res.json(model);
   }
 
+  async find(req, res) {
+    const { id } = req.params;
+    if (!id) {
+      return res.status(422).json({ error: 'Necessario passar id' });
+    }
+    const model = await Destinatario.findByPk(id);
+    if (!model) {
+      return res.status(404).json([]);
+    }
+
+    return res.json(model);
+  }
+
   async store(req, res) {
     if (req.body.id) {
       return res

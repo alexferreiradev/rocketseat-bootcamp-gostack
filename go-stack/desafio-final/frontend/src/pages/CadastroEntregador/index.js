@@ -75,7 +75,7 @@ function CadastroEntregador() {
                         )}
                     </SelecaoFoto>
                     <Label>Nome</Label>
-                    <Input type="text" name="nome" placeholder="Seu nome" />
+                    <Input type="text" name="name" placeholder="Seu nome" />
                     <Label>Email</Label>
                     <Input
                         name="email"

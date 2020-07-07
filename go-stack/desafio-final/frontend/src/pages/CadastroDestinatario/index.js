@@ -72,7 +72,7 @@ function CadastroDestinatario() {
                     <Label>Nome</Label>
                     <Input name="nome" type="text" placeholder="Seu nome" />
                     <Label>Rua</Label>
-                    <Input name="endereco" type="text" placeholder="Seu rua" />
+                    <Input name="rua" type="text" placeholder="Sua rua" />
                     <Label>Numero</Label>
                     <Input
                         name="numero"
