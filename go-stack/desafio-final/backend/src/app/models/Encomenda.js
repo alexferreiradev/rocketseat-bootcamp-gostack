@@ -4,7 +4,7 @@ class Encomenda extends Model {
   static init(sequelize) {
     super.init(
       {
-        produto: Sequelize.STRING,
+        product: Sequelize.STRING,
         canceled_at: Sequelize.DATE,
         start_date: Sequelize.DATE,
         end_date: Sequelize.DATE,

@@ -4,7 +4,7 @@ import File from '../models/File';
 class EntregadorController {
   async index(req, res) {
     const dataList = await User.findAll({
-      where: { provider: true },
+      where: { entregador: true },
       attributes: ['id', 'name', 'email', 'avatar_id'],
       include: [
         {
@@ -24,8 +24,23 @@ class EntregadorController {
         .code(422)
         .json({ error: 'Utilize update para alterar um model' });
     }
+    const userById = await User.findByPk(req.userId);
 
-    const model = await User.create(req.body);
+    const { email } = req.body;
+    if (email) {
+      const userByEmail = await User.findOne({ where: { email } });
+      if (userByEmail && userByEmail.id !== userById.id) {
+        return res
+          .status(400)
+          .json({ error: `Já existe usuário com este email: ${email}` });
+      }
+    }
+
+    const entregador = {
+      ...req.body,
+      entregador: true,
+    };
+    const model = await User.create(entregador);
 
     return res.json({ model });
   }
@@ -49,7 +64,7 @@ class EntregadorController {
       return res.json({ error: `User nao encontrado com ${id}` });
     }
 
-    model = await model.delete();
+    model = await model.destroy();
 
     return res.json({ model });
   }

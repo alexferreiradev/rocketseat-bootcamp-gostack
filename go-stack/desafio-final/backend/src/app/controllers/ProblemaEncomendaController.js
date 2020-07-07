@@ -1,5 +1,6 @@
 import ProblemaEncomenda from '../models/ProblemaEncomenda';
 import Encomenda from '../models/Encomenda';
+import User from '../models/User';
 import Queue from '../../lib/Queue';
 import CancelationMail from '../jobs/CancelationMail';
 import format from '../../util/index';
@@ -21,15 +22,20 @@ class ProblemaEncomendaController {
 
   async problemaListByEncomenda(req, res) {
     const { encomendaId } = req.query;
-    if (encomendaId) {
+    if (!encomendaId) {
       return res
-        .code(422)
+        .status(422)
         .json({ error: 'Necessario passar id para listagem de problemas' });
+    }
+
+    const encomenda = await Encomenda.findByPk(encomendaId);
+    if (!encomenda) {
+      return res.status(404).json({ error: 'Encomenda nao encontrada' });
     }
 
     const model = await ProblemaEncomenda.findAndCountAll({
       where: {
-        encomenda: encomendaId,
+        encomenda_id: encomendaId,
       },
     });
 
@@ -39,43 +45,65 @@ class ProblemaEncomendaController {
   async store(req, res) {
     if (req.body.id) {
       return res
-        .code(422)
+        .status(422)
         .json({ error: 'Utilize update para alterar um model' });
     }
     const { idEncomenda } = req.body;
     if (!idEncomenda) {
-      return res.code(422).json({ error: 'Precisa passar id da encomenda' });
+      return res.status(422).json({ error: 'Precisa passar id da encomenda' });
+    }
+
+    const { userId } = req;
+    if (!userId) {
+      return res
+        .status(401)
+        .json({ error: 'Api deve ser utilizada por usuarios cadastrados' });
+    }
+
+    const { descricao } = req.body;
+    if (!descricao) {
+      return res
+        .status(400)
+        .json({ error: 'Precisa passar descricao do problema' });
     }
 
     const encomenda = await Encomenda.findByPk(idEncomenda);
     if (!encomenda) {
-      return res.code(404).json({ error: 'Encomenda nao encontrada' });
+      return res.status(404).json({ error: 'Encomenda nao encontrada' });
     }
 
-    const model = await ProblemaEncomenda.create(req.body);
+    const entregador = await User.findByPk(userId);
+    if (!entregador) {
+      return res.status(404).json({ error: 'Entregador nao encontrado' });
+    }
+
+    const model = await ProblemaEncomenda.create({
+      descricao,
+      encomenda_id: idEncomenda,
+      entregador_id: userId,
+    });
 
     return res.json({ model });
   }
 
   async cancelar(req, res) {
-    const { idEncomenda } = req.body;
-    if (!idEncomenda) {
-      return res.code(422).json({ error: 'Precisa passar id da encomenda' });
-    }
     const { id } = req.params;
-    if (id) {
-      return res
-        .code(422)
-        .json({ error: 'Utilize update para alterar um model' });
+    if (!id) {
+      return res.status(422).json({ error: 'Precisa passar id do problema' });
     }
 
-    const encomenda = await Encomenda.findByPk(idEncomenda);
+    const problema = await ProblemaEncomenda.findByPk(id);
+    if (!problema) {
+      return res.status(404).json({ error: 'Problema nao encontrada' });
+    }
+
+    const encomenda = await Encomenda.findByPk(problema.encomenda_id);
     if (!encomenda) {
-      return res.code(404).json({ error: 'Encomenda nao encontrada' });
+      return res.status(404).json({ error: 'Encomenda nao encontrada' });
     }
 
-    encomenda.canceled_at = new Date();
-    const model = await encomenda.update();
+    const newFields = { canceled_at: new Date() };
+    const model = await encomenda.update(newFields);
 
     sendEmailToEntregador(model, model.entregador);
 

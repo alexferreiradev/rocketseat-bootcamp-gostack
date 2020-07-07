@@ -2,20 +2,37 @@ import Sequelize from 'sequelize';
 import { setHours, setMinutes, setSeconds, isAfter, isBefore } from 'date-fns';
 
 import Encomenda from '../models/Encomenda';
-import File from '../models/File';
 
 const { Op } = Sequelize;
 
 class RetiradaController {
+  async index(req, res) {
+    const model = await Encomenda.findAndCountAll({
+      where: {
+        start_date: {
+          [Op.eq]: null,
+        },
+        end_date: {
+          [Op.eq]: null,
+        },
+        canceled_at: {
+          [Op.eq]: null,
+        },
+      },
+    });
+
+    return res.json(model);
+  }
+
   async store(req, res) {
     const { idEncomenda } = req.body;
     if (!idEncomenda) {
-      return res.code(422).json({ error: 'Precisa passar id da encomenda' });
+      return res.status(422).json({ error: 'Precisa passar id da encomenda' });
     }
 
     const encomenda = await Encomenda.findByPk(idEncomenda);
     if (!encomenda) {
-      return res.code(404).json({ error: 'Encomenda nao encontrada' });
+      return res.status(404).json({ error: 'Encomenda nao encontrada' });
     }
 
     const horaRetirada = new Date();
@@ -25,19 +42,19 @@ class RetiradaController {
     );
     const horaPermitidaEnd = setHours(
       setMinutes(setSeconds(new Date(), 59), 59),
-      17
+      23
     );
     if (
       isBefore(horaRetirada, horaPermitidaStart) ||
       isAfter(horaRetirada, horaPermitidaEnd)
     ) {
       return res
-        .code(422)
+        .status(422)
         .json({ error: 'Horário não permitido para retiradas' });
     }
 
-    encomenda.start_date = horaRetirada;
-    const model = await encomenda.update();
+    const newFields = { start_date: horaRetirada };
+    const model = await encomenda.update(newFields);
 
     return res.json({ model });
   }
