@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { FaPlus } from 'react-icons/fa';
 
-import { PesquizarInput, CadastrarBt } from './styles';
+import { PesquizarInput, CadastrarBt, EntregadorImg } from './styles';
 
 import api from '../../services/api';
 import Header from '../../components/Header';
@@ -33,12 +33,12 @@ function GerenciaEntregadores() {
     }, []);
 
     async function handleOnChangeSearchText(e) {
-        console.log(e.target.value);
+        // console.log(e.target.value);
         const { value } = e.target;
-        console.log(searchText.length, value.length);
+        // console.log(searchText.length, value.length);
         if (value.length > 2) {
             const res = await api.get(`/entregadores?q=${value}`);
-            console.log(res);
+            // console.log(res);
             processListData(res);
         } else if (value.length === 0) {
             fetchData();
@@ -108,7 +108,7 @@ function GerenciaEntregadores() {
                     {entregadorList.map((entregador) => (
                         <ListItem key={entregador.id}>
                             <span key={entregador.id}>{entregador.id}</span>
-                            <span>{entregador.foto}</span>
+                            <EntregadorImg src={entregador.avatar.url || ''} />
                             <span>{entregador.name}</span>
                             <span>{entregador.email}</span>
                             <ModalContextOptions
