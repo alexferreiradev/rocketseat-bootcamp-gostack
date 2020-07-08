@@ -67,12 +67,12 @@ function GerenciaEncomenda() {
     }
 
     async function handleOnChangeSearchText(e) {
-        console.log(e.target.value);
+        // console.log(e.target.value);
         const { value } = e.target;
-        console.log(searchText.length, value.length);
+        // console.log(searchText.length, value.length);
         if (value.length > 0) {
             const res = await api.get(`/encomendas?q=${value}`);
-            console.log(res);
+            // console.log(res);
             processListData(res);
         } else if (value.length === 0) {
             fetchData();
