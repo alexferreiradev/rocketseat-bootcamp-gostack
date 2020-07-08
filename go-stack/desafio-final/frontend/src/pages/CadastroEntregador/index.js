@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaAdjust } from 'react-icons/fa';
+import { FaCamera } from 'react-icons/fa';
 import { useHistory, useParams } from 'react-router-dom';
 
 import { SelecaoFoto } from './styles';
@@ -7,6 +7,7 @@ import { SelecaoFoto } from './styles';
 import Header from '../../components/Header';
 import HeaderTitle from '../../components/HeaderTitle';
 import Container from '../../components/Container';
+import Avatar from './Avatar';
 import { Form, Label, Input } from '../../components/Form';
 import api from '../../services/api';
 
@@ -64,16 +65,7 @@ function CadastroEntregador() {
                 </button>
                 <Form initialData={entregador} onSubmit={handleSave}>
                     <button type="submit">Salvar</button>
-                    <SelecaoFoto>
-                        {editing ? (
-                            <FaAdjust />
-                        ) : (
-                            <>
-                                <FaAdjust />
-                                <span>Adicionar Foto</span>
-                            </>
-                        )}
-                    </SelecaoFoto>
+                    <Avatar name="avatar_id" />
                     <Label>Nome</Label>
                     <Input type="text" name="name" placeholder="Seu nome" />
                     <Label>Email</Label>
