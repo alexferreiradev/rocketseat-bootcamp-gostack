@@ -1,6 +1,7 @@
 import Sequelize from 'sequelize';
 import Encomenda from '../models/Encomenda';
 import File from '../models/File';
+import Destinatario from '../models/Destinatario';
 import User from '../models/User';
 
 const { Op } = Sequelize;
@@ -13,6 +14,46 @@ class EntregaController {
           [Op.ne]: null,
         },
       },
+      attributes: [
+        'id',
+        'product',
+        'deliveryman_id',
+        'recipient_id',
+        'signature_id',
+        'start_date',
+        'end_date',
+        'canceled_at',
+      ],
+      include: [
+        {
+          model: User,
+          as: 'entregador',
+          attributes: ['avatar_id', 'name'],
+          include: [
+            {
+              model: File,
+              as: 'avatar',
+            },
+          ],
+        },
+        {
+          model: Destinatario,
+          as: 'destinatario',
+          attributes: [
+            'nome',
+            'rua',
+            'numero',
+            'cidade',
+            'estado',
+            'complemento',
+            'cep',
+          ],
+        },
+        {
+          model: File,
+          as: 'signature',
+        },
+      ],
     });
 
     return res.json(model);

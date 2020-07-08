@@ -46,15 +46,15 @@ const Encomenda = ({ navigation }) => {
   function handleOption(option) {
     switch (option) {
       case 'visualizar-problemas': {
-        navigation.navigate('Problema');
+        navigation.navigate('Problema', { id: id });
         break;
       }
       case 'informar-problema': {
-        navigation.navigate('InformarProblema');
+        navigation.navigate('InformarProblema', { id: id });
         break;
       }
       case 'confirmar': {
-        navigation.navigate('ConfirmarEntrega');
+        navigation.navigate('ConfirmarEntrega', { id: id });
         break;
       }
       default:

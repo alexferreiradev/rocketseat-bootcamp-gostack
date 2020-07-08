@@ -1,7 +1,8 @@
+import Sequelize from 'sequelize';
+
 import ProblemaEncomenda from '../models/ProblemaEncomenda';
 import Encomenda from '../models/Encomenda';
 import User from '../models/User';
-import Destinatario from '../models/Destinatario';
 import Queue from '../../lib/Queue';
 import CancelationMail from '../jobs/CancelationMail';
 import format from '../../util/index';
@@ -14,20 +15,33 @@ async function sendEmailToEntregador(encomenda, entregador) {
   });
 }
 
+const { Op } = Sequelize;
+
 class ProblemaEncomendaController {
-  async index(_, res) {
+  async index(req, res) {
+    const { encomendaId } = req.query;
+    if (encomendaId) {
+      const model = await ProblemaEncomenda.findAndCountAll({
+        where: {
+          encomenda_id: {
+            [Op.eq]: encomendaId,
+          },
+        },
+        include: [
+          {
+            model: Encomenda,
+            as: 'encomenda',
+          },
+        ],
+      });
+      return res.json(model);
+    }
+
     const model = await ProblemaEncomenda.findAndCountAll({
-      attributes: ['id', 'product', 'deliveryman_id', '', 'recipient_id'],
       include: [
         {
-          model: User,
-          as: 'user',
-          attributes: ['name'],
-        },
-        {
-          model: Destinatario,
-          as: 'user',
-          attributes: ['name'],
+          model: Encomenda,
+          as: 'encomenda',
         },
       ],
     });
@@ -43,7 +57,14 @@ class ProblemaEncomendaController {
         .json({ error: 'Necessario passar id do problema' });
     }
 
-    const problema = await ProblemaEncomenda.findByPk(id);
+    const problema = await ProblemaEncomenda.findByPk(id, {
+      include: [
+        {
+          model: Encomenda,
+          as: 'encomenda',
+        },
+      ],
+    });
     if (!problema) {
       return res.status(404).json({ error: 'Problema nao encontrada' });
     }
@@ -68,6 +89,12 @@ class ProblemaEncomendaController {
       where: {
         encomenda_id: encomendaId,
       },
+      include: [
+        {
+          model: Encomenda,
+          as: 'encomenda',
+        },
+      ],
     });
 
     return res.json(model);
@@ -114,7 +141,7 @@ class ProblemaEncomendaController {
       entregador_id: userId,
     });
 
-    return res.json({ model });
+    return res.status(201).json({ model });
   }
 
   async cancelar(req, res) {

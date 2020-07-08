@@ -29,6 +29,9 @@ async function findWithFilter(req, res) {
       'deliveryman_id',
       'recipient_id',
       'signature_id',
+      'start_date',
+      'end_date',
+      'canceled_at',
     ],
     include: [
       {
@@ -57,7 +60,7 @@ async function findWithFilter(req, res) {
       },
       {
         model: File,
-        as: 'assinatura',
+        as: 'signature',
       },
     ],
   });
@@ -79,6 +82,9 @@ class EncomendaController {
         'deliveryman_id',
         'recipient_id',
         'signature_id',
+        'start_date',
+        'end_date',
+        'canceled_at',
       ],
       include: [
         {
@@ -123,7 +129,15 @@ class EncomendaController {
         .json({ error: 'Necessario passar id da encomenda' });
     }
     const model = await Encomenda.findByPk(id, {
-      attributes: ['id', 'product', 'deliveryman_id', 'recipient_id'],
+      attributes: [
+        'id',
+        'product',
+        'deliveryman_id',
+        'recipient_id',
+        'start_date',
+        'end_date',
+        'canceled_at',
+      ],
       include: [
         {
           model: User,
