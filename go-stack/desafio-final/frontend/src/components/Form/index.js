@@ -12,6 +12,7 @@ export const WrapInput = styled.div`
 `;
 
 export const Label = styled.label`
+    display: flex;
     color: #000;
     font-weight: bold;
     text-transform: uppercase;

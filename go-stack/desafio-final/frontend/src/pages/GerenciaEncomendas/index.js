@@ -9,6 +9,8 @@ import {
     EntregadorField,
     EntregadorImg,
     ImageAssinatura,
+    ModalHeader,
+    ModalBody,
 } from './styles';
 
 import api from '../../services/api';
@@ -180,31 +182,32 @@ function GerenciaEncomenda() {
                     ))}
                 </FlatList>
             </Container>
-            {encomendaSelected && (
+            {encomendaSelected.destinatario && (
                 <Modal
                     show={showSignature}
                     onHide={handleCloseSignature}
-                    size="lg"
+                    size="md"
                     aria-labelledby="example-modal-sizes-title-sm"
                 >
-                    <Modal.Header closeButton>
-                        <Modal.Title id="example-modal-sizes-title-lg">
-                            <Label>Informações encomenda</Label>
-                            {/* <span>{encomendaSelected.destinatario.rua}</span> */}
-                            {/* <span>
-                                {encomendaSelected.destinatario.cidade}-
-                                {encomendaSelected.destinatario.estado}
-                            </span>
-                            <span>{encomendaSelected.destinatario.cep}</span> */}
-                        </Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
+                    <ModalHeader>
+                        <Label>Informações encomenda</Label>
+                        <span>
+                            {encomendaSelected.destinatario.rua},
+                            {encomendaSelected.destinatario.numero}
+                        </span>
+                        <span>
+                            {encomendaSelected.destinatario.cidade}-
+                            {encomendaSelected.destinatario.estado}
+                        </span>
+                        <span>{encomendaSelected.destinatario.cep}</span>
+                    </ModalHeader>
+                    <ModalBody>
                         <Label>Datas</Label>
                         <Label>Retirada:</Label>
                         <span>{encomendaSelected.start_date}</span>
                         <Label>Entrega:</Label>
                         <span>{encomendaSelected.end_date}</span>
-                    </Modal.Body>
+                    </ModalBody>
                     <Modal.Footer>
                         <Label>Assinatura do destinatário:</Label>
                         {encomendaSelected.signature && (

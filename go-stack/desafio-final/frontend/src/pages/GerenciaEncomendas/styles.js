@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Modal } from 'react-bootstrap';
 
 export const Background = styled.div`
     height: 100%;
@@ -51,6 +52,15 @@ export const EntregadorImg = styled.img`
     border-radius: 100%;
 `;
 
+export const ModalHeader = styled(Modal.Header)`
+    flex: 1;
+    flex-direction: column;
+`;
+
+export const ModalBody = styled(Modal.Body)`
+    flex: 1;
+    flex-direction: column;
+`;
 export const ImageAssinatura = styled.img`
     height: 100px;
     width: 100px;
