@@ -1,0 +1,8 @@
+node_modules/
+.vscode/
+Inso*.json
+build/
+# src/config/
+*.log
+uploads/
+.env
