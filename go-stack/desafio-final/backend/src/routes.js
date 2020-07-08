@@ -42,6 +42,7 @@ routes.get('/destinatarios', DestinatarioController.index);
 routes.get('/destinatarios/:id', DestinatarioController.find);
 routes.post('/destinatarios', DestinatarioController.store);
 routes.put('/destinatarios/:id', DestinatarioController.update);
+routes.delete('/destinatarios/:id', DestinatarioController.delete);
 
 routes.get('/encomendas', EncomendaController.index);
 routes.get('/encomendas/:id', EncomendaController.find);

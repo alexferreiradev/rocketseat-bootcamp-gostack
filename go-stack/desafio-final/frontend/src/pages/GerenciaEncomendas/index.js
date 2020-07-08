@@ -8,6 +8,7 @@ import {
     CadastrarBt,
     EntregadorField,
     EntregadorImg,
+    ImageAssinatura,
 } from './styles';
 
 import api from '../../services/api';
@@ -21,6 +22,7 @@ import ModalContextOptions from '../../components/ModalContextOptions';
 function GerenciaEncomenda() {
     const [searchText, setSearchText] = useState('');
     const [showSignature, setShowSignature] = useState(false);
+    const [encomendaSelected, setEncomendaSelected] = useState({});
     const [encomendaList, setEncomendaList] = useState([]);
 
     const history = useHistory();
@@ -59,6 +61,7 @@ function GerenciaEncomenda() {
 
     function handleCloseSignature() {
         setShowSignature(false);
+        setEncomendaSelected({});
     }
 
     async function handleOnChangeSearchText(e) {
@@ -96,6 +99,7 @@ function GerenciaEncomenda() {
             case 0: {
                 // alert(`Visualizar${data.id}`);
                 setShowSignature(true);
+                setEncomendaSelected(data);
                 break;
             }
             case 1: {
@@ -158,7 +162,9 @@ function GerenciaEncomenda() {
                             <span>#{encomenda.id}</span>
                             <span>{encomenda.destinatario.nome}</span>
                             <EntregadorField>
-                                <EntregadorImg src="https://lh3.googleusercontent.com/proxy/GQojerFzXA2grEWOUaA_7qaPH0Hemx2hIf_saxQl2utLpCheG_YqMI49ep8z5omhXyBNpdPHxk3YY8UKds34MoBtyC4aBHkmgcfP94wBCf-p" />
+                                <EntregadorImg
+                                    src={encomenda.entregador.avatar.url || ''}
+                                />
                                 <span>{encomenda.entregador.name}</span>
                             </EntregadorField>
                             <span>{encomenda.destinatario.cidade}</span>
@@ -173,32 +179,46 @@ function GerenciaEncomenda() {
                         </ListItem>
                     ))}
                 </FlatList>
+            </Container>
+            {encomendaSelected && (
                 <Modal
                     show={showSignature}
                     onHide={handleCloseSignature}
                     size="lg"
-                    aria-labelledby="contained-modal-title-vcenter"
-                    centered
+                    aria-labelledby="example-modal-sizes-title-sm"
                 >
-                    <Modal.Header>
-                        <Label>Informações encomenda</Label>
-                        <span>Rua</span>
-                        <span>Cidade-estado</span>
-                        <span>CEP</span>
+                    <Modal.Header closeButton>
+                        <Modal.Title id="example-modal-sizes-title-lg">
+                            <Label>Informações encomenda</Label>
+                            {/* <span>{encomendaSelected.destinatario.rua}</span> */}
+                            {/* <span>
+                                {encomendaSelected.destinatario.cidade}-
+                                {encomendaSelected.destinatario.estado}
+                            </span>
+                            <span>{encomendaSelected.destinatario.cep}</span> */}
+                        </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <Label>Datas</Label>
                         <Label>Retirada:</Label>
-                        <span>00/00/00</span>
+                        <span>{encomendaSelected.start_date}</span>
                         <Label>Entrega:</Label>
-                        <span>00/00/00</span>
+                        <span>{encomendaSelected.end_date}</span>
                     </Modal.Body>
                     <Modal.Footer>
                         <Label>Assinatura do destinatário:</Label>
-                        <FaPlus />
+                        {encomendaSelected.signature && (
+                            <ImageAssinatura
+                                src={
+                                    encomendaSelected.signature.url
+                                        ? encomendaSelected.signature.url
+                                        : ''
+                                }
+                            />
+                        )}
                     </Modal.Footer>
                 </Modal>
-            </Container>
+            )}
         </>
     );
 }

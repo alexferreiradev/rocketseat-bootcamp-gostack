@@ -49,7 +49,7 @@ class DestinatarioController {
 
     const destinatario = await Destinatario.create(req.body);
 
-    return res.json({ destinatario });
+    return res.status(201).json({ destinatario });
   }
 
   async update(req, res) {
@@ -60,6 +60,18 @@ class DestinatarioController {
     }
 
     model = await model.update(req.body);
+
+    return res.json({ model });
+  }
+
+  async delete(req, res) {
+    const id = parseInt(req.params.id, 10);
+    let model = await Destinatario.findByPk(id);
+    if (!model) {
+      return res.json({ error: `Destinatario nao encontrado com ${id}` });
+    }
+
+    model = await model.destroy();
 
     return res.json({ model });
   }

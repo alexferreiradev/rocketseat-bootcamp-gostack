@@ -50,3 +50,8 @@ export const EntregadorImg = styled.img`
     max-width: 55px;
     border-radius: 100%;
 `;
+
+export const ImageAssinatura = styled.img`
+    height: 100px;
+    width: 100px;
+`;

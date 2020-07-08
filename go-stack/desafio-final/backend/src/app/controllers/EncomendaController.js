@@ -1,6 +1,7 @@
 import Sequelize from 'sequelize';
 import Encomenda from '../models/Encomenda';
 import User from '../models/User';
+import File from '../models/File';
 import Destinatario from '../models/Destinatario';
 import Queue from '../../lib/Queue';
 import NovaEncomendaMail from '../jobs/NovaEncomendaMail';
@@ -22,17 +23,41 @@ async function findWithFilter(req, res) {
         [Op.iLike]: `%${q}%`,
       },
     },
-    attributes: ['id', 'product', 'deliveryman_id', 'recipient_id'],
+    attributes: [
+      'id',
+      'product',
+      'deliveryman_id',
+      'recipient_id',
+      'signature_id',
+    ],
     include: [
       {
         model: User,
         as: 'entregador',
-        attributes: ['name'],
+        attributes: ['avatar_id', 'name'],
+        include: [
+          {
+            model: File,
+            as: 'avatar',
+          },
+        ],
       },
       {
         model: Destinatario,
         as: 'destinatario',
-        attributes: ['nome', 'cidade', 'estado', 'complemento', 'cep'],
+        attributes: [
+          'nome',
+          'rua',
+          'numero',
+          'cidade',
+          'estado',
+          'complemento',
+          'cep',
+        ],
+      },
+      {
+        model: File,
+        as: 'assinatura',
       },
     ],
   });
@@ -48,17 +73,41 @@ class EncomendaController {
     }
 
     const model = await Encomenda.findAndCountAll({
-      attributes: ['id', 'product', 'deliveryman_id', 'recipient_id'],
+      attributes: [
+        'id',
+        'product',
+        'deliveryman_id',
+        'recipient_id',
+        'signature_id',
+      ],
       include: [
         {
           model: User,
           as: 'entregador',
-          attributes: ['name'],
+          attributes: ['avatar_id', 'name'],
+          include: [
+            {
+              model: File,
+              as: 'avatar',
+            },
+          ],
         },
         {
           model: Destinatario,
           as: 'destinatario',
-          attributes: ['nome', 'cidade', 'estado', 'complemento', 'cep'],
+          attributes: [
+            'nome',
+            'rua',
+            'numero',
+            'cidade',
+            'estado',
+            'complemento',
+            'cep',
+          ],
+        },
+        {
+          model: File,
+          as: 'signature',
         },
       ],
     });
