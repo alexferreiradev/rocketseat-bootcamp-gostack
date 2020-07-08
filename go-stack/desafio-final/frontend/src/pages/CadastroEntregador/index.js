@@ -59,7 +59,7 @@ function CadastroEntregador() {
         <>
             <Header />
             <Container>
-                <HeaderTitle>`${headerFunctionText} de Entregador`</HeaderTitle>
+                <HeaderTitle>{headerFunctionText} de Entregador</HeaderTitle>
                 <button type="button" onClick={handleBack}>
                     Voltar
                 </button>
