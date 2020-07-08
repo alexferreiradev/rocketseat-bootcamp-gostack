@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { parseISO } from 'date-fns';
 import { useSelector, useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Keyboard, Text } from 'react-native';
@@ -22,6 +23,7 @@ import {
   StatusBox,
   StatusRowBox,
   StatusPoint,
+  StatusPointClear,
   LinhaStatus,
   StatusText,
   InfoHeader,
@@ -57,6 +59,11 @@ function Dashboard({ navigation }) {
     Keyboard.dismiss();
   }
 
+  function formatDate(dateUTC) {
+    const date = parseISO(dateUTC);
+    return `${date.getDay()}/${date.getMonth()}/${date.getFullYear}`;
+  }
+
   async function fetchData(filterType) {
     let url = '/entregas';
     switch (filterType) {
@@ -71,7 +78,7 @@ function Dashboard({ navigation }) {
     const urlReq = url;
     const res = await api.get(urlReq);
     if (res.data.rows) {
-      console.tron.log('dados', res.data.rows);
+      // console.tron.log('dados', res.data.rows);
 
       setEncomendaList([...res.data.rows]);
     }
@@ -124,15 +131,19 @@ function Dashboard({ navigation }) {
                 <LinhaStatus />
                 <StatusRowBox>
                   <StatusBox>
-                    <StatusPoint />
+                    {item.start_date || item.start_date ? (
+                      <StatusPoint />
+                    ) : (
+                      <StatusPointClear />
+                    )}
                     <StatusText>Aguardando Retirada</StatusText>
                   </StatusBox>
                   <StatusBox>
-                    <StatusPoint />
+                    {item.start_date ? <StatusPoint /> : <StatusPointClear />}
                     <StatusText>Retirada</StatusText>
                   </StatusBox>
                   <StatusBox>
-                    <StatusPoint />
+                    {item.end_date ? <StatusPoint /> : <StatusPointClear />}
                     <StatusText>Entregue</StatusText>
                   </StatusBox>
                 </StatusRowBox>
@@ -140,11 +151,13 @@ function Dashboard({ navigation }) {
               <EncomendaFooter>
                 <FooterBlock>
                   <Label>Data</Label>
-                  <LabelText>{item.data}</LabelText>
+                  <LabelText>
+                    {item.start_date && formatDate(item.start_date)}
+                  </LabelText>
                 </FooterBlock>
                 <FooterBlock>
                   <Label>Cidade</Label>
-                  <LabelText>{item.cidade}</LabelText>
+                  <LabelText>{item.destinatario.cidade}</LabelText>
                 </FooterBlock>
                 <DetalhesButtonText onPress={() => handleDetalhes(item)}>
                   Ver detalhes

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 
 import {
   Container,
@@ -17,13 +17,13 @@ const Problema = ({ navigation, route }) => {
   // navigation.setOptions({
   //   title: 'Detalhes da encomenda',
   // });
-  const encomenda = { id: 1 };
+  const id = navigation.getParam('id', -1);
   const [problemaList, setProblemaList] = useState([]);
 
   async function fetchData() {
-    const res = await api.get(`/problemas?entregaId=${encomenda.id}`);
-    if (res.data) {
-      setProblemaList([...res.data]);
+    const res = await api.get(`/encomenda_problemas?encomendaId=${id}`);
+    if (res.data.rows) {
+      setProblemaList([...res.data.rows]);
     }
   }
 
@@ -33,18 +33,21 @@ const Problema = ({ navigation, route }) => {
 
   return (
     <Container>
-      <Title>{`Encomenda ${encomenda.id}`}</Title>
+      <Title>{`Encomenda ${id}`}</Title>
       <View>
-        <List
-          data={problemaList}
-          keyExtractor={(problema) => problema.id}
-          renderItem={({ item }) => (
-            <ProblemaView>
-              <Descricao>{item.descricao}</Descricao>
-              <Data>{item.data}</Data>
-            </ProblemaView>
-          )}
-        />
+        {problemaList && (
+          <List
+            data={problemaList}
+            keyExtractor={(problema) => problema.id}
+            renderItem={({ item }) => (
+              <ProblemaView>
+                <Descricao>{item.descricao}</Descricao>
+                <Data>{item.data}</Data>
+              </ProblemaView>
+            )}
+          />
+        )}
+        {problemaList.length == 0 && <Text>Não há problemas</Text>}
       </View>
     </Container>
   );

@@ -118,6 +118,17 @@ export const StatusPoint = styled.View`
   align-self: center;
   margin-bottom: 5px;
 `;
+
+export const StatusPointClear = styled.View`
+  background: #fff;
+  border: 1px solid #7159c1;
+  height: 9px;
+  width: 9px;
+  border-radius: 50px;
+  align-self: center;
+  margin-bottom: 5px;
+`;
+
 export const StatusText = styled.Text`
   max-width: 44px;
   /* flex-wrap: wrap; */

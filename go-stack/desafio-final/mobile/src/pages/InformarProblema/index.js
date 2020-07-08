@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Keyboard } from 'react-native';
 
 import {
   Container,
   Form,
-  Input,
+  FormInput,
   SubmitButton,
   SubmitButtonText,
 } from './styles';
@@ -13,14 +13,19 @@ import {
 import api from '../../services/api';
 
 function InformarProblema({ navigation }) {
-  const id = 1;
+  const [descricao, setDescricao] = useState('');
+  const idRef = useRef();
+  const formRef = useRef();
 
-  async function handleEnvio({ descricao }) {
+  const id = navigation.getParam('id', -1);
+  console.log('param: ', id);
+
+  async function handleEnvio() {
     const problema = {
-      encomendaId: id,
+      idEncomenda: id,
       descricao,
     };
-    const res = await api.post('/problemas', problema);
+    const res = await api.post('/encomenda_problemas', problema);
     if (res.status === 201) {
       navigation.navigate('Dashboard');
       Keyboard.dismiss();
@@ -33,16 +38,19 @@ function InformarProblema({ navigation }) {
 
   return (
     <Container>
-      <Form onPress={handleEnvio}>
-        <Input
-          name="descricao"
+      <Form ref={formRef} onPress={handleEnvio}>
+        <FormInput
+          value={descricao}
+          ref={idRef}
           autoCorrect={false}
           autoCapitalize="none"
           placeholder="Inclua aqui seu problema que ocorreu na entrega"
           returnKeyType="send"
+          onChangeText={setDescricao}
+          onSubmitEditing={() => idRef.current.focus()}
         />
 
-        <SubmitButton>
+        <SubmitButton onPress={() => handleEnvio()}>
           <SubmitButtonText>Enviar</SubmitButtonText>
         </SubmitButton>
       </Form>
