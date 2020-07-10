@@ -25,3 +25,6 @@ hs_err_pid*
 # Ignore arquivos de outros projetos
 .idea/
 
+# Ignore para arquivo do desafio final enquanto nao finaliza as aulas
+go-stack/desafio-final/**
+
