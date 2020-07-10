@@ -7,6 +7,7 @@ Repositório criado para armazenar projetos e arquivos utilizados no boot camp g
 - Gobarber: últimos commits entregues para projeto gobarber
 - aulas-react-js: ultimos commits para aprender react js
 - aulas-react-native: ultimos commits para aprender react native
+- aulas-flux: ultimos commits para aprender arquitetura flux com redux
 
 ## Tags
 1. gobarber-api: final de api do gobarber 
