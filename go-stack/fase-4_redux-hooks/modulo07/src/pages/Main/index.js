@@ -10,7 +10,7 @@ function Main() {
     const [produtoList, setProdutoList] = useState([]);
 
     async function fetchData() {
-        const res = api.get('/products');
+        const res = await api.get('/products');
         const data = res.data.map((item) => {
             return {
                 ...item,
