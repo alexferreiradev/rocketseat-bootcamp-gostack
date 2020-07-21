@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
     MdRemoveCircleOutline,
     MdAddCircleOutline,
@@ -8,6 +9,9 @@ import {
 import { Container, ProductTable, Total } from './styles';
 
 function Cart() {
+    const dispatch = useDispatch();
+    const cart = useSelector((state) => state.cart);
+
     return (
         <Container>
             <ProductTable>
@@ -21,42 +25,49 @@ function Cart() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>
-                            <img src="teste.png" alt="produto" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <strong>Tenis muito massa</strong>
-                            <span>R$ 129,34</span>
-                        </td>
-                        <td>
-                            <div>
-                                <button type="button">
-                                    <MdRemoveCircleOutline
-                                        size={20}
-                                        color="#7159c1"
+                    {cart.map((cartItem) => (
+                        <tr key={cartItem.id}>
+                            <td>
+                                <img
+                                    src={cartItem.image}
+                                    alt={cartItem.title}
+                                />
+                            </td>
+                            <td>
+                                <strong>{cartItem.title}</strong>
+                                <span>{cartItem.priceFormmatted}</span>
+                            </td>
+                            <td>
+                                <div>
+                                    <button type="button">
+                                        <MdRemoveCircleOutline
+                                            size={20}
+                                            color="#7159c1"
+                                        />
+                                    </button>
+                                    <input
+                                        type="number"
+                                        readOnly
+                                        value={cartItem.amount}
                                     />
-                                </button>
-                                <input type="number" readOnly value={1} />
+                                    <button type="button">
+                                        <MdAddCircleOutline
+                                            size={20}
+                                            color="#7159c1"
+                                        />
+                                    </button>
+                                </div>
+                            </td>
+                            <td>
+                                <strong>R$ 123,45</strong>
+                            </td>
+                            <td>
                                 <button type="button">
-                                    <MdAddCircleOutline
-                                        size={20}
-                                        color="#7159c1"
-                                    />
+                                    <MdDelete size={20} color="#7159c1" />
                                 </button>
-                            </div>
-                        </td>
-                        <td>
-                            <strong>R$ 123,45</strong>
-                        </td>
-                        <td>
-                            <button type="button">
-                                <MdDelete size={20} color="#7159c1" />
-                            </button>
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
+                    ))}
                 </tbody>
             </ProductTable>
 
