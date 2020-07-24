@@ -15,6 +15,16 @@ export default function cart(state = [], action) {
                 }
             });
         }
+        case '@cart/remove': {
+            return produce(state, (draft) => {
+                const { payload } = action;
+                const index = draft.findIndex((i) => i.id === payload);
+
+                if (index >= 0) {
+                    draft.splice(index, 1);
+                }
+            });
+        }
 
         default:
             return state;

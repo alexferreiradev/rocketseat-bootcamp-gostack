@@ -7,6 +7,8 @@ import { ProductList } from './styles';
 import api from '../../services/api';
 import { formatPrice } from '../../util/format';
 
+import * as CartActions from '../../store/modules/cart/actions';
+
 function Main() {
     const dispatch = useDispatch();
     const [produtoList, setProdutoList] = useState([]);
@@ -27,7 +29,7 @@ function Main() {
     }, []);
 
     function handleAddCart(produto) {
-        dispatch({ type: '@cart/add', payload: produto });
+        dispatch(CartActions.addToCart(produto));
     }
 
     return (
