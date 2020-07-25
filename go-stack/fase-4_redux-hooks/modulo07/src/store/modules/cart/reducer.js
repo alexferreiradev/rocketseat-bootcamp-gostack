@@ -25,6 +25,19 @@ export default function cart(state = [], action) {
                 }
             });
         }
+        case '@cart/UPDATE_AMOUNT': {
+            return produce(state, (draft) => {
+                const { id, amount } = action.payload;
+                const index = draft.findIndex((i) => i.id === id);
+
+                if (index >= 0) {
+                    draft[index].amount += amount;
+                    if (draft[index].amount <= 1) {
+                        draft[index].amount = 1;
+                    }
+                }
+            });
+        }
 
         default:
             return state;
