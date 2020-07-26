@@ -7,11 +7,24 @@ import {
 } from 'react-icons/md';
 
 import { Container, ProductTable, Total } from './styles';
+import { formatPrice } from '../../util/format';
 import * as CartActions from '../../store/modules/cart/actions';
 
 function Cart() {
     const dispatch = useDispatch();
-    const cart = useSelector((state) => state.cart);
+    const cart = useSelector((state) =>
+        state.cart.map((item) => ({
+            ...item,
+            subTotal: formatPrice(item.amount * item.price),
+        }))
+    );
+    const totalCart = useSelector((state) =>
+        formatPrice(
+            state.cart.reduce((total, item) => {
+                return total + item.amount * item.price;
+            }, 0)
+        )
+    );
 
     function incrementAmount(product) {
         dispatch(CartActions.updateAmount(product.id, 1));
@@ -78,7 +91,7 @@ function Cart() {
                                 </div>
                             </td>
                             <td>
-                                <strong>R$ 123,45</strong>
+                                <strong>{cartItem.subTotal}</strong>
                             </td>
                             <td>
                                 <button
@@ -104,7 +117,7 @@ function Cart() {
 
                 <Total>
                     <span>Total</span>
-                    <strong>R$ 120,23</strong>
+                    <strong>{totalCart}</strong>
                 </Total>
             </footer>
         </Container>
