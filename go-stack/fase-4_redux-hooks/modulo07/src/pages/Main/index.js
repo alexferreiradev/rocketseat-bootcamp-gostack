@@ -35,7 +35,7 @@ function Main() {
     }, []);
 
     function handleAddCart(produto) {
-        dispatch(CartActions.addToCart(produto));
+        dispatch(CartActions.addToCartRequest(produto));
     }
 
     return (
