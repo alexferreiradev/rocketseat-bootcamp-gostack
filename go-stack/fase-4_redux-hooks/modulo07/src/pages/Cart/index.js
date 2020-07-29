@@ -27,11 +27,11 @@ function Cart() {
     );
 
     function incrementAmount(product) {
-        dispatch(CartActions.updateAmount(product.id, 1));
+        dispatch(CartActions.updateAmountRequest(product.id, 1));
     }
 
     function decrementAmount(product) {
-        dispatch(CartActions.updateAmount(product.id, -1));
+        dispatch(CartActions.updateAmountRequest(product.id, -1));
     }
 
     return (

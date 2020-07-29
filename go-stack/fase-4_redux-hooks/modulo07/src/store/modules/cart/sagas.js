@@ -1,6 +1,7 @@
 import { call, put, all, takeLatest, select } from 'redux-saga/effects';
+import { toast } from 'react-toastify';
 import api from '../../../services/api';
-import { addToCartSuccess, updateAmount } from './actions';
+import { addToCartSuccess, updateAmountSuccess } from './actions';
 import { formatPrice } from '../../../util/format';
 
 function* addToCart({ payload }) {
@@ -12,14 +13,14 @@ function* addToCart({ payload }) {
     const stockRes = yield call(api.get, `stock/${id}`);
     const stockAmount = stockRes.data.amount;
     if (stockAmount === 0) {
-        console.tron.warn('Stock indisponivel');
+        toast.error('Stock indisponivel');
     }
 
     if (productFound) {
         if (productFound.amount >= stockAmount) {
-            console.tron.warn('Stock indisponivel');
+            toast.error('Stock indisponivel');
         } else {
-            yield put(updateAmount(productFound.id, 1));
+            yield put(updateAmountSuccess(productFound.id, 1));
         }
     } else {
         const res = yield call(api.get, `products/${id}`);
@@ -36,4 +37,30 @@ function* addToCart({ payload }) {
     }
 }
 
-export default all([takeLatest('@cart/add-request', addToCart)]);
+function* updateAmountReq({ payload }) {
+    const { id, amount: updateAmount } = payload;
+
+    const amount = yield select(
+        (state) => state.cart.find((i) => i.id === id).amount
+    );
+
+    const newAmount = amount + updateAmount;
+    if (newAmount <= 0) {
+        return;
+    }
+
+    const stockRes = yield call(api.get, `stock/${id}`);
+    const stockAmount = stockRes.data.amount;
+    if (stockAmount === 0) {
+        toast.error('Stock indisponivel');
+    } else if (newAmount > stockAmount) {
+        toast.error('Stock indisponivel');
+    } else {
+        yield put(updateAmountSuccess(id, updateAmount));
+    }
+}
+
+export default all([
+    takeLatest('@cart/add-request', addToCart),
+    takeLatest('@cart/UPDATE_AMOUNT_REQUEST', updateAmountReq),
+]);
