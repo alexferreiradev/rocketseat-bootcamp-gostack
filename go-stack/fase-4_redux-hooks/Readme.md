@@ -3,8 +3,10 @@ Nesta fase aprendemos como funciona a arquitetura flux e estados globais com red
 
 ## Projetos de aulas
 1. Netshoes com react
+1. Netshoes com react hooks
 
 ## Desafios
 Nesta fase foi entregue o desafio :
 
-1. 
+1. Redux
+1. Hooks
