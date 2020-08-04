@@ -75,6 +75,16 @@ class UserController {
         }
 
         userById = await userById.update(req.body);
+        userById = await User.findByPk(req.userId, {
+            include: [
+                {
+                    model: File,
+                    as: 'avatar',
+                    attributes: ['id','path', 'url'],
+                }
+            ]
+        } );
+        
         return res.json(this._createModelDto(userById));
     }
 
