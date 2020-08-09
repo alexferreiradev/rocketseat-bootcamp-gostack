@@ -1,7 +1,9 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-// import { Container } from './styles';
+import Auth from '../pages/_layouts/auth';
+import Defautl from '../pages/_layouts/default';
 
 function RouteWrapper({ component: Component, isPrivate = false, ...rest }) {
   const signed = false;
@@ -14,8 +16,18 @@ function RouteWrapper({ component: Component, isPrivate = false, ...rest }) {
     return <Redirect to="/dashboard" />;
   }
 
-  // eslint-disable-next-line react/jsx-props-no-spreading
-  return <Route {...rest} component={Component} />;
+  const Layout = signed ? Defautl : Auth;
+
+  return (
+    <Route
+      {...rest}
+      render={(props) => (
+        <Layout>
+          <Component {...props} />
+        </Layout>
+      )}
+    />
+  );
 }
 
 export default RouteWrapper;
