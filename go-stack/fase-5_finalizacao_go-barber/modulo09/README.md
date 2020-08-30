@@ -42,3 +42,7 @@ Configure para o VSCODE para encontrar o arquivo com jsconfig.json:
   }
 }
 ```
+
+## Configuração de redux
+Adicione as libs: `yarn add redux redux-saga react-redux reactotron-redux reactotron-redux-saga immer`.
+

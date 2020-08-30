@@ -5,9 +5,10 @@ import PropTypes from 'prop-types';
 
 import Auth from '~/pages/_layouts/auth';
 import Defautl from '~/pages/_layouts/default';
+import store from '~/store';
 
 function RouteWrapper({ component: Component, isPrivate = false, ...rest }) {
-  const signed = false;
+  const { signed } = store.getState().auth;
 
   if (!signed && isPrivate) {
     return <Redirect to="/login" />;
