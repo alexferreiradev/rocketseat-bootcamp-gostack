@@ -2,7 +2,7 @@ import { all, takeLatest, call, put } from 'redux-saga/effects';
 
 import api from '~/services/api';
 import history from '~/services/history';
-import { signInRequest } from './actions';
+import { singInSuccess } from './actions';
 
 export function* signIn({ payload }) {
   const { email, password } = payload;
@@ -19,7 +19,7 @@ export function* signIn({ payload }) {
     return;
   }
 
-  yield put(signInRequest(token, user));
+  yield put(singInSuccess(token, user));
 
   history.push('/dashboard');
 }

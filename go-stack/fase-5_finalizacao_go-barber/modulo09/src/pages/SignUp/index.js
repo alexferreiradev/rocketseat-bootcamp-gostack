@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 
 import logo from '~/assets/logo.svg';
 
-const schema = Yup.object.shape({
+const schema = Yup.object().shape({
   name: Yup.string().required('Nome é obrigatório'),
   email: Yup.string()
     .email('Insira um email válido')

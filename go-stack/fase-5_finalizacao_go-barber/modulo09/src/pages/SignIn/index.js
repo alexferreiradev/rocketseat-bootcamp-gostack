@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 import logo from '~/assets/logo.svg';
 import * as AuthActions from '~/store/modules/auth/actions';
 
-const schema = Yup.object.shape({
+const schema = Yup.object().shape({
   email: Yup.string()
     .email('Insira um email válido')
     .required('Email é requerido'),
@@ -26,7 +26,7 @@ function SignIn() {
       <img src={logo} alt="GoBarber" />
       <Form onSubmit={handleSubmit} shema={schema}>
         <Input type="email" name="email" placeholder="Email" />
-        <Input type="password" name="email" placeholder="Senha" />
+        <Input type="password" name="password" placeholder="Senha" />
         <button type="submit">Acessar</button>
         <Link to="/register">Cria conta gratuíta</Link>
       </Form>
