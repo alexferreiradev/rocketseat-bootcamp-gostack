@@ -21,7 +21,7 @@ const upload = multer(multerConfig);
 routes.get('/', (_, res) => {
     return res.json({ status: "ok", version: config.version});
 });
-routes.post('/login', SessionController.store);
+routes.post('/sessions', SessionController.store);
 
 routes.use(authMid);
 

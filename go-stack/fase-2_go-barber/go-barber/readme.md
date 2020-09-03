@@ -7,6 +7,9 @@ Siga estas instruções para configurar seu ambiente de desenvolvimento.
 ## Variáveis de ambiente
 Cada biblioteca utilizada no sistema possui configurações específicas que são definidas em arquivos na pasta `/src/config`, mas para facilitar o deploy, as configurações são configuradas dinamicamente através de variáveis de ambiente setadas no arquivo `.env`. Um exemplo do arquivo para novos clones existe no arquivo `.env.example`.
 
+### .env em Linux
+Existem algumas libs para carregar arquivos env, mas no ambiente linux, a forma mais fácil é usar `source .env`.
+
 ## JWT
 Utilize o texto plano: `gobarber2020` para gerar o md5 para sign do jwt. A secret deve ser configurada no arquivo `config/auth.js`. Exemplo: 
 ```
@@ -31,6 +34,8 @@ module.exports = {
     }
 }
 ```
+### Configuração do Mongo
+Necessário configurar a url de conexão com o banco mongo similar a: `mongodb://localhost:27017/mongobarber?readPreference=primary&appname=MongoDB%20Compass%20Community&ssl=false`. Esta string pode ser copiada da aplicação `mongoCompass` que conecta com um servidor implantado em  docker.
 
 ## Envio de emails
 O sistema utiliza o [mailtrap](www.mailtrap.io) para enviar email. As configurações de user estão na pasta `/src/config/` no arquivo `mail.js`. Exemplo de configuração: 
@@ -67,6 +72,7 @@ export default {
     dsn: 'https://*****.ingest.sentry.io/****',
 }
 ```
+As configurações no projeto é sentry-dsn, o qual pode ser obtido no site dentro de `settings` do projeto dentro de `client-keys`.
 
 # Testes
 Um teste mais rápido pode ser feito com o insomnia, simulando as requisições para a API. Sempre que alterar rotas, atualize o arquivo `Insomnia_lasted.json`. 
