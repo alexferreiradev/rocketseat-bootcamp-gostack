@@ -11,7 +11,7 @@ function RouteWrapper({ component: Component, isPrivate = false, ...rest }) {
   const { signed } = store.getState().auth;
 
   if (!signed && isPrivate) {
-    return <Redirect to="/login" />;
+    return <Redirect to="/" />;
   }
 
   if (signed && !isPrivate) {
