@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import Notification from '~/components/Notification';
+
 import logo from '~/assets/logo-purple.svg';
-import { Container } from './styles';
+import { Container, Content, Profile } from './styles';
 
 function Header() {
   return (
@@ -13,6 +15,7 @@ function Header() {
           <Link to="/dashboard">Dashboard</Link>
         </nav>
         <aside>
+          <Notification />
           <Profile>
             <div>
               <strong>Alex Rabelo</strong>
