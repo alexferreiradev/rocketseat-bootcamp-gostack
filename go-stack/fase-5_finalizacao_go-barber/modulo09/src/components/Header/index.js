@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Notification from '~/components/Notification';
+import Notifications from '~/components/Notifications';
 
 import logo from '~/assets/logo-purple.svg';
 import { Container, Content, Profile } from './styles';
@@ -15,7 +15,7 @@ function Header() {
           <Link to="/dashboard">Dashboard</Link>
         </nav>
         <aside>
-          <Notification />
+          <Notifications />
           <Profile>
             <div>
               <strong>Alex Rabelo</strong>
