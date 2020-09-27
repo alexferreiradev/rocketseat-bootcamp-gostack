@@ -20,11 +20,11 @@ function Header() {
             <div>
               <strong>Alex Rabelo</strong>
               <Link to="/profile">Meu perfil</Link>
-              <img
-                src="https://api.adorable.io/avatars/50/abott@adorable.png"
-                alt="Alex Rabelo"
-              />
             </div>
+            <img
+              src="https://api.adorable.io/avatars/50/abott@adorable.png"
+              alt="Alex Rabelo"
+            />
           </Profile>
         </aside>
       </Content>

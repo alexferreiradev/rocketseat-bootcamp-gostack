@@ -10,7 +10,7 @@ export const Content = styled.div`
   max-width: 900px;
   margin: 0 auto;
   display: flex;
-  justify-content: space-space-between;
+  justify-content: space-between;
   align-items: center;
 
   nav {

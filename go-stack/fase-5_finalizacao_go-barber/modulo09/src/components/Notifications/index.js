@@ -8,22 +8,22 @@ import api from '~/services/api';
 import {
   Container,
   Badge,
-  NotificationList,
-  Scrool,
+  NotificationListComp,
+  Scroll,
   Notification,
 } from './styles';
 
 function Notifications() {
   const [visible, setVisible] = useState(false);
-  const [notifications, setNotifications] = useState([]);
+  const [notificationList, setNotificationList] = useState([]);
 
   const hasUnread = useMemo(() => {
-    !!notifications.find((n) => n.read === false);
-  }, [notifications]);
+    return !!notificationList.find((n) => n.read === false);
+  }, [notificationList]);
 
   useEffect(() => {
     async function loadNotifications() {
-      const res = await api.get('notifications');
+      const res = await api.get('/notifications');
 
       const data = res.data.map((n) => ({
         ...n,
@@ -32,7 +32,7 @@ function Notifications() {
           locale: pt,
         }),
       }));
-      setNotifications(data);
+      setNotificationList(data);
     }
     loadNotifications();
   }, []);
@@ -42,10 +42,10 @@ function Notifications() {
   }
 
   async function handleMarkAsRead(id) {
-    await api.put(`notification/${id}`);
+    await api.put(`notifications/${id}`);
 
-    setNotifications(
-      notifications.map((n) => {
+    setNotificationList(
+      notificationList.map((n) => {
         if (n._id === id) {
           return { ...n, read: true };
         }
@@ -60,19 +60,24 @@ function Notifications() {
         <MdNotifications color="#7159c1" size={20} />
       </Badge>
 
-      <NotificationList visible={visible}>
-        <Scrool>
-          {notifications.map((notification) => (
+      <NotificationListComp visible={visible}>
+        <Scroll>
+          {notificationList.map((notification) => (
             <Notification unread={!notification.read} key={notification._id}>
               <p>{notification.content}</p>
               <time>{notification.timeDistance}</time>
-              <button type="button" onClick={handleMarkAsRead}>
-                Marcar como lida
-              </button>
+              {!notification.read && (
+                <button
+                  type="button"
+                  onClick={() => handleMarkAsRead(notification._id)}
+                >
+                  Marcar como lida
+                </button>
+              )}
             </Notification>
           ))}
-        </Scrool>
-      </NotificationList>
+        </Scroll>
+      </NotificationListComp>
     </Container>
   );
 }
