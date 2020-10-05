@@ -5,13 +5,17 @@ const INITIAL_STATE = {
 };
 
 export default function auth(state = INITIAL_STATE, action) {
-  switch (action.type) {
-    case '@auth/': {
-      return produce(state, (draft) => {
+  return produce(state, (draft) => {
+    switch (action.type) {
+      case '@auth/': {
         draft.profile = action.payload.user;
-      });
+        break;
+      }
+      case '@user/UPDATE_PROFILE_SUCCESS': {
+        draft.profile = action.payload.profile;
+        break;
+      }
+      default:
     }
-    default:
-      return state;
-  }
+  });
 }
