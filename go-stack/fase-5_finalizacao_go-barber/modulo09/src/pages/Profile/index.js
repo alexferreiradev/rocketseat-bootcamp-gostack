@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
 
 import { updateProfileRequest } from '~/store/modules/user/actions';
-import { singOut } from '~/store/modules/auth/actions';
+import { signOut } from '~/store/modules/auth/actions';
 import AvatarInput from './AvatarInput';
 
 import { Container } from './styles';
@@ -17,7 +17,7 @@ function Profile() {
   }
 
   function handleSignOut() {
-    dispatch(singOut());
+    dispatch(signOut());
   }
 
   return (
