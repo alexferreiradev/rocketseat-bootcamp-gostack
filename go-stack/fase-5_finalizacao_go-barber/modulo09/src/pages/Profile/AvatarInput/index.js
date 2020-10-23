@@ -34,7 +34,10 @@ function AvatarInput() {
   return (
     <Container>
       <label htmlFor="avatar">
-        <img src={preview || 'avatarurl'} alt="" />
+        <img
+          src={preview || 'https://images.apilist.fun/adorable_avatars_api.png'}
+          alt=""
+        />
         <input
           type="file"
           id="avatar"

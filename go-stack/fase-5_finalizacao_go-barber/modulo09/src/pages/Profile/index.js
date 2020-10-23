@@ -10,7 +10,13 @@ import { Container } from './styles';
 
 function Profile() {
   const dispatch = useDispatch();
-  const profile = useSelector((state) => state.user.profile);
+  const profile = useSelector((state) => {
+    const { profile: profileData } = state.user;
+    return {
+      ...profileData,
+      avatar: profileData.avatar ? profileData.avatar : {},
+    };
+  });
 
   function handleSubmit(data) {
     dispatch(updateProfileRequest(data));
@@ -23,7 +29,7 @@ function Profile() {
   return (
     <Container>
       <Form initialData={profile} onSubmit={handleSubmit}>
-        <AvatarInput />
+        <AvatarInput name="avatar_id" />
         <Input name="name" placeholder="Nome completo" />
         <Input name="email" placeholder="Seu endereço de e-mail" />
 
