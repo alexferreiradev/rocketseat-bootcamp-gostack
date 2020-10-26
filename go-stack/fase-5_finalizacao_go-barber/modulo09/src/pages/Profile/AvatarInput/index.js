@@ -44,6 +44,7 @@ function AvatarInput() {
           accept="image/*"
           data-file={file}
           onChange={handleChange}
+          ref={ref}
         />
       </label>
     </Container>
