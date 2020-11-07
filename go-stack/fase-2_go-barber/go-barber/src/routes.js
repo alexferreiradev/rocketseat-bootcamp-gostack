@@ -21,13 +21,13 @@ const upload = multer(multerConfig);
 routes.get('/', (_, res) => {
     return res.json({ status: "ok", version: config.version});
 });
-routes.post('/login', SessionController.login);
+routes.post('/sessions', SessionController.store);
+routes.post('/users', store);
 
 routes.use(authMid);
 
-routes.get('/user', UserController.index);
-routes.post('/user', store);
-routes.put('/user', update);
+routes.get('/users', UserController.index);
+routes.put('/users', update);
 
 routes.get('/provider', ProviderController.index);
 routes.get('/provider/:providerId/availablity', AvailableController.index);
@@ -37,10 +37,10 @@ routes.post('/appointment', AppointmentController.store);
 routes.delete('/appointment/:id', AppointmentController.delete);
 
 routes.get('/scheduler', SchedullerController.index);
-routes.get('/notification', NotificationController.index);
-routes.put('/notification/:id', NotificationController.update);
+routes.get('/notifications', NotificationController.index);
+routes.put('/notifications/:id', NotificationController.update);
 
-routes.post('/file', upload.single('file'), FileController.store);
-routes.get('/file', FileController.index);
+routes.post('/files', upload.single('file'), FileController.store);
+routes.get('/files', FileController.index);
 
 export default routes;
