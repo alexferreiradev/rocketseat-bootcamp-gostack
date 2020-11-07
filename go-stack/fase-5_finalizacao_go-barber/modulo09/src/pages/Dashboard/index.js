@@ -9,6 +9,7 @@ import {
   isBefore,
   isEqual,
   parseISO,
+  setMilliseconds,
 } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import { utcToZonedTime } from 'date-fns-tz';
@@ -31,23 +32,33 @@ function Dashboard() {
 
   useEffect(() => {
     async function loadSchedule() {
-      const res = await api.get('/schedule', {
-        params: { date },
-      });
+      let appointmentList = [];
+      try {
+        const res = await api.get('/scheduler', {
+          params: { date },
+        });
+        appointmentList = res.data;
+      } catch (e) {
+        console.log(e);
+      }
 
       const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
       const data = range.map((hour) => {
-        const checkDate = setSeconds(setMinutes(setHours(date, hour), 0), 0);
+        const checkDate = setMilliseconds(
+          setSeconds(setMinutes(setHours(date, hour), 0), 0),
+          0
+        );
         const compareDate = utcToZonedTime(checkDate, timezone);
 
         return {
           time: `${hour}:00h`,
           past: isBefore(compareDate, new Date()),
-          appointment: res.data.find((a) =>
-            isEqual(parseISO(a.date), compareDate)
-          ),
+          appointment: appointmentList.find((a) => {
+            return isEqual(parseISO(a.date), compareDate);
+          }),
         };
       });
+
       setSchedule(data);
     }
 
@@ -83,19 +94,6 @@ function Dashboard() {
             </span>
           </Time>
         ))}
-
-        <Time available>
-          <strong>08:00</strong>
-          <span>Em aberto</span>
-        </Time>
-        <Time>
-          <strong>08:00</strong>
-          <span>Diego Fernandes</span>
-        </Time>
-        <Time>
-          <strong>08:00</strong>
-          <span>Diego Fernandes</span>
-        </Time>
       </ul>
     </Container>
   );
