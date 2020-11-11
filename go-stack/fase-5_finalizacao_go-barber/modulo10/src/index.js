@@ -1,12 +1,12 @@
 import React from 'react';
 import { View } from 'react-native';
 
-import Teste from '~/Teste';
+import Routes from './routes';
 
 // import { Container } from './styles';
 
 const App = () => {
-  return <Teste />;
+  return <Routes />;
 };
 
 export default App;
