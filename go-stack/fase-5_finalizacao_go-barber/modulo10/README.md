@@ -11,3 +11,6 @@ Projeto mobile para os clientes do go-barber conseguirem agendar cortes.
 
 ### Rotas
 O projeto utiliza react navigation 4 devido seguir curso da rocketseat.
+
+### Icones
+O projeto utiliza a lib vector-icons, veja mais config na [doc oficial](https://github.com/oblador/react-native-vector-icons/tree/v7.1.0)
