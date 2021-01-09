@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
+    "clean:android": "cd android && ./gradlew clean && cd ../",
+    "reset-cache": "react-native start --reset-cache",
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint .",
-    "postinstall": "jetifier -r"
+    "lint": "eslint ."
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.12.1",
