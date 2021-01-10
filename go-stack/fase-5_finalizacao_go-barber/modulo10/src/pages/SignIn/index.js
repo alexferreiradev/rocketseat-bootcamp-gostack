@@ -29,6 +29,7 @@ const SignIn = ({ navigation }) => {
             autoCorrect={false}
             autoCaptalize="none"
             placeholder="Digite seu e-mail"
+            returnKeyType="next"
             onSubmitEditing={() => passwordRef.current.focus()}
           />
 
@@ -37,6 +38,7 @@ const SignIn = ({ navigation }) => {
             secureTextEntry
             ref={passwordRef}
             placeholder="Sua senha"
+            returnKeyType="send"
             onSubmitEditing={() => handleSubmit}
           />
 
