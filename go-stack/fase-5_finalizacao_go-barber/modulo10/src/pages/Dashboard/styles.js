@@ -10,3 +10,8 @@ export const Title = styled.Text`
   align-self: center;
   margin-top: 30px;
 `;
+
+export const List = styled.FlatList.attrs({
+  showsVerticalScrollIndicator: false,
+  contentContainerStyle: { padding: 30 },
+})``;
