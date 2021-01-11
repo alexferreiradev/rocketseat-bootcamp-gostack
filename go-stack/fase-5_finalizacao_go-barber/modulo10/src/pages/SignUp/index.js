@@ -24,7 +24,7 @@ const SignUp = ({ navigation }) => {
   const emailRef = useRef();
   const passwordRef = useRef();
   function handleSubmit() {
-    dispatch(singUpRequest(email, password));
+    dispatch(singUpRequest(name, email, password));
   }
   return (
     <Background>
@@ -67,7 +67,7 @@ const SignUp = ({ navigation }) => {
             onChangeText={setPassword}
           />
 
-          <SubmitButton loading={loading} onPress={() => {}}>
+          <SubmitButton loading={loading} onPress={handleSubmit}>
             Criar conta
           </SubmitButton>
         </Form>
