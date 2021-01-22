@@ -10,10 +10,12 @@ import {
   Form,
   FormInput,
   SubmitButton,
+  LogoutButton,
   Separator,
 } from './styles';
 
 import { updateProfileRequest } from '~/store/modules/user/actions';
+import { signOut } from '~/store/modules/auth/actions';
 
 const Profile = () => {
   const profile = useSelector((state) => state.user.profile);
@@ -35,6 +37,10 @@ const Profile = () => {
     dispatch(
       updateProfileRequest(name, email, oldPassword, password, confirmPassword)
     );
+  }
+
+  function handleLogout() {
+    dispatch(signOut());
   }
 
   useEffect(() => {
@@ -107,9 +113,8 @@ const Profile = () => {
             onChangeText={setConfirmPassword}
           />
 
-          <SubmitButton loading={loading} onPress={handleSubmit}>
-            Atualizar perfil
-          </SubmitButton>
+          <SubmitButton onPress={handleSubmit}>Atualizar perfil</SubmitButton>
+          <LogoutButton onPress={handleLogout}>Sair da conta</LogoutButton>
         </Form>
       </Container>
     </Background>
