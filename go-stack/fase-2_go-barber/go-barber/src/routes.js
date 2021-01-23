@@ -24,17 +24,11 @@ routes.get('/', (_, res) => {
 routes.post('/sessions', SessionController.store);
 routes.post('/users', store);
 
+//Rotas autenticadas
 routes.use(authMid);
 
 routes.get('/users', UserController.index);
 routes.put('/users', update);
-
-routes.get('/provider', ProviderController.index);
-routes.get('/provider/:providerId/availablity', AvailableController.index);
-
-routes.get('/appointment', AppointmentController.index);
-routes.post('/appointment', AppointmentController.store);
-routes.delete('/appointment/:id', AppointmentController.delete);
 
 routes.get('/scheduler', SchedullerController.index);
 routes.get('/notifications', NotificationController.index);
@@ -42,5 +36,14 @@ routes.put('/notifications/:id', NotificationController.update);
 
 routes.post('/files', upload.single('file'), FileController.store);
 routes.get('/files', FileController.index);
+
+// Para Mobile
+routes.get('/appointments', AppointmentController.index);
+routes.post('/appointments', AppointmentController.store);
+routes.delete('/appointments/:id', AppointmentController.delete);
+
+routes.get('/providers', ProviderController.index);
+routes.get('/providers/:providerId/availablity', AvailableController.index);
+// Fim Mobile
 
 export default routes;
