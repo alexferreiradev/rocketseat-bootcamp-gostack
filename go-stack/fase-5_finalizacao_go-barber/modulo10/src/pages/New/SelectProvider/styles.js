@@ -12,7 +12,7 @@ export const ProviderList = styled.FlatList.attrs({
   padding: 0 20px;
 `;
 export const Provider = styled(RectButton)`
-  background: '#fff';
+  background: #fff;
   border-radius: 4px;
   padding: 20px;
   flex: 1;
