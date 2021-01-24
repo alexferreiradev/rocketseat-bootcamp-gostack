@@ -35,7 +35,7 @@ const SelectProvider = ({ navigation }) => {
                 source={{
                   uri: item.avatar
                     ? item.avatar.url
-                    : `https://api.adorable.io/avatar/50/${item.name}`,
+                    : `https://api.hello-avatar.com/adorables/50/${item.name}`,
                 }}
               />
               <Name>{item.name}</Name>
