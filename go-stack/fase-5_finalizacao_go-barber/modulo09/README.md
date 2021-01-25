@@ -3,6 +3,10 @@
 ## Desenvolvimento
 Projeto criado com yarn, portanto, utilize `yarn` para compilar e `yarn start` para executar.
 
+### Rodar localmente
+O projeto utiliza um backend que depende de bancos e aplicações instaladas em docker. Execute estas aplicações, e o backend com `yarn dev`. O projeto backend está na pasta `~/fase-2*/go-barber`.
+Depois, execute o projeto frontend com `yarn start`.
+
 ## Configurar import root
 Add libs: `yarn add customize-cra react-app-rewired babel-plugin-root-import -D`. Crie o arquivo config-overrides.js: 
 ```
