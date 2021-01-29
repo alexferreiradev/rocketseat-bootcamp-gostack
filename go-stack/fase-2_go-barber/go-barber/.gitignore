@@ -4,3 +4,4 @@ src/config/
 *.log
 uploads/
 .env
+dist/
