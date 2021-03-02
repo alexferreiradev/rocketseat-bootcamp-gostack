@@ -7,9 +7,10 @@
   "scripts": {
     "dev": "nodemon src/server.js",
     "build": "sucrase src -d ./dist/ --transforms imports",
-    "start": "sequelize-cli db:migrate --url $DATABASE_URL & node dist/server.js",
+    "start": "node dist/server.js",
     "dev:debug": "nodemon --inspect src/server.js",
-    "queue": "nodemon src/queue.js"
+    "queue": "nodemon src/queue.js",
+    "postbuild": "sequelize-cli db:migrate --url $DATABASE_URL & sequelize-cli db:seed:all"
   },
   "dependencies": {
     "@sentry/node": "5.15.4",
