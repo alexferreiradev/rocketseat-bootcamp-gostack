@@ -4,3 +4,8 @@ build/
 uploads/
 .env*
 dist/
+
+
+# Ignore para Heroku source tree
+.vscode
+tmp
