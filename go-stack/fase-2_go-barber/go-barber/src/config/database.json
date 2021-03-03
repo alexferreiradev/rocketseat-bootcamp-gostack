@@ -1,0 +1,14 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "postgres",
+    "database": "gobarber",
+    "host": "localhost",
+    "dialect": "postgres",
+    "operatorsAliases": false
+  },
+  "production": {
+    "operatorsAliases": false,
+    "use_env_variable": "DATABASE_URL"
+  }
+}
