@@ -9,7 +9,6 @@ module.exports = {
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
     protocol: process.env.DB_PROTOCOL || 'postgres',
-    logging: true,
     define: {
         timestamp: true,
         underscored: true,
@@ -19,7 +18,6 @@ module.exports = {
   production: {
     dialect: 'postgres',
     protocol: 'postgres',
-    logging: true,
     use_env_variable: 'DATABASE_URL',
     dialectOptions: {
       ssl: {

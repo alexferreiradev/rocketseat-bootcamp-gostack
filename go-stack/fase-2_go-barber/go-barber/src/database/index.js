@@ -15,9 +15,9 @@ class DataBase {
 
     initPostgres() {
         if (process.env.DATABASE_URL) {
-            this.connection = new Sequelize(databaseConfig[production]);
+            this.connection = new Sequelize(databaseConfig['production']);
         } else {
-            this.connection = new Sequelize(databaseConfig[development]);
+            this.connection = new Sequelize(databaseConfig['development']);
         }
 
         models
