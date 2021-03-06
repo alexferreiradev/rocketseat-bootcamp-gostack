@@ -10,7 +10,7 @@
     "start": "node dist/server.js",
     "dev:debug": "nodemon --inspect src/server.js",
     "queue": "nodemon src/queue.js",
-    "postbuild": "sequelize-cli db:migrate --url $DATABASE_URL & sequelize-cli db:seed:all --url $DATABASE_URL"
+    "postbuild": "sequelize-cli db:migrate & sequelize-cli db:seed:all"
   },
   "dependencies": {
     "@sentry/node": "5.15.4",
