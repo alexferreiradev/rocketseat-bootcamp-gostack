@@ -14,7 +14,15 @@ class DataBase {
     }
 
     initPostgres() {
-        this.connection = new Sequelize(databaseConfig);
+        if (process.env.DATABASE_URL) {
+            this.connection = new Sequelize(process.env.DATABASE_URL, {
+                protocolo: 'postgres',
+                dialect: 'postgres',
+            });
+        } else {
+            this.connection = new Sequelize(databaseConfig);
+        }
+
         models
         .map(model => model.init(this.connection))
         .map(model => model.associate && model.associate(this.connection.models));
