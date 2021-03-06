@@ -18,6 +18,7 @@ class DataBase {
             this.connection = new Sequelize(process.env.DATABASE_URL, {
                 protocolo: 'postgres',
                 dialect: 'postgres',
+                logging: true,
             });
         } else {
             this.connection = new Sequelize(databaseConfig);
