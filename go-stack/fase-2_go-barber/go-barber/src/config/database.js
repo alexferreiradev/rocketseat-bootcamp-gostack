@@ -7,7 +7,7 @@ module.exports = {
     port: process.env.DB_PORT || 5432,
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
-    protocol: process.env.DB_PROTOCOL,
+    protocol: process.env.DB_PROTOCOL || 'postgres',
     define: {
         timestamp: true,
         underscored: true,
