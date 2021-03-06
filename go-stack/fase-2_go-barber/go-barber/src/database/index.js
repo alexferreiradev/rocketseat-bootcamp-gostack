@@ -15,11 +15,7 @@ class DataBase {
 
     initPostgres() {
         if (process.env.DATABASE_URL) {
-            this.connection = new Sequelize(process.env.DATABASE_URL, {
-                protocolo: 'postgres',
-                dialect: 'postgres',
-                logging: true,
-            });
+            this.connection = new Sequelize(databaseConfig);
         } else {
             this.connection = new Sequelize(databaseConfig);
         }
