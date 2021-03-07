@@ -14,10 +14,18 @@ class DataBase {
     }
 
     initPostgres() {
+        console.log("Conectando sequilize como " + process.env.NODE_ENV);
         if (process.env.DATABASE_URL) {
-            this.connection = new Sequelize(databaseConfig['production']);
+            this.connection = new Sequelize(process.env.DATABASE_URL+'?sslmode=required', {
+                dialectOptions: {
+                    ssl: {
+                        rejectUnauthorized: false
+                    }
+                }
+            });
         } else {
-            this.connection = new Sequelize(databaseConfig['development']);
+            console.log("conectando sequilize como dev");
+            this.connection = new Sequelize(databaseConfig[process.env.NODE_ENV]);
         }
 
         models
