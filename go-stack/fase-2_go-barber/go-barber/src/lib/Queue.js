@@ -15,10 +15,16 @@ class Queue {
     }
 
     init() {
+        let client;
+        try {
+            client = redis.createClient(redisConfig.url)
+        } catch(e) {
+            console.log("Erro ao iniciar redis", e);
+        }
         jobs.forEach(({key, handle}) => {
             this.queues[key] = {
                 bee: new Bee(key, {
-                    redis: redis.createClient(redisConfig.url),
+                    redis: client,
                 }),
                 handle,
             };
