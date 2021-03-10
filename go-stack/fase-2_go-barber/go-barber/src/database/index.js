@@ -27,7 +27,13 @@ class DataBase {
             console.log("conectando sequilize como dev");
             this.connection = new Sequelize(databaseConfig[process.env.NODE_ENV]);
         }
-        this.connection.authenticate().then(()=> console.log("Conexão estabelecida com sucesso")).catch(e => console.log("Erro de conexao do sequelize", e));
+        try {
+            this.connection.authenticate()
+            .then(()=> console.log("Conexão estabelecida com sucesso"))
+            .catch(e => console.log("Erro de conexao do sequelize", e));
+        } catch(e) {
+            console.log("Erro do autenticate", e);
+        }
 
         models
         .map(model => model.init(this.connection))
