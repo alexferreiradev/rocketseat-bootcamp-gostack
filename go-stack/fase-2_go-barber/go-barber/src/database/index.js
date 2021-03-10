@@ -13,26 +13,25 @@ class DataBase {
         this.initMongo();
     }
 
-    initPostgres() {
+    async initPostgres() {
         console.log("Conectando sequilize como " + process.env.NODE_ENV);
-        if (process.env.DATABASE_URL) {
-            this.connection = new Sequelize(process.env.DATABASE_URL+'?sslmode=required', {
-                dialectOptions: {
-                    ssl: {
-                        rejectUnauthorized: false
-                    }
-                }
-            });
-        } else {
-            console.log("conectando sequilize como dev");
-            this.connection = new Sequelize(databaseConfig[process.env.NODE_ENV]);
-        }
         try {
-            this.connection.authenticate()
-            .then(()=> console.log("Conexão estabelecida com sucesso"))
-            .catch(e => console.log("Erro de conexao do sequelize", e));
+            if (process.env.DATABASE_URL) {
+                this.connection = new Sequelize(process.env.DATABASE_URL+'?sslmode=required', {
+                    dialectOptions: {
+                        ssl: {
+                            rejectUnauthorized: false
+                        }
+                    }
+                });
+            } else {
+                console.log("conectando sequilize como dev");
+                this.connection = new Sequelize(databaseConfig[process.env.NODE_ENV]);
+            }
+            await this.connection.authenticate();
         } catch(e) {
             console.log("Erro do autenticate", e);
+            return ;
         }
 
         models
