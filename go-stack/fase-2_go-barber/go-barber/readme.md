@@ -22,18 +22,38 @@ export default {
 A conexão com o banco de dados deve ser configurada no arquivo `config/database.js`. Exemplo de configuração: 
 ```
 module.exports = {
+    development: {
     dialect: 'postgres',
-    host: '172.17.0.2',
-    username: '<user>',
-    password: '<password>',
-    database: 'go-barber',
+    host: process.env.DB_HOST,
+    username: process.env.DB_USER,
+    port: process.env.DB_PORT || 5432,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME,
+    protocol: process.env.DB_PROTOCOL || 'postgres',
     define: {
         timestamp: true,
         underscored: true,
         underscoredAll: true,
     }
+  },
+  production: {
+    dialect: 'postgres',
+    protocol: 'postgres',
+    use_env_variable: 'DATABASE_URL',
+    dialectOptions: {
+      ssl: {
+        rejectUnauthorized: false,
+      },
+    }
+  }
 }
 ```
+Portanto, ele utiliza variaveis de ambiente. Configure elas em um arquivo `.env.*`, sendo por exemplo o de desenvolvimento: `.env.development`
+
+### Migrations
+Este projeto utiliza o sequelize como ORM. Ele tem o cli `sequelize-cli` para executar migrations manualmente. Contudo, para utilizar em diferentes ambientes, utilize o comando: 
+`NODE_ENV=development yarn sequelize-cli db:migrate`
+
 ### Configuração do Mongo
 Necessário configurar a url de conexão com o banco mongo similar a: `mongodb://localhost:27017/mongobarber?readPreference=primary&appname=MongoDB%20Compass%20Community&ssl=false`. Esta string pode ser copiada da aplicação `mongoCompass` que conecta com um servidor implantado em  docker.
 
