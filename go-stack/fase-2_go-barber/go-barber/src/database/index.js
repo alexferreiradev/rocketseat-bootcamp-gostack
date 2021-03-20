@@ -17,11 +17,17 @@ class DataBase {
         console.log("Conectando sequilize como " + process.env.NODE_ENV);
         try {
             if (process.env.DATABASE_URL) {
-                this.connection = new Sequelize(process.env.DATABASE_URL+'?sslmode=required', {
+                this.connection = new Sequelize(process.env.DATABASE_URL+'?sslmode=require', {
+                    dialect: 'postgres',
                     dialectOptions: {
                         ssl: {
                             rejectUnauthorized: false
                         }
+                    },
+                    define: {
+                        timestamp: true,
+                        underscored: true,
+                        underscoredAll: true,
                     }
                 });
             } else {
