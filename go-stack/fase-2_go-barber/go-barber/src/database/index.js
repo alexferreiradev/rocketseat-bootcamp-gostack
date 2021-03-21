@@ -17,7 +17,7 @@ class DataBase {
         console.log("Conectando sequilize como " + process.env.NODE_ENV);
         try {
             if (process.env.DATABASE_URL) {
-                this.connection = new Sequelize(process.env.DATABASE_URL+'?sslmode=no-verify', {
+                this.connection = new Sequelize(process.env.DATABASE_URL+'?sslmode=require', {
                     dialect: 'postgres',
                     dialectOptions: {
                         ssl: {
