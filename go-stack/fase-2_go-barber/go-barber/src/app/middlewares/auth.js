@@ -3,7 +3,7 @@ import {promisify} from 'util';
 import authConfig from '../../config/auth';
 
 function skip(req) {
-    const reqMath = /file\/*/g;
+    const reqMath = /files\/*/g;
     const reqFound = req.path.match(reqMath);
     return reqFound && req.method == 'GET';
 }
