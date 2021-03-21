@@ -9,8 +9,7 @@
     "build": "sucrase src -d ./dist/ --transforms imports",
     "start": "node dist/server.js",
     "dev:debug": "nodemon --inspect src/server.js",
-    "queue": "nodemon src/queue.js",
-    "postbuild": "sequelize-cli db:migrate & sequelize-cli db:seed:all"
+    "queue": "nodemon src/queue.js"
   },
   "dependencies": {
     "@sentry/node": "5.15.4",
