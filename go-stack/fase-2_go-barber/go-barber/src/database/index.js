@@ -34,7 +34,7 @@ class DataBase {
                 console.log("conectando sequilize como dev");
                 this.connection = new Sequelize(databaseConfig[process.env.NODE_ENV]);
             }
-            await this.connection.authenticate();
+            // await this.connection.authenticate();
         } catch(e) {
             console.log("Erro do autenticate", e);
             return ;
