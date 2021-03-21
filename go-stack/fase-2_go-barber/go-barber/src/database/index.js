@@ -17,7 +17,7 @@ class DataBase {
         console.log("Conectando sequilize como " + process.env.NODE_ENV);
         try {
             if (process.env.DATABASE_URL) {
-                this.connection = new Sequelize(process.env.DATABASE_URL+'?sslmode=require', {
+                this.connection = new Sequelize(process.env.DATABASE_URL+'?sslmode=no-verify', {
                     dialect: 'postgres',
                     dialectOptions: {
                         ssl: {
@@ -34,7 +34,7 @@ class DataBase {
                 console.log("conectando sequilize como dev");
                 this.connection = new Sequelize(databaseConfig[process.env.NODE_ENV]);
             }
-            // await this.connection.authenticate();
+            await this.connection.authenticate();
         } catch(e) {
             console.log("Erro do autenticate", e);
             return ;
