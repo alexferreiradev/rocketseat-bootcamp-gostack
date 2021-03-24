@@ -1328,6 +1328,11 @@
     "@types/yargs" "^15.0.0"
     chalk "^3.0.0"
 
+"@mars/heroku-js-runtime-env@^3.0.2":
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@mars/heroku-js-runtime-env/-/heroku-js-runtime-env-3.0.2.tgz#e5b8480ed82b54046474a08a139b8d9560af3a28"
+  integrity sha1-5bhIDtgrVARkdKCKE5uNlWCvOig=
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
@@ -2899,9 +2904,9 @@ caniuse-api@^3.0.0:
     lodash.uniq "^4.5.0"
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000981, caniuse-lite@^1.0.30001020, caniuse-lite@^1.0.30001035:
-  version "1.0.30001035"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001035.tgz#2bb53b8aa4716b2ed08e088d4dc816a5fe089a1e"
-  integrity sha512-C1ZxgkuA4/bUEdMbU5WrGY4+UhMFFiXrgNAfxiMIqWgFTWfv/xsZCS2xEHT2LMq7xAZfuAnu6mcqyDl0ZR6wLQ==
+  version "1.0.30001204"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001204.tgz"
+  integrity sha512-JUdjWpcxfJ9IPamy2f5JaRDCaqJOxDzOSKtbdx4rH9VivMd1vIzoPumsJa9LoMIi4Fx2BV2KZOxWhNkBjaYivQ==
 
 capture-exit@^2.0.0:
   version "2.0.0"
