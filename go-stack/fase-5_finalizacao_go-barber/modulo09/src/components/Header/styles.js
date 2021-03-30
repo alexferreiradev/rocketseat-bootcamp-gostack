@@ -1,18 +1,28 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  height: 64px;
+  min-height: 64px;
+  max-height: 100px;
   background: #fff;
   padding: 0 30px;
+  @media screen and (max-width: 430px) {
+    padding: 0 4px;
+  }
 `;
 export const Content = styled.div`
-  height: 64px;
+  min-height: 64px;
+  max-height: 100px;
   max-width: 900px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
+  @media screen and (max-width: 430px) {
+    flex-direction: column;
+    max-height: 400px;
+    justify-content: space-around;
+  }
   nav {
     display: flex;
     align-items: center;
@@ -20,7 +30,6 @@ export const Content = styled.div`
     img {
       margin-right: 20px;
       padding-right: 20px;
-      border-right: 1px solid #eee;
     }
 
     a {
@@ -36,9 +45,20 @@ export const Content = styled.div`
 `;
 export const Profile = styled.div`
   display: flex;
-  margin-left: 20px;
-  padding-left: 20px;
-  border-left: 1px solid #eee;
+  margin: 20px;
+  padding: 4px 20px;
+  border-right: 1px solid #eee;
+  min-height: 50px;
+
+  @media screen and (max-width: 430px) {
+    margin-top: 8px;
+    border-right: 1px solid #eee;
+    border-left: none;
+    margin-left: 0px;
+    padding-left: 0px;
+    margin-right: 8px;
+    padding-right: 8px;
+  }
 
   div {
     text-align: right;
