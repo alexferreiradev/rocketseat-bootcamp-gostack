@@ -18,7 +18,6 @@ function Header() {
           <Link to="/dashboard">Dashboard</Link>
         </nav>
         <aside>
-          <Notifications />
           <Profile>
             <div>
               <strong>{profile.name}</strong>
@@ -32,6 +31,7 @@ function Header() {
               alt={profile.name}
             />
           </Profile>
+          <Notifications />
         </aside>
       </Content>
     </Container>
