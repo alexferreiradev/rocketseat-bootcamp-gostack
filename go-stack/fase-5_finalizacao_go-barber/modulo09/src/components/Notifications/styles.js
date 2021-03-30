@@ -30,12 +30,16 @@ export const Badge = styled.button`
 export const NotificationListComp = styled.div`
   position: absolute;
   width: 260px;
-  left: calc(50% - 130px);
+  left: calc(100% - 260px);
   top: calc(100% + 30px);
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 1);
   border-radius: 4px;
   padding: 15px 5px;
   display: ${(props) => (props.visible ? 'block' : 'none')};
+
+  @media screen and (max-width: 430px) {
+    left: calc(100% - 260px);
+  }
 
   &::before {
     content: '';
