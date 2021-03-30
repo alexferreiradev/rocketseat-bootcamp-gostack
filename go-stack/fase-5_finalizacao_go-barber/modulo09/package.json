@@ -2,6 +2,7 @@
   "name": "modulo09",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://teste-go-barber.herokuapp.com",
   "dependencies": {
     "@mars/heroku-js-runtime-env": "^3.0.2",
     "@rocketseat/unform": "^1.6.2",
@@ -33,7 +34,7 @@
     "yup": "^0.29.3"
   },
   "scripts": {
-    "start": "node server.js",
+    "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject"
