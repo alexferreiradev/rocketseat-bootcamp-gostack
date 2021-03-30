@@ -35,9 +35,8 @@ export const Container = styled.div`
 export const Time = styled.li`
   padding: 20px;
   border-radius: 4px;
-  background: #fff;
 
-  opacity: ${(props) => (props.past ? 0.6 : 1)};
+  background: ${(props) => (props.past ? 'rgba(0,0,0,0.4)' : '#fff')};
 
   strong {
     display: block;
