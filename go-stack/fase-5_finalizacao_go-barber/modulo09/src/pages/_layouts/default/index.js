@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 
 import Header from '~/components/Header';
 
-import { Wrapper } from './styles';
+import { Wrapper, WrapperContent } from './styles';
 
 function Default({ children }) {
   return (
     <Wrapper>
       <Header />
-      {children}
+      <WrapperContent>{children}</WrapperContent>
     </Wrapper>
   );
 }
