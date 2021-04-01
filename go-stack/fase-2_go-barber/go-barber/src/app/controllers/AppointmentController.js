@@ -63,7 +63,7 @@ class AppointmentController {
         });
 
         if (!isProvider) {
-            return res.status(401).json({error: "Somente um provedor pode criar um agendamento"});
+            return res.status(401).json({error: "Podem ser criados agendamentos somente para prestadores"});
         }
 
         const hourStart = startOfHour(parseISO(date));
@@ -81,7 +81,7 @@ class AppointmentController {
         if (appointmentBusy) {
             console.log(hourStart);        
             console.log(appointmentBusy);        
-            return res.status(400).json({error: "Já existe um agendamento para esta data."});
+            return res.status(400).json({error: "Já existe um agendamento para esta data e horário."});
         }
 
         createNotification(req.userId, hourStart, provider_id);
