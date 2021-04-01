@@ -1,8 +1,9 @@
 import User from "../models/User";
 import Appointment from "../models/Appointment";
-import { setSeconds, setMinutes, setHours, format, isAfter, startOfDay, endOfDay } from "date-fns";
+import { setSeconds, setMinutes, setHours, isAfter, startOfDay, endOfDay } from "date-fns";
+import { ru } from "date-fns/locale/ru";
+import { format } from "date-fns-tz";
 import { Op } from "sequelize";
-import { formatDate } from "./AppointmentController";
 
 class AvailableController {
     async index(req, res) {
@@ -48,10 +49,11 @@ class AvailableController {
                 setMinutes(setHours(searchDate, hour), minute)
                 ,0
             );
+            
 
-            return {time, value: format(value, "yyyy-MM-dd'T'HH:mm:ssxxx"), 
+            return {time, value: format(value, "yyyy-MM-dd'T'HH:mm:ssxxx", {timeZone: 'America/Sao_paulo'}), 
             available: isAfter(value, new Date()) && !appointmentFound.find(a => {
-                return format(a.date, 'HH:mm') === time;
+                return format(a.date, 'HH:mm', {timeZone: 'America/Sao_paulo'}) === time;
             }),
         };
         });
