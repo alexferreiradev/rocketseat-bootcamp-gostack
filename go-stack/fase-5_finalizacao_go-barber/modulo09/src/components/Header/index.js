@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import Notifications from '~/components/Notifications';
 
 import logo from '~/assets/logo-purple.svg';
+import iconePerfil from '~/assets/icone-perfil.png';
 import { Container, Content, Profile } from './styles';
 
 function Header() {
@@ -23,13 +24,9 @@ function Header() {
               <strong>{profile.name}</strong>
               <Link to="/profile">Meu perfil</Link>
             </div>
-            <img
-              src={
-                (profile.avatar ? profile.avatar.url : undefined) ||
-                'https://api.hello-avatar.com/adorables/50/abott@adorable.png'
-              }
-              alt={profile.name}
-            />
+            <Link to="/profile">
+              <img src={iconePerfil} alt={profile.name} />
+            </Link>
           </Profile>
           <Notifications />
         </aside>

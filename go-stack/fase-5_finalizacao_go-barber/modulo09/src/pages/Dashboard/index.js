@@ -42,7 +42,7 @@ function Dashboard() {
         console.log(e);
       }
 
-      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const timezone = 'America/Sao_paulo';
       const data = range.map((hour) => {
         const checkDate = setMilliseconds(
           setSeconds(setMinutes(setHours(date, hour), 0), 0),
