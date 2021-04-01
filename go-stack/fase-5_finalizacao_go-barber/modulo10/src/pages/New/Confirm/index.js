@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import api from '~/services/api';
 import Background from '~/components/Background';
+import iconePerfil from '~/assets/icone-perfil.png';
 
 import { Container, Avatar, Name, Time, SubmitButton } from './styles';
 
@@ -18,7 +19,7 @@ const Confirm = ({ navigation }) => {
   );
 
   async function handleAddAppointment() {
-    const res = await api.post('appointments', {
+    await api.post('appointments', {
       provider_id: provider.id,
       date: time,
     });
@@ -28,13 +29,7 @@ const Confirm = ({ navigation }) => {
   return (
     <Background>
       <Container>
-        <Avatar
-          source={{
-            uri: provider.avatar
-              ? provider.avatar.url
-              : `https://api.hello-avatar.com/adorables/50/${provider.name}`,
-          }}
-        />
+        <Avatar source={iconePerfil} />
 
         <Name>{provider.name}</Name>
         <Time>{dateFormatted}</Time>

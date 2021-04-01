@@ -4,6 +4,7 @@ import { parseISO, formatRelative } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import iconePerfil from '~/assets/icone-perfil.png';
 
 import { Container, Left, Avatar, Info, Name, Time } from './styles';
 
@@ -18,13 +19,7 @@ const Appointment = ({ data, onCancel }) => {
   return (
     <Container past={data.past}>
       <Left>
-        <Avatar
-          source={{
-            uri: data.provider.avatar
-              ? data.provider.avatar.url
-              : `https://api.hello-avatar.com/adorables/50/${data.provider.name}`,
-          }}
-        />
+        <Avatar source={iconePerfil} />
         <Info>
           <Name>{data.provider.name}</Name>
           <Time>{dateParsed}</Time>

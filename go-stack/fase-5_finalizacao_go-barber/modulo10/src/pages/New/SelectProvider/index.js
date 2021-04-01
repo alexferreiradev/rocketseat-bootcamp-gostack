@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import Background from '~/components/Background';
 import api from '~/services/api';
+import iconePerfil from '~/assets/icone-perfil.png';
 import { Container, ProviderList, Provider, Avatar, Name } from './styles';
 
 const SelectProvider = ({ navigation }) => {
@@ -31,13 +32,7 @@ const SelectProvider = ({ navigation }) => {
                 navigation.navigate('SelectDateTime', { provider: item })
               }
             >
-              <Avatar
-                source={{
-                  uri: item.avatar
-                    ? item.avatar.url
-                    : `https://api.hello-avatar.com/adorables/50/${item.name}`,
-                }}
-              />
+              <Avatar source={iconePerfil} />
               <Name>{item.name}</Name>
             </Provider>
           )}
