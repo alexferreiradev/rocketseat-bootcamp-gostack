@@ -7,7 +7,7 @@ import Appointment from '~/components/Appointment';
 
 import api from '~/services/api';
 
-import { Container, Title, List } from './styles';
+import { Container, Title, List, EmptyText } from './styles';
 
 const Dashboard = ({ isFocused }) => {
   const [appointments, setAppointments] = useState([]);
@@ -41,6 +41,7 @@ const Dashboard = ({ isFocused }) => {
             <Appointment data={item} onCancel={() => handleCancel(item.id)} />
           )}
         />
+        <EmptyText visible={false}>Não há agendamentos</EmptyText>
       </Container>
     </Background>
   );

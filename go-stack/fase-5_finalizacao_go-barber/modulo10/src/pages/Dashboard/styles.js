@@ -15,3 +15,11 @@ export const List = styled.FlatList.attrs({
   showsVerticalScrollIndicator: false,
   contentContainerStyle: { padding: 30 },
 })``;
+
+export const EmptyText = styled.Text`
+  font-size: 14px;
+  color: #fff;
+  margin-top: 16px;
+  text-align: center;
+  height: ${(props) => (props.visible ? '50px' : '0px')};
+`;
