@@ -13,14 +13,17 @@ const schema = Yup.object().shape({
   email: Yup.string()
     .email('Insira um email válido')
     .required('Email é requerido'),
+  telefone: Yup.string()
+    .min(7, 'Insira um telefone válido')
+    .required('Telefone é requerido'),
   password: Yup.string().required('Senha é requerida'),
 });
 
 function SignUp() {
   const dispatch = useDispatch();
 
-  function handleSubmit({ name, email, password }) {
-    dispatch(singUpRequest(name, email, password));
+  function handleSubmit({ name, email, password, telefone }) {
+    dispatch(singUpRequest(name, email, password, telefone));
   }
   return (
     <>
@@ -28,6 +31,7 @@ function SignUp() {
       <Form onSubmit={handleSubmit} schema={schema}>
         <Input name="name" placeholder="Nome completo" />
         <Input name="email" type="email" placeholder="Email" />
+        <Input name="telefone" type="tel" placeholder="(xx)-9-9999-9999)" />
         <Input name="password" type="password" placeholder="Senha" />
         <button type="submit">Criar conta</button>
         <Link to="/">Já tenho login</Link>
