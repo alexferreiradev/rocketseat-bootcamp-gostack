@@ -5,10 +5,10 @@ export function signInRequest(email, password) {
   };
 }
 
-export function singUpRequest(name, email, password) {
+export function singUpRequest(name, email, password, telefone) {
   return {
     type: '@auth/SIGN_UP_REQUEST',
-    payload: { name, email, password },
+    payload: { name, email, password, telefone },
   };
 }
 

@@ -20,11 +20,13 @@ const SignUp = ({ navigation }) => {
   const loading = useSelector((state) => state.auth.loading);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [telefone, setTelefone] = useState('');
   const [password, setPassword] = useState('');
   const emailRef = useRef();
+  const telefoneRef = useRef();
   const passwordRef = useRef();
   function handleSubmit() {
-    dispatch(singUpRequest(name, email, password));
+    dispatch(singUpRequest(name, email, password, telefone));
   }
   return (
     <Background>
@@ -51,9 +53,21 @@ const SignUp = ({ navigation }) => {
             placeholder="Digite seu e-mail"
             ref={emailRef}
             returnKeyType="next"
-            onSubmitEditing={() => passwordRef.current.focus()}
+            onSubmitEditing={() => telefoneRef.current.focus()}
             value={email}
             onChangeText={setEmail}
+          />
+
+          <FormInput
+            icon="phone"
+            autoCorrect={false}
+            autoCaptalize="none"
+            placeholder="Digite seu telefone: (xx)-9-9999-9999"
+            ref={telefoneRef}
+            returnKeyType="next"
+            onSubmitEditing={() => passwordRef.current.focus()}
+            value={telefone}
+            onChangeText={setTelefone}
           />
 
           <FormInput
