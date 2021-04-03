@@ -21,12 +21,14 @@ const Profile = () => {
   const profile = useSelector((state) => state.user.profile);
 
   const emailRef = useRef();
+  const telefoneRef = useRef();
   const oldPasswordRef = useRef();
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
 
   const [name, setName] = useState(profile.name);
   const [email, setEmail] = useState(profile.email);
+  const [telefone, setTelefone] = useState(profile.telefone);
   const [oldPassword, setOldPassword] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -35,7 +37,14 @@ const Profile = () => {
 
   function handleSubmit() {
     dispatch(
-      updateProfileRequest(name, email, oldPassword, password, confirmPassword)
+      updateProfileRequest(
+        name,
+        email,
+        telefone,
+        oldPassword,
+        password,
+        confirmPassword
+      )
     );
   }
 
@@ -73,9 +82,21 @@ const Profile = () => {
             placeholder="Digite seu e-mail"
             ref={emailRef}
             returnKeyType="next"
-            onSubmitEditing={() => oldPasswordRef.current.focus()}
+            onSubmitEditing={() => telefoneRef.current.focus()}
             value={email}
-            onChangeText={setEmail}
+            disabled
+          />
+
+          <FormInput
+            icon="phone"
+            autoCorrect={false}
+            autoCaptalize="none"
+            placeholder="Digite seu telefone: (xx)-9-9999-9999"
+            ref={telefoneRef}
+            returnKeyType="next"
+            onSubmitEditing={() => oldPasswordRef.current.focus()}
+            value={telefone}
+            onChangeText={setTelefone}
           />
 
           <Separator />
