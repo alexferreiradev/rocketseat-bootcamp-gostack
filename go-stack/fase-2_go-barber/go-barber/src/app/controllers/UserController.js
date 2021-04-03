@@ -19,6 +19,7 @@ class UserController {
         const shema = Yup.object().shape({
             email: Yup.string().email().required(),
             name: Yup.string().required(),
+            telefone: Yup.string().required(),
             password: Yup.string().required().min(6),
         });
 
@@ -43,6 +44,7 @@ class UserController {
         const shema = Yup.object().shape({
             email: Yup.string().email(),
             name: Yup.string(),
+            telefone: Yup.string(),
             password: Yup.string().min(6)
             .when('oldPassword', (oldPassword, field)=>
                 oldPassword ? field.required() : field
