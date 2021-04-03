@@ -73,6 +73,17 @@ function Dashboard() {
     setDate(addDays(date, 1));
   }
 
+  function createInfoAgendamento(appointment) {
+    if (appointment.telefone) {
+      return `Contato: ${appointment.telefone}`;
+    }
+    if (appointment.email) {
+      return `E-mail: ${appointment.email}`;
+    }
+
+    return 'contato não cadastrado';
+  }
+
   return (
     <Container>
       <header>
@@ -91,6 +102,11 @@ function Dashboard() {
             <strong>{time.time}</strong>
             <span>
               {time.appointment ? time.appointment.user.name : 'Em aberto'}
+            </span>
+            <span>
+              {time.appointment
+                ? createInfoAgendamento(time.appointment.user)
+                : ''}
             </span>
           </Time>
         ))}
