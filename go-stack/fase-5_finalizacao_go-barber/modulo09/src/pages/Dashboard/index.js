@@ -52,8 +52,8 @@ function Dashboard() {
 
         return {
           time: `${hour}:00h`,
-          past: isBefore(compareDate, new Date()),
-          appointment: appointmentList.some((a) => {
+          past: isBefore(compareDate, utcToZonedTime(new Date(), timezone)),
+          appointment: appointmentList.find((a) => {
             return isEqual(utcToZonedTime(a.date, timezone), compareDate);
           }),
         };
