@@ -53,8 +53,8 @@ function Dashboard() {
         return {
           time: `${hour}:00h`,
           past: isBefore(compareDate, new Date()),
-          appointment: appointmentList.find((a) => {
-            return isEqual(parseISO(a.date), compareDate);
+          appointment: appointmentList.some((a) => {
+            return isEqual(utcToZonedTime(a.date, timezone), compareDate);
           }),
         };
       });
