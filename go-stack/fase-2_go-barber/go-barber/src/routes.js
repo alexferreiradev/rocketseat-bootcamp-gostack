@@ -22,12 +22,12 @@ routes.get('/', (_, res) => {
 });
 routes.post('/sessions', SessionController.store);
 routes.post('/users', store);
-
 routes.post('/files', upload.single('file'), FileController.store);
-routes.get('/files', FileController.index);
+
 //Rotas autenticadas
 routes.use(authMid);
 
+routes.get('/files', FileController.index);
 routes.get('/users', UserController.index);
 routes.put('/users', update);
 
