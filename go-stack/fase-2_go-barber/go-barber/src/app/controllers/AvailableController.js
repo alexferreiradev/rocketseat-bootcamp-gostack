@@ -52,12 +52,10 @@ class AvailableController {
             );
             const zone = 'America/Sao_paulo';
             const zonnedValue = utcToZonedTime(new Date().getTime(), zone);
-            const searchZone = utcToZonedTime(value, zone);
-            console.log(zonnedValue, searchZone);
             
 
             return {time, value: format(value, "yyyy-MM-dd'T'HH:mm:ssxxx", {timeZone: 'America/Sao_paulo'}), 
-            available: isAfter(searchZone, zonnedValue) && !appointmentFound.find(a => {
+            available: isAfter(value, zonnedValue) && !appointmentFound.find(a => {
                 return format(a.date, 'HH:mm', {timeZone: 'America/Sao_paulo'}) === time;
             }),
         };
