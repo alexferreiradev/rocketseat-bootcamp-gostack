@@ -35,6 +35,12 @@ class UserController {
             res.status(422).json({error: `Usuário já existe com este email: ${email}`});
             return ;
         }
+        const totalUsers = await User.findAll({where: {provider: true}});
+        // São 10 provedores + 2 de testes (adm + teste).
+        console.warn("Total de prestadores", totalUsers.length);
+        if (totalUsers.length >= 12) {
+            return res.status(422).json({error: `A versão atual permite somente até 10 provedores`});
+        }
 
         const response = await User.create(req.body)
         return res.json(this._createModelDto(response));
