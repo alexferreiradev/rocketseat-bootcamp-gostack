@@ -19,7 +19,7 @@ const update = UserController.update.bind(UserController);
 const upload = multer(multerConfig);
 
 routes.get('/', (_, res) => {
-    return res.json({ status: "ok", version: config.version});
+    return res.json({ status: "ok", version: process.env.npm_package_version});
 });
 routes.post('/sessions', SessionController.store);
 routes.post('/users', store);
