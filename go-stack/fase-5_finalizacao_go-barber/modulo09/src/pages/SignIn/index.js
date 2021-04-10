@@ -25,6 +25,9 @@ function SignIn() {
   return (
     <>
       <img src={logo} alt="GoBarber" />
+      <pre style={{ color: '#fff', marginTop: '8px' }}>
+        {process.env.REACT_APP_VERSION}
+      </pre>
       <Form onSubmit={handleSubmit} shema={schema}>
         <Input type="email" name="email" placeholder="Email" />
         <Input type="password" name="password" placeholder="Senha" />
