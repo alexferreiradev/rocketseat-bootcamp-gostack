@@ -10,7 +10,6 @@ import SchedullerController from './app/controllers/SchedullerController';
 import NotificationController from './app/controllers/NotificationController';
 import AvailableController from './app/controllers/AvailableController';
 import authMid from './app/middlewares/auth';
-import config from './version';
 import multerConfig from './config/multer';
 
 const routes = new Router();
