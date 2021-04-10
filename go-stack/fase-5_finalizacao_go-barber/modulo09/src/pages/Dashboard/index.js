@@ -8,7 +8,6 @@ import {
   setSeconds,
   isBefore,
   isEqual,
-  parseISO,
   setMilliseconds,
 } from 'date-fns';
 import pt from 'date-fns/locale/pt';
@@ -35,7 +34,7 @@ function Dashboard() {
       let appointmentList = [];
       try {
         const res = await api.get('/scheduler', {
-          params: { date },
+          params: { date: format(date, "yyyy-MM-dd'T'HH:mm:ss") },
         });
         appointmentList = res.data;
       } catch (e) {
