@@ -1,6 +1,6 @@
 {
   "name": "go-barber",
-  "version": "1.0.0-a.3",
+  "version": "1.0.0-a.4",
   "description": "Projeto para agendamento de barbearia",
   "main": "index.js",
   "license": "MIT",

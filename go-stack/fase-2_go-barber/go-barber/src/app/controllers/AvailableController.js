@@ -1,6 +1,6 @@
 import User from "../models/User";
 import Appointment from "../models/Appointment";
-import { setSeconds, setMinutes, setHours, isAfter, startOfDay, endOfDay } from "date-fns";
+import { setSeconds, setMinutes, setHours, isAfter, startOfDay, endOfDay, parseISO } from "date-fns";
 import { format, utcToZonedTime } from "date-fns-tz";
 import { Op } from "sequelize";
 
@@ -56,7 +56,7 @@ class AvailableController {
 
             return {time, value: format(value, "yyyy-MM-dd'T'HH:mm:ssxxx", {timeZone: 'America/Sao_paulo'}), 
             available: isAfter(value, zonnedValue) && !appointmentFound.find(a => {
-                return format(a.date, 'HH:mm', {timeZone: 'America/Sao_paulo'}) === time;
+                return format(utcToZonedTime(a.date, zone), 'HH:mm') === time;
             }),
         };
         });
