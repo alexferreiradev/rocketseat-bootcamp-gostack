@@ -33,6 +33,8 @@ export const Content = styled.div`
     }
 
     a {
+      border-left: 1px solid #eee;
+      padding-left: 8px;
       font-weight: bold;
       color: #7159c1;
     }

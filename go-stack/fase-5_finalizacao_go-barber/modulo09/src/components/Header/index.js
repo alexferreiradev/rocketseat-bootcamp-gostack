@@ -16,6 +16,9 @@ function Header() {
       <Content>
         <nav>
           <img src={logo} alt="gobarber" />
+          <pre style={{ color: '#7159c1', marginRight: '8px' }}>
+            {process.env.REACT_APP_VERSION}
+          </pre>
           <Link to="/dashboard">Dashboard</Link>
         </nav>
         <aside>
