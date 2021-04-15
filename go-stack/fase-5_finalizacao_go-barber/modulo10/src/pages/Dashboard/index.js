@@ -41,7 +41,9 @@ const Dashboard = ({ isFocused }) => {
             <Appointment data={item} onCancel={() => handleCancel(item.id)} />
           )}
         />
-        <EmptyText visible={false}>Não há agendamentos</EmptyText>
+        <EmptyText visible={appointments.length === 0}>
+          Não há agendamentos
+        </EmptyText>
       </Container>
     </Background>
   );
