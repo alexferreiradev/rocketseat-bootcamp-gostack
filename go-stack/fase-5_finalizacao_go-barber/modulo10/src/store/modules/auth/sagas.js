@@ -1,5 +1,6 @@
 import { all, takeLatest, call, put } from 'redux-saga/effects';
 import { Alert } from 'react-native';
+import NavigationService from '~/services/navigation';
 
 import api from '~/services/api';
 
@@ -39,11 +40,19 @@ export function* signUp({ payload }) {
       password,
     });
 
-    // history.push('/');
+    Alert.alert(
+      'Sucesso',
+      'Cadastro feito, faça seu login e agende com seu prestador!'
+    );
+    NavigationService.navigate('SignIn');
   } catch (error) {
-    Alert.alert('Falha', 'Falha no cadastro, verifique seus dados');
-    if (error.response.data.message) {
-      Alert.alert('Falha', error.response.data.message);
+    if (error.response.message) {
+      Alert.alert('Falha', error.response.message);
+    } else {
+      Alert.alert(
+        'Falha',
+        'Falha no cadastro no servidor, entre em contato com seu prestador e informe este erro'
+      );
     }
     yield put(singFailure());
   }
