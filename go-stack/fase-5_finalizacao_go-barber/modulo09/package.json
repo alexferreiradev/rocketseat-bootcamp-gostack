@@ -1,6 +1,6 @@
 {
   "name": "modulo09",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "private": true,
   "proxy": "https://teste-go-barber.herokuapp.com",
   "dependencies": {
