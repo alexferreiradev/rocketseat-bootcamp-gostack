@@ -1,0 +1,44 @@
+{
+  "encomendas": [
+    {
+      "id": 2,
+      "foto": "/teste2.png",
+      "nome": "Nome teste 2",
+      "nomeProduto": "Nome teste 2",
+      "status": "Entregue",
+      "idEntregador": 1,
+      "idDestinatario": 1,
+      "cidade": "Rio de Janeiro",
+      "estado": "São Paulo"
+    }
+  ],
+  "entregadores": [
+    {
+      "nome": "teste alex",
+      "id": 1
+    }
+  ],
+  "destinatarios": [
+    {
+      "nome": "Nome teste",
+      "endereco": "Rua t4",
+      "numero": "1214",
+      "complemento": "predio x",
+      "cidade": "goiania",
+      "estado": "go",
+      "cep": "75589432",
+      "id": 1
+    }
+  ],
+  "problemas": [
+    {
+      "id": 1,
+      "descricao": "Descricao do problema grande"
+    }
+  ],
+  "login": {
+    "id": 123,
+    "email": "teste",
+    "senha": "teste"
+  }
+}

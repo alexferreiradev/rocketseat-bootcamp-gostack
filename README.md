@@ -9,5 +9,8 @@ Repositório criado para armazenar projetos e arquivos utilizados no boot camp g
 - aulas-react-native: ultimos commits para aprender react native
 - aulas-flux: ultimos commits para aprender arquitetura flux com redux
 
+# Projeto Fastfeet
+Está na pasta: `go-stack/desafio-final/*`. Todos os projetos, backend, frontend e mobile foram agrupados neste path.
+
 ## Tags
 1. gobarber-api: final de api do gobarber 
